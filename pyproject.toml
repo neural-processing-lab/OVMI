@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "ovmi"
 version = "0.1.0"
-description = "Open-vocabulary mutual information computation and vocabulary optimisation."
+description = "Open-vocabulary mutual information computation."
 readme = "README.md"
 requires-python = ">=3.9"
 license = { text = "MIT" }
