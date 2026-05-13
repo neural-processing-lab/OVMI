@@ -41,6 +41,27 @@ class CoreTests(unittest.TestCase):
 
         self.assertAlmostEqual(scalar, full)
 
+    def test_scalar_ovmi_matches_plotting_macro_formula(self):
+        reference = {"a": 7, "b": 5, "c": 3, "outside": 5}
+        vocabulary = ["a", "b", "c"]
+        accuracies = np.array([0.8, 0.6, 0.4])
+        macro_accuracy = float(np.mean(accuracies))
+
+        self.assertAlmostEqual(
+            scalar_ovmi(reference, vocabulary, accuracy=macro_accuracy),
+            _plotting_scalar_ovmi(reference, vocabulary, macro_accuracy),
+        )
+
+    def test_scalar_ovmi_matches_plotting_per_word_formula(self):
+        reference = {"a": 7, "b": 5, "c": 3, "outside": 5}
+        vocabulary = ["a", "b", "c"]
+        accuracies = {"a": 0.8, "b": 0.6, "c": 0.4}
+
+        self.assertAlmostEqual(
+            scalar_ovmi(reference, vocabulary, accuracy=accuracies),
+            _plotting_per_word_ovmi(reference, vocabulary, accuracies),
+        )
+
     def test_scalar_ovmi_rejects_missing_per_word_accuracy(self):
         reference = {"yes": 1, "no": 1}
 
@@ -110,6 +131,35 @@ class CoreTests(unittest.TestCase):
             scalar_ovmi({"a": 1}, ["a"], accuracy=0.9)
 
         self.assertTrue(math.isclose(scalar_ovmi({"a": 1}, ["a"], accuracy=1.0), 0.0))
+
+
+def _plotting_scalar_ovmi(reference, vocabulary, accuracy):
+    """Formula used by brainstorm/plot_*ovmi*.py scalar-P_c paths."""
+    weights = np.array([reference[word] for word in vocabulary], dtype=float)
+    coverage = weights.sum() / sum(reference.values())
+    p_x = weights / weights.sum()
+    vocab_size = len(vocabulary)
+    off_diagonal = (1.0 - accuracy) / (vocab_size - 1)
+    q_y = off_diagonal + p_x * (accuracy - off_diagonal)
+    h_y = -float(np.sum(q_y[q_y > 0] * np.log2(q_y[q_y > 0])))
+    h_yx = -accuracy * np.log2(accuracy) - (1.0 - accuracy) * np.log2(off_diagonal)
+    return coverage * max(0.0, h_y - h_yx)
+
+
+def _plotting_per_word_ovmi(reference, vocabulary, accuracies):
+    """Formula used by brainstorm/plot_*ovmi*.py per-word scalar paths."""
+    weights = np.array([reference[word] for word in vocabulary], dtype=float)
+    coverage = weights.sum() / sum(reference.values())
+    p_x = weights / weights.sum()
+    word_acc = np.array([accuracies[word] for word in vocabulary], dtype=float)
+    vocab_size = len(vocabulary)
+    error_mass = np.sum(p_x * (1.0 - word_acc))
+    q_y = p_x * word_acc + (error_mass - p_x * (1.0 - word_acc)) / (vocab_size - 1)
+    h_y = -float(np.sum(q_y[q_y > 0] * np.log2(q_y[q_y > 0])))
+    pc = np.clip(word_acc, 1e-15, 1.0 - 1e-15)
+    h_yx_per_word = -pc * np.log2(pc) - (1.0 - pc) * np.log2((1.0 - pc) / (vocab_size - 1))
+    h_yx = float(np.sum(p_x * h_yx_per_word))
+    return coverage * max(0.0, h_y - h_yx)
 
 
 if __name__ == "__main__":
