@@ -1,21 +1,31 @@
 # OVMI
 
-`ovmi` computes open-vocabulary mutual information for a fixed vocabulary. Most
-users should start with the default homogeneous scalar approximation: one shared
-correct-decoding probability for every word.
+[![arXiv](https://img.shields.io/badge/arXiv-2602.02494-b31b1b.svg)](https://arxiv.org/abs/PLACEHOLDER)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-OVMI asks: if a decoder can choose only from this vocabulary, how many bits of
-information about the intended word does it transmit in the open-vocabulary
-setting? It combines two things that are misleading on their own:
+`ovmi` is a lightweight python package that computes **open-vocabulary mutual information (OVMI)**. This is a simple measure of the mutual information between a user's intent and the decoder of a speech brain-computer interface (BCI) under an assumed reference distribution. Most users should start with the library defaults.
+
+**Paper:** ["On the Problem of Measuring Progress in Speech Brain-Computer Interfaces"](https://arxiv.org/abs/PLACEHOLDER) 
+
+![OVMI Overview](assets/teaser.png)
+
+OVMI asks how many bits of information about the user's intended word does a speech BCI transmit? It combines two things that are misleading on their own:
 
 - Coverage: how much probability mass the chosen vocabulary captures under a
   reference language distribution.
-- In-vocabulary information: how well the decoder distinguishes words inside
-  that vocabulary.
+- Mutual information: how well the decoder distinguishes words inside its vocabulary.
 
-This matters because a tiny vocabulary can be accurate but cover little of real
-language, while a huge vocabulary can cover a lot but be hard to decode. OVMI
-scores the tradeoff directly against a reference distribution of desired speech.
+This matters because evaluation data cover different distributions and a tiny vocabulary can be accurate but cover little of the relevant language a speech BCI should allow a user to say. OVMI scores a decoder directly against a reference distribution of desired speech, allowing many different methods tied to various evaluation data and modalities to be compared.
+
+If you find this work helpful in your research, please cite the paper:
+```bibtex
+@article{jayalath2026ovmi,
+  title={On the Problem of Measuring Progress in Speech Brain--Computer Interfaces},
+  author={Jayalath, Dulhan and Ballyk, Benjamin and Parker Jones, Oiwi},
+  journal={arXiv preprint arXiv:PLACEHOLDER},
+  year={2026}
+}
+```
 
 ## Installation
 
@@ -27,7 +37,8 @@ pip install git+https://github.com/neural-processing-lab/OVMI.git
 
 ## Quick Start
 
-Pass a reference distribution and the vocabulary you want to evaluate. The
+### Using OVMI
+Pass a reference distribution (optional) and the vocabulary you want to evaluate. The
 reference can contain counts or probabilities; it is normalised internally.
 The scalar `accuracy` should be the macro accuracy, i.e. the average of the
 individual-word correct-decoding probabilities for the evaluated vocabulary.
@@ -51,15 +62,13 @@ score = ovmi(reference, vocabulary, accuracy=macro_accuracy)
 print(score)
 ```
 
+### Replicating the Paper
+Follow the notebook at `experiments/ovmi_paper.ipynb`
+
 ## Default Reference
 
 The reference distribution says how often each word is expected to be intended
-in the open-vocabulary setting you care about. OVMI uses it for two things:
-
-- Coverage: the total probability mass of your evaluated vocabulary.
-- In-vocabulary weighting: common intended words count more than rare intended
-  words when computing the mutual information inside the vocabulary.
-
+by the user in the setting you care about.
 Choose a reference that matches the use case. For a general English benchmark,
 a broad corpus frequency norm is a reasonable default. For a communication aid,
 clinical task, experiment, or domain-specific interface, use word counts from

@@ -11,3 +11,4 @@ dist/
 experiments/data/
 *.pdf
 *.png
+!assets/teaser.png
