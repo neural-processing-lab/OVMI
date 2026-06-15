@@ -9,3 +9,5 @@ dist/
 .venv/
 .vscode/
 experiments/data/
+*.pdf
+*.png
