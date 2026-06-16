@@ -1,6 +1,6 @@
 # OVMI
 
-[![arXiv](https://img.shields.io/badge/arXiv-2602.02494-b31b1b.svg)](https://arxiv.org/abs/PLACEHOLDER)
+[![arXiv](https://img.shields.io/badge/arXiv-PLACEHOLDER-b31b1b.svg)](https://arxiv.org/abs/PLACEHOLDER)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 `ovmi` is a lightweight python package that computes **open-vocabulary mutual information (OVMI)**, a benchmarking metric for speech brain-computer interfaces (BCIs). OVMI is a simple measure of the mutual information between a user's intent and the output of a speech BCI under an assumed reference distribution. Most users should start with the library defaults.
