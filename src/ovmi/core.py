@@ -118,10 +118,24 @@ def scalar_ovmi(
             raise ValueError("accuracy must be 1.0 for a one-word scalar channel.")
         return _maybe_details(0.0, cov, 0.0, 0.0, 0.0, vocab_size, return_details)
 
-    channel = _scalar_channel_for_vocabulary(accuracy, vocab)
-    output = weights @ channel
-    output_entropy = entropy(output)
-    conditional_entropy = float(weights @ _row_entropies(channel))
+    if isinstance(accuracy, Mapping):
+        channel = _scalar_channel_for_vocabulary(accuracy, vocab)
+        output = weights @ channel
+        output_entropy = entropy(output)
+        conditional_entropy = float(weights @ _row_entropies(channel))
+    else:
+        # The homogeneous symmetric channel has an exact O(V) form.  Avoiding
+        # the otherwise dense V x V matrix is essential for realistic
+        # open-vocabulary systems (for example, V=125,000).
+        correct_probability = _accuracy_values_for_vocabulary(accuracy, vocab)[0]
+        error_probability = (1.0 - correct_probability) / (vocab_size - 1)
+        output = error_probability + weights * (correct_probability - error_probability)
+        output_entropy = entropy(output)
+        conditional_entropy = _symmetric_channel_entropy(
+            correct_probability,
+            error_probability,
+            vocab_size,
+        )
     in_vocab_information = output_entropy - conditional_entropy
     score = cov * in_vocab_information
 
@@ -302,6 +316,23 @@ def _scalar_channel_for_vocabulary(accuracy: AccuracyLike, vocabulary: Sequence[
     channel = np.repeat(error_mass[:, np.newaxis], vocab_size, axis=1)
     np.fill_diagonal(channel, values)
     return channel
+
+
+def _symmetric_channel_entropy(
+    correct_probability: float,
+    error_probability: float,
+    vocabulary_size: int,
+) -> float:
+    """Return H(Y|X) for a homogeneous V-way symmetric channel."""
+
+    terms = []
+    if correct_probability > 0:
+        terms.append(-correct_probability * np.log2(correct_probability))
+    if error_probability > 0:
+        terms.append(
+            -(vocabulary_size - 1) * error_probability * np.log2(error_probability)
+        )
+    return float(sum(terms))
 
 
 def _channel_for_vocabulary(

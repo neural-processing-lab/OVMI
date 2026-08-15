@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OVMI — Measuring progress in speech brain–computer interfaces</title>
+  <meta name="description" content="OVMI measures lexical information transfer from speech brain–computer interfaces relative to an explicit reference communication distribution.">
+  <meta name="theme-color" content="#f7f7f4">
+  <link rel="canonical" href="https://neural-processing-lab.github.io/OVMI/">
+  <link rel="icon" href="./assets/favicon.svg?v=2" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <meta property="og:title" content="Measuring Progress in Speech Brain–Computer Interfaces">
+  <meta property="og:description" content="A live, reference-aware benchmark of published speech-BCI systems evaluated with open-vocabulary mutual information.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://neural-processing-lab.github.io/OVMI/">
+  <meta name="twitter:card" content="summary">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="site-shell header-inner">
+      <a class="wordmark" href="#top" aria-label="OVMI home">OVMI</a>
+      <nav aria-label="Primary navigation">
+        <a href="#leaderboard">Benchmark</a>
+        <a href="#why">Why OVMI?</a>
+        <a href="#use-ovmi">Use OVMI</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="hero site-shell" id="top" aria-labelledby="hero-title">
+      <header class="paper-masthead">
+        <p class="eyebrow">Research paper · live benchmark</p>
+        <h1 id="hero-title">Measuring Progress in<br>Speech Brain–Computer Interfaces</h1>
+        <p class="paper-subtitle">OVMI: A common scale for comparing how much speech BCIs can communicate.</p>
+        <p class="paper-authors" aria-label="Authors">
+          <span>Dulhan Jayalath</span>
+          <span>Benjamin Ballyk</span>
+          <span>Oiwi Parker Jones</span>
+        </p>
+        <p class="paper-affiliation"><a href="https://neural-processing-lab.github.io/" rel="noopener noreferrer">PNPL🍍, University of Oxford</a></p>
+        <div class="hero-actions" aria-label="Project links">
+          <a class="button button-primary" data-config-link="paper" href="#project-links">
+            <svg class="button-icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M5.5 2.5h6l3 3v12h-9z"/><path d="M11.5 2.5v3h3M8 9h4M8 12h4M8 15h3"/></svg>
+            <span>Paper</span>
+          </a>
+          <a class="button" data-config-link="package" href="https://github.com/neural-processing-lab/OVMI">
+            <svg class="button-icon" viewBox="0 0 20 20" aria-hidden="true"><rect x="2.5" y="3.5" width="15" height="13" rx="1"/><path d="m6.5 8 2 2-2 2M10.5 13h3"/></svg>
+            <span>Code + package</span>
+          </a>
+          <a class="button" data-config-link="blog" href="#project-links">
+            <svg class="button-icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 3.5h12v13H4zM7 7h6M7 10h6M7 13h4"/></svg>
+            <span>Blog</span>
+          </a>
+          <a class="button" href="#leaderboard">
+            <svg class="button-icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M3.5 16.5h13M5.5 14V9.5h2V14zM9 14V5.5h2V14zM12.5 14V7.5h2V14z"/></svg>
+            <span>Benchmark</span>
+          </a>
+        </div>
+      </header>
+
+    </section>
+
+    <section class="section section-rule site-shell" id="leaderboard" aria-labelledby="leaderboard-title">
+      <p class="benchmark-intro">Speech-BCI studies use different vocabularies, datasets, and communication domains, making reported scores hard to compare. Open-Vocabulary Mutual Information (OVMI) evaluates each system against an explicit, common reference communication distribution, so otherwise heterogeneous systems can be placed on the same communication scale. Choose a communication target below to compare published systems.</p>
+      <div class="section-heading split-heading">
+        <div>
+          <p class="section-index">01 / Benchmark</p>
+          <h2 id="leaderboard-title">OVMI Benchmark</h2>
+        </div>
+      </div>
+
+      <div class="reference-panel">
+        <fieldset class="reference-selector" id="reference-selector">
+          <legend>Reference communication distribution</legend>
+          <label><input type="radio" name="reference" value="subtlex" checked> <span>Broad speech<br><strong>SUBTLEX-UK</strong></span></label>
+          <label><input type="radio" name="reference" value="conversation"> <span>Conversation<br><strong>Switchboard</strong></span></label>
+          <label><input type="radio" name="reference" value="ucv"> <span>AAC / clinical<br><strong>UCV</strong></span></label>
+          <label><input type="radio" name="reference" value="narrative"> <span>Narrative<br><strong>Sherlock</strong></span></label>
+        </fieldset>
+        <div class="reference-readout" aria-live="polite">
+          <span>Selected entropy</span>
+          <output id="reference-entropy">9.77 bits</output>
+          <p id="reference-description">Broad spoken-English frequency norm derived from British film and television subtitles.</p>
+        </div>
+      </div>
+
+      <p class="explanation">A vocabulary covers different amounts of language under different distributions. Select a reference to update the scores.</p>
+      <p class="example-callout"><strong>Example.</strong> The 50-word Willett +LM system carries <span id="willett-broad">6.4%</span> of the lexical information in broad spoken English and <span id="willett-ucv">40.4%</span> under the AAC reference.</p>
+
+      <div class="table-controls">
+        <label for="group-filter">Show
+          <select id="group-filter">
+            <option value="all">Both study groups</option>
+            <option value="attempted_invasive">Attempted / invasive</option>
+            <option value="perceived_noninvasive">Perceived / non-invasive</option>
+          </select>
+        </label>
+        <label for="sort-select">Sort within groups
+          <select id="sort-select">
+            <option value="ovmi-desc">OVMI, high to low</option>
+            <option value="percent-desc">OVMI / H(p), high to low</option>
+            <option value="year-desc">Year, newest first</option>
+            <option value="year-asc">Year, oldest first</option>
+            <option value="vocabulary-desc">Vocabulary size, high to low</option>
+            <option value="system-asc">System name</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="table-scroll" tabindex="0" aria-label="Scrollable benchmark">
+        <table class="leaderboard-table">
+          <caption>Speech-BCI operating points evaluated using the selected communication reference.</caption>
+          <thead>
+            <tr>
+              <th scope="col">System</th>
+              <th scope="col">Year</th>
+              <th scope="col">Setting / modality</th>
+              <th scope="col">Vocabulary</th>
+              <th scope="col">Reported metric</th>
+              <th scope="col">OVMI <span class="unit">bits</span></th>
+              <th scope="col">OVMI / H(p)</th>
+              <th scope="col">Uncertainty</th>
+              <th scope="col">Source</th>
+            </tr>
+          </thead>
+          <tbody id="leaderboard-body">
+            <tr><td colspan="9" class="loading-cell">Loading benchmark data…</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <noscript><p class="error-note">JavaScript is required for reference switching and sorting. The generated data remain available in <a href="./data/leaderboard.json">the benchmark data file</a>.</p></noscript>
+
+      <div class="leaderboard-notes">
+        <aside id="methodology">
+          <h3>How are scores calculated?</h3>
+          <p>Historical results are estimated from reported accuracy or WER where full decoder channels are unavailable. <a data-config-link="paper" href="#project-links">See the paper</a> for assumptions and uncertainty estimation.</p>
+        </aside>
+        <aside id="add-result">
+          <h3>Add a result</h3>
+          <p>Submit a paper citation, decoder vocabulary, reference distribution, and reported metric through a GitHub issue or pull request.</p>
+          <a class="text-link" data-config-link="addResult" href="https://github.com/neural-processing-lab/OVMI/issues/new?template=add-ovmi-result.yml">Submit a result →</a>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section section-rule site-shell why-grid" id="why" aria-labelledby="why-title">
+      <div>
+        <p class="section-index">02 / Definition</p>
+        <h2 id="why-title">Why OVMI?</h2>
+        <p>Speech-BCI studies use different vocabularies and communication domains, making their reported scores difficult to compare. OVMI evaluates each system against a common reference communication distribution.</p>
+        <p>OVMI multiplies the speech BCI's vocabulary coverage of the reference distribution by its in-vocabulary information transfer.</p>
+        <div class="formula" role="math" aria-label="OVMI equals lexical coverage times in-vocabulary information">
+          <span>I<sub>OVMI</sub>(S)</span>
+          <span class="formula-equals">=</span>
+          <span>C(S)</span>
+          <span class="formula-times">×</span>
+          <span>I(X;Y | X∈S)</span>
+        </div>
+        <dl class="definitions">
+          <div><dt>S</dt><dd>supported decoder vocabulary</dd></div>
+          <div><dt>p</dt><dd>reference communication distribution</dd></div>
+          <div><dt>C(S)</dt><dd>probability that a word drawn from p lies in S</dd></div>
+          <div class="definition-long"><dt>I(X;Y | X∈S)</dt><dd>information transferred about the intended word, given that it lies in S</dd></div>
+        </dl>
+      </div>
+      <aside class="symbol-example">
+        <h3>Why the target matters</h3>
+        <p>The useful vocabulary depends on the application. A spelling system needs broad lexical coverage; a command or AAC system may focus on a smaller set of task-specific words.</p>
+        <p>The same decoding accuracy can therefore support different amounts of communication, depending on which words the user needs.</p>
+      </aside>
+    </section>
+
+    <section class="section section-rule site-shell use-grid" id="use-ovmi" aria-labelledby="use-title">
+      <div>
+        <p class="section-index">03 / Reproduce</p>
+        <h2 id="use-title">Use OVMI</h2>
+        <p>Install from GitHub:</p>
+        <pre><code>pip install git+https://github.com/neural-processing-lab/OVMI.git</code></pre>
+        <p>Pass a reference distribution, supported vocabulary, and macro accuracy:</p>
+        <pre><code>from ovmi import ovmi
+
+reference = {"yes": 120, "no": 80, "water": 20}
+vocabulary = ["yes", "no"]
+
+score = ovmi(reference, vocabulary, accuracy=0.70)
+print(score)</code></pre>
+        <p><a class="text-link" data-config-link="repository" href="https://github.com/neural-processing-lab/OVMI">Package documentation and source →</a></p>
+      </div>
+
+      <div class="citation-panel" id="citation">
+        <div>
+          <p class="section-index">Citation</p>
+          <h3>Cite this paper</h3>
+          <p>The repository does not yet contain the final arXiv identifier. Replace <code>PLACEHOLDER</code> when it is assigned.</p>
+        </div>
+        <pre><code>@article{jayalath2026ovmi,
+  title={On the Problem of Measuring Progress in Speech Brain--Computer Interfaces},
+  author={Jayalath, Dulhan and Ballyk, Benjamin and Parker Jones, Oiwi},
+  journal={arXiv preprint arXiv:PLACEHOLDER},
+  year={2026}
+}</code></pre>
+      </div>
+    </section>
+
+    <section class="section section-rule site-shell project-links" id="project-links" aria-labelledby="links-title">
+      <p class="section-index">04 / Project</p>
+      <h2 id="links-title">Paper and project links</h2>
+      <div class="link-status-grid">
+        <p id="paper-status"><strong>Paper.</strong> The public paper URL has not yet been supplied. Update <code>site/config.js</code> when it is available.</p>
+        <p id="blog-status"><strong>Blog.</strong> The public article URL has not yet been supplied. Update <code>site/config.js</code> when it is available.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-shell footer-inner">
+      <p><strong>Measuring Progress in Speech Brain–Computer Interfaces</strong><br>Dulhan Jayalath, Benjamin Ballyk, and Oiwi Parker Jones</p>
+      <p><a data-config-link="repository" href="https://github.com/neural-processing-lab/OVMI">Source and data</a> · MIT License</p>
+    </div>
+  </footer>
+
+  <script src="./config.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>

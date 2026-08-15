@@ -1,0 +1,3 @@
+system_id,reported_wpm,wpm_ci_low,wpm_ci_high,training_hours_to_first_125k_result,p_ci_low,p_ci_high,source
+card_2024_v125k,31.6,31.2,32.0,1.9,0.969,0.980,"Card et al. (2024), NEJM 391:609-618: final-five-session Copy Task rate 31.6 WPM (95% CI 31.2-32.0), final WER 2.5% (95% CI 2.0-3.1), and first 125k result after 0.5 h plus 1.4 h training. https://doi.org/10.1056/NEJMoa2314132"
+willett_2023_v125k,62.0,,,16.8,0.741,0.782,"Willett et al. (2023), Nature 620:1031-1036: average 62 WPM and 125k vocal WER 23.8% (95% CI 21.8-25.9); Card et al. (2024) reports 16.8 h training over 15 days before that evaluation. https://doi.org/10.1038/s41586-023-06377-x; https://doi.org/10.1056/NEJMoa2314132"
