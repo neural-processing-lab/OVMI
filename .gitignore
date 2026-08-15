@@ -9,6 +9,7 @@ dist/
 .venv/
 .vscode/
 experiments/data/
+experiments/results/**/sentence_embeddings.npz
 *.pdf
 *.png
 !assets/teaser.png

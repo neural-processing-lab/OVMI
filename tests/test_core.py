@@ -26,6 +26,33 @@ class CoreTests(unittest.TestCase):
 
         self.assertAlmostEqual(scalar, full)
 
+    def test_scalar_ovmi_large_vocabulary_uses_exact_linear_memory_formula(self):
+        vocabulary = [f"word-{index}" for index in range(125_000)]
+        reference = {word: index + 1 for index, word in enumerate(vocabulary)}
+
+        result = scalar_ovmi(reference, vocabulary, accuracy=0.9, return_details=True)
+
+        self.assertTrue(math.isfinite(result.score))
+        self.assertAlmostEqual(result.score, result.coverage * result.in_vocab_information)
+
+    def test_uniform_reference_recovers_wolpaw_formula(self):
+        vocabulary = ["a", "b", "c", "d"]
+        accuracy = 0.7
+        expected = (
+            math.log2(len(vocabulary))
+            + accuracy * math.log2(accuracy)
+            + (1 - accuracy) * math.log2((1 - accuracy) / (len(vocabulary) - 1))
+        )
+
+        result = scalar_ovmi(
+            {word: 1 for word in vocabulary},
+            vocabulary,
+            accuracy=accuracy,
+            return_details=True,
+        )
+
+        self.assertAlmostEqual(result.in_vocab_information, expected)
+
     def test_scalar_ovmi_accepts_per_word_accuracies(self):
         reference = {"yes": 3, "no": 1, "water": 2}
         vocabulary = ["yes", "no", "water"]

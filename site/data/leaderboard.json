@@ -1,0 +1,2015 @@
+{
+  "schema_version": 1,
+  "provenance": {
+    "generator": "scripts/build_site_data.py",
+    "systems": "data/systems.csv",
+    "references": "data/references/*.csv",
+    "scoring_pipeline": "scripts/make_main_table.py",
+    "note": "Values are generated from the same vocabulary reconstruction, reference distributions, and uncertainty propagation used by the paper tables."
+  },
+  "references": {
+    "subtlex": {
+      "slug": "subtlex",
+      "label": "Broad speech — SUBTLEX-UK",
+      "short_label": "SUBTLEX-UK",
+      "description": "Broad spoken-English frequency norm derived from British film and television subtitles.",
+      "source_url": "https://doi.org/10.1080/17470218.2013.850521",
+      "entropy_bits": 9.771728917642942
+    },
+    "conversation": {
+      "slug": "switchboard",
+      "label": "Conversation — Switchboard",
+      "short_label": "Switchboard",
+      "description": "Empirical unigram distribution from the 36-call NLTK sample.",
+      "source_url": "https://www.nltk.org/nltk_data/",
+      "entropy_bits": 8.268285074699595
+    },
+    "ucv": {
+      "slug": "ucv",
+      "label": "AAC / clinical — Universal Core Vocabulary (UCV)",
+      "short_label": "UCV",
+      "description": "A 36-word AAC vocabulary weighted by SUBTLEX-UK frequency and renormalised within the set.",
+      "source_url": "https://praacticalaac.org/praactical/aac-vocabulary-lists/",
+      "entropy_bits": 4.304625359993596
+    },
+    "narrative": {
+      "slug": "sherlock",
+      "label": "Narrative — Sherlock Holmes",
+      "short_label": "Sherlock",
+      "description": "Empirical distribution of 3,550 target tokens in the held-out LibriBrain Sherlock test split.",
+      "source_url": "https://doi.org/10.1038/s41467-025-65499-0",
+      "entropy_bits": 8.443791992670427
+    }
+  },
+  "systems": [
+    {
+      "id": "meg_masc_2023_v50-a",
+      "system_id": "meg_masc_2023_v50",
+      "variant": "decoder",
+      "system": "MEG-MASC 2023",
+      "year": 2023,
+      "progress_year": 2026,
+      "group": "perceived_noninvasive",
+      "setting": "perceived",
+      "modality": "MEG",
+      "decoder_method": "MEG-XL",
+      "task": "naturalistic story listening; local 50-way word classification",
+      "vocabulary_size": 50,
+      "vocabulary_provenance": "top-50 frequency-ranked pre-tokenized lexical tokens across the four MEG-MASC stories",
+      "metric": {
+        "type": "top1_accuracy",
+        "label": "Top-1 accuracy",
+        "reported_value": 0.0853333333333,
+        "p_correct": 0.0853333333333,
+        "p_is_lower_bound": false
+      },
+      "uncertainty_method": "mean +/- SEM across three seed-level top-1 accuracies; test-set sampling excluded",
+      "source": {
+        "citation": "Gwilliams et al. (2023); local V=50 evaluation",
+        "primary_url": "https://doi.org/10.1038/s41597-023-02752-5",
+        "note": "Local V=50 evaluation on MEG-MASC (Gwilliams et al., 2023): supplied top-1 accuracies 9.3%, 8.3%, and 8.0% across three training seeds. Vocabulary derived from the 50 most frequent pre-tokenized lexical tokens across the four supplied MASC stories. https://doi.org/10.1038/s41597-023-02752-5; dataset https://doi.org/10.17605/OSF.IO/AG3KJ; SUBTLEX-UK: van Heuven et al. (2014), Quarterly Journal of Experimental Psychology 67:1176-1190, Spelling/FreqCount. https://doi.org/10.1080/17470218.2013.850521",
+        "urls": [
+          "https://doi.org/10.1038/s41597-023-02752-5",
+          "https://doi.org/10.17605/OSF.IO/AG3KJ",
+          "https://doi.org/10.1080/17470218.2013.850521"
+        ]
+      },
+      "references": {
+        "subtlex": {
+          "coverage": 0.3970302802306034,
+          "in_vocab_information_bits": 0.08374211358179728,
+          "supported_vocab_entropy_bits": 4.921386920648197,
+          "ovmi_bits": 0.03324815482248399,
+          "ovmi_percent": 0.3402484361027879,
+          "uncertainty": {
+            "kind": "seed_sem",
+            "label": "Mean ± one SEM across seeds",
+            "low_bits": 0.030058308996709172,
+            "high_bits": 0.03654126146186692,
+            "low_percent": 0.3076048184517136,
+            "high_percent": 0.37394878398531245
+          }
+        },
+        "conversation": {
+          "coverage": 0.453286146088066,
+          "in_vocab_information_bits": 0.08327452082613807,
+          "supported_vocab_entropy_bits": 4.7730796266521205,
+          "ovmi_bits": 0.03774718661261051,
+          "ovmi_percent": 0.45652981569436213,
+          "uncertainty": {
+            "kind": "seed_sem",
+            "label": "Mean ± one SEM across seeds",
+            "low_bits": 0.03413055450817125,
+            "high_bits": 0.04148006870010789,
+            "low_percent": 0.4127887971909494,
+            "high_percent": 0.5016768087379347
+          }
+        },
+        "ucv": {
+          "coverage": 0.7932028273219772,
+          "in_vocab_information_bits": 0.07454069930395324,
+          "supported_vocab_entropy_bits": 3.4073470898844196,
+          "ovmi_bits": 0.05912589343845305,
+          "ovmi_percent": 1.3735433050215782,
+          "uncertainty": {
+            "kind": "seed_sem",
+            "label": "Mean ± one SEM across seeds",
+            "low_bits": 0.0535673343387061,
+            "high_bits": 0.06484713178467025,
+            "low_percent": 1.244413389294017,
+            "high_percent": 1.506452393914408
+          }
+        },
+        "narrative": {
+          "coverage": 0.4211267605633803,
+          "in_vocab_information_bits": 0.08200974874911537,
+          "supported_vocab_entropy_bits": 4.64019968472487,
+          "ovmi_bits": 0.03453649982533168,
+          "ovmi_percent": 0.4090164686116243,
+          "uncertainty": {
+            "kind": "seed_sem",
+            "label": "Mean ± one SEM across seeds",
+            "low_bits": 0.031234978005166513,
+            "high_bits": 0.03794306300714149,
+            "low_percent": 0.369916478665981,
+            "high_percent": 0.4493604655358362
+          }
+        }
+      }
+    },
+    {
+      "id": "dascoli_libribrain100_s0_v50-b",
+      "system_id": "dascoli_libribrain100_s0_v50",
+      "variant": "decoder",
+      "system": "LibriBrain100 2025",
+      "year": 2025,
+      "progress_year": 2025,
+      "group": "perceived_noninvasive",
+      "setting": "perceived",
+      "modality": "MEG",
+      "decoder_method": "d’Ascoli et al. (2025)",
+      "task": "LibriBrain100 subject 0; Sherlock test-set word classification",
+      "vocabulary_size": 50,
+      "vocabulary_provenance": "documented 50-word Sherlock evaluation vocabulary",
+      "metric": {
+        "type": "balanced_top1_accuracy",
+        "label": "Balanced top-1 accuracy",
+        "reported_value": 0.258,
+        "p_correct": 0.258,
+        "p_is_lower_bound": false
+      },
+      "uncertainty_method": "mean +/- SEM across three seed-level top-1 balanced accuracies; test-set sampling excluded",
+      "source": {
+        "citation": "d'Ascoli et al. (2025); local LibriBrain100 evaluation",
+        "primary_url": "https://doi.org/10.1038/s41467-025-65499-0",
+        "note": "Local evaluation of the method of d'Ascoli et al. (2025), Nature Communications 16:10521, trained on LibriBrain100 subject 0 and evaluated on the Sherlock test set with the documented 50-word vocabulary: top-1 balanced accuracies 25.6%, 25.6%, and 26.2% across three seeds. https://doi.org/10.1038/s41467-025-65499-0; SUBTLEX-UK: van Heuven et al. (2014), Quarterly Journal of Experimental Psychology 67:1176-1190, Spelling/FreqCount. https://doi.org/10.1080/17470218.2013.850521",
+        "urls": [
+          "https://doi.org/10.1038/s41467-025-65499-0",
+          "https://doi.org/10.1080/17470218.2013.850521"
+        ]
+      },
+      "references": {
+        "subtlex": {
+          "coverage": 0.38991301010173923,
+          "in_vocab_information_bits": 0.6090155507668236,
+          "supported_vocab_entropy_bits": 4.981781061477901,
+          "ovmi_bits": 0.23746308659826076,
+          "ovmi_percent": 2.430103092294334,
+          "uncertainty": {
+            "kind": "seed_sem",
+            "label": "Mean ± one SEM across seeds",
+            "low_bits": 0.23455704082828316,
+            "high_bits": 0.2403788546953912,
+            "low_percent": 2.400363771909271,
+            "high_percent": 2.4599419071213187
+          }
+        },
+        "conversation": {
+          "coverage": 0.45378738399380286,
+          "in_vocab_information_bits": 0.6059966662307588,
+          "supported_vocab_entropy_bits": 4.892198957466022,
+          "ovmi_bits": 0.2749936418778217,
+          "ovmi_percent": 3.325884864798434,
+          "uncertainty": {
+            "kind": "seed_sem",
+            "label": "Mean ± one SEM across seeds",
+            "low_bits": 0.271637622472943,
+            "high_bits": 0.278360694241465,
+            "low_percent": 3.285295802198888,
+            "high_percent": 3.3666073644851733
+          }
+        },
+        "ucv": {
+          "coverage": 0.6488648106164268,
+          "in_vocab_information_bits": 0.4867551869855866,
+          "supported_vocab_entropy_bits": 3.2297512113020828,
+          "ovmi_bits": 0.31583831221996606,
+          "ovmi_percent": 7.337184674775876,
+          "uncertainty": {
+            "kind": "seed_sem",
+            "label": "Mean ± one SEM across seeds",
+            "low_bits": 0.31218010949270575,
+            "high_bits": 0.31950542628056466,
+            "low_percent": 7.2522016060689225,
+            "high_percent": 7.422374761111382
+          }
+        },
+        "narrative": {
+          "coverage": 0.3833802816901408,
+          "in_vocab_information_bits": 0.5764728256241574,
+          "supported_vocab_entropy_bits": 4.488051026892034,
+          "ovmi_bits": 0.22100831427450088,
+          "ovmi_percent": 2.617405952992987,
+          "uncertainty": {
+            "kind": "seed_sem",
+            "label": "Mean ± one SEM across seeds",
+            "low_bits": 0.21834203005978486,
+            "high_bits": 0.22368286976300278,
+            "low_percent": 2.5858290949056433,
+            "high_percent": 2.6490807679437047
+          }
+        }
+      }
+    },
+    {
+      "id": "armeni_2022_v50-b",
+      "system_id": "armeni_2022_v50",
+      "variant": "decoder",
+      "system": "Armeni 2022",
+      "year": 2022,
+      "progress_year": 2025,
+      "group": "perceived_noninvasive",
+      "setting": "perceived",
+      "modality": "MEG",
+      "decoder_method": "d’Ascoli et al. (2025)",
+      "task": "audiobook listening; local 50-way balanced word classification",
+      "vocabulary_size": 50,
+      "vocabulary_provenance": "top-50 frequency-ranked tokens in the Armeni Sherlock plaintext",
+      "metric": {
+        "type": "balanced_top1_accuracy",
+        "label": "Balanced top-1 accuracy",
+        "reported_value": 0.207666666667,
+        "p_correct": 0.207666666667,
+        "p_is_lower_bound": false
+      },
+      "uncertainty_method": "mean +/- SEM across three seed-level top-1 balanced accuracies; test-set sampling excluded",
+      "source": {
+        "citation": "Armeni et al. (2022); local V=50 evaluation",
+        "primary_url": "https://doi.org/10.1038/s41597-022-01382-7",
+        "note": "Armeni et al. (2022), Scientific Data 9:278, 10-hour within-participant MEG narrative dataset; local V=50 evaluation top-1 balanced accuracies 21.1%, 21.0%, and 20.2% across three seeds. Vocabulary derived from the 50 most frequent normalized word tokens in https://sherlock-holm.es/stories/plain-text/advs.txt. https://doi.org/10.1038/s41597-022-01382-7; SUBTLEX-UK: van Heuven et al. (2014), Quarterly Journal of Experimental Psychology 67:1176-1190, Spelling/FreqCount. https://doi.org/10.1080/17470218.2013.850521",
+        "urls": [
+          "https://sherlock-holm.es/stories/plain-text/advs.txt",
+          "https://doi.org/10.1038/s41597-022-01382-7",
+          "https://doi.org/10.1080/17470218.2013.850521"
+        ]
+      },
+      "references": {
+        "subtlex": {
+          "coverage": 0.40759694855646805,
+          "in_vocab_information_bits": 0.4307519788334879,
+          "supported_vocab_entropy_bits": 4.9955278963642105,
+          "ovmi_bits": 0.17557319215719,
+          "ovmi_percent": 1.7967464471941201,
+          "uncertainty": {
+            "kind": "seed_sem",
+            "label": "Mean ± one SEM across seeds",
+            "low_bits": 0.1716342545017515,
+            "high_bits": 0.17953675825618892,
+            "low_percent": 1.7564369207158859,
+            "high_percent": 1.8373080114004565
+          }
+        },
+        "conversation": {
+          "coverage": 0.4525722617980771,
+          "in_vocab_information_bits": 0.42503724039228086,
+          "supported_vocab_entropy_bits": 4.819422689495408,
+          "ovmi_bits": 0.19236006523274757,
+          "ovmi_percent": 2.3264808058125213,
+          "uncertainty": {
+            "kind": "seed_sem",
+            "label": "Mean ± one SEM across seeds",
+            "low_bits": 0.1880641508701625,
+            "high_bits": 0.19668215258964664,
+            "low_percent": 2.2745242716125786,
+            "high_percent": 2.378753886842642
+          }
+        },
+        "ucv": {
+          "coverage": 0.7279449115892697,
+          "in_vocab_information_bits": 0.3485879087873567,
+          "supported_vocab_entropy_bits": 3.1787063455441174,
+          "ovmi_bits": 0.25375279444330073,
+          "ovmi_percent": 5.894886853607121,
+          "uncertainty": {
+            "kind": "seed_sem",
+            "label": "Mean ± one SEM across seeds",
+            "low_bits": 0.2483448496099886,
+            "high_bits": 0.2591859922472493,
+            "low_percent": 5.769255831600594,
+            "high_percent": 6.021104522964453
+          }
+        },
+        "narrative": {
+          "coverage": 0.4484507042253521,
+          "in_vocab_information_bits": 0.42246759163489767,
+          "supported_vocab_entropy_bits": 4.817899451578329,
+          "ovmi_bits": 0.18945588898105833,
+          "ovmi_percent": 2.243729939646952,
+          "uncertainty": {
+            "kind": "seed_sem",
+            "label": "Mean ± one SEM across seeds",
+            "low_bits": 0.18522486542110342,
+            "high_bits": 0.19371277363310824,
+            "low_percent": 2.1936218417256907,
+            "high_percent": 2.2941443110069413
+          }
+        }
+      }
+    },
+    {
+      "id": "moses_2021_v50-a",
+      "system_id": "moses_2021_v50",
+      "variant": "decoder",
+      "system": "Moses (isolated)",
+      "year": 2021,
+      "progress_year": 2021,
+      "group": "attempted_invasive",
+      "setting": "attempted",
+      "modality": "ECoG",
+      "decoder_method": null,
+      "task": "isolated-word classification / sentence decoding",
+      "vocabulary_size": 50,
+      "vocabulary_provenance": "published Moses 50-word set",
+      "metric": {
+        "type": "isolated_word_accuracy",
+        "label": "Isolated-word accuracy",
+        "reported_value": 0.471,
+        "p_correct": 0.471,
+        "p_is_lower_bound": false
+      },
+      "uncertainty_method": "neural: Wilson 95% binomial CI on 9,000 isolated-word attempts; system: published 95% CI for median WER across 15 ten-sentence blocks",
+      "source": {
+        "citation": "Moses et al. (2021)",
+        "primary_url": "https://doi.org/10.1056/NEJMoa2027540",
+        "note": "Moses et al. (2021), NEJM 385:217-227, Results/Word Detection and Classification, pp. 222-223: 47.1% over 9,000 isolated-word attempts; Results, p. 221: median WER 25.6% (95% CI 17.1-37.1%) with language model across 15 blocks of 10 sentence trials (150 trials total). https://doi.org/10.1056/NEJMoa2027540; SUBTLEX-UK: van Heuven et al. (2014), Quarterly Journal of Experimental Psychology 67:1176-1190, Spelling/FreqCount. https://doi.org/10.1080/17470218.2013.850521",
+        "urls": [
+          "https://doi.org/10.1056/NEJMoa2027540",
+          "https://doi.org/10.1080/17470218.2013.850521"
+        ]
+      },
+      "references": {
+        "subtlex": {
+          "coverage": 0.1726709669640465,
+          "in_vocab_information_bits": 1.3763346757045545,
+          "supported_vocab_entropy_bits": 4.274131918964984,
+          "ovmi_bits": 0.23765303932005277,
+          "ovmi_percent": 2.4320469931474267,
+          "uncertainty": {
+            "kind": "wilson95",
+            "label": "95% Wilson interval",
+            "low_bits": 0.23017817354759082,
+            "high_bits": 0.24520915286451148,
+            "low_percent": 2.35555218004464,
+            "high_percent": 2.509373263740301
+          }
+        },
+        "conversation": {
+          "coverage": 0.26664337682458195,
+          "in_vocab_information_bits": 1.3132527848198539,
+          "supported_vocab_entropy_bits": 3.987146865861631,
+          "ovmi_bits": 0.3501701571686519,
+          "ovmi_percent": 4.235100193148267,
+          "uncertainty": {
+            "kind": "wilson95",
+            "label": "95% Wilson interval",
+            "low_bits": 0.3392996961330835,
+            "high_bits": 0.36115203508128285,
+            "low_percent": 4.103628419529438,
+            "high_percent": 4.367919487759126
+          }
+        },
+        "ucv": {
+          "coverage": 0.6416228613518024,
+          "in_vocab_information_bits": 1.1089033492068188,
+          "supported_vocab_entropy_bits": 3.1228905020252213,
+          "ovmi_bits": 0.711497739880676,
+          "ovmi_percent": 16.5286797427996,
+          "uncertainty": {
+            "kind": "wilson95",
+            "label": "95% Wilson interval",
+            "low_bits": 0.6902293826880065,
+            "high_bits": 0.7329477729622031,
+            "low_percent": 16.034598251055076,
+            "high_percent": 17.02698171539122
+          }
+        },
+        "narrative": {
+          "coverage": 0.06704225352112676,
+          "in_vocab_information_bits": 1.311942993507702,
+          "supported_vocab_entropy_bits": 3.979758969782515,
+          "ovmi_bits": 0.08795561477600933,
+          "ovmi_percent": 1.0416601315186182,
+          "uncertainty": {
+            "kind": "wilson95",
+            "label": "95% Wilson interval",
+            "low_bits": 0.08521711580681289,
+            "high_bits": 0.09072257141598089,
+            "low_percent": 1.009228032627817,
+            "high_percent": 1.0744292551821737
+          }
+        }
+      }
+    },
+    {
+      "id": "moses_2021_v50-w",
+      "system_id": "moses_2021_v50",
+      "variant": "language_model",
+      "system": "Moses (+LM)",
+      "year": 2021,
+      "progress_year": 2021,
+      "group": "attempted_invasive",
+      "setting": "attempted",
+      "modality": "ECoG",
+      "decoder_method": null,
+      "task": "isolated-word classification / sentence decoding",
+      "vocabulary_size": 50,
+      "vocabulary_provenance": "published Moses 50-word set",
+      "metric": {
+        "type": "wer",
+        "label": "WER",
+        "reported_value": 0.256,
+        "p_correct": 0.744,
+        "p_is_lower_bound": true
+      },
+      "uncertainty_method": "neural: Wilson 95% binomial CI on 9,000 isolated-word attempts; system: published 95% CI for median WER across 15 ten-sentence blocks",
+      "source": {
+        "citation": "Moses et al. (2021)",
+        "primary_url": "https://doi.org/10.1056/NEJMoa2027540",
+        "note": "Moses et al. (2021), NEJM 385:217-227, Results/Word Detection and Classification, pp. 222-223: 47.1% over 9,000 isolated-word attempts; Results, p. 221: median WER 25.6% (95% CI 17.1-37.1%) with language model across 15 blocks of 10 sentence trials (150 trials total). https://doi.org/10.1056/NEJMoa2027540; SUBTLEX-UK: van Heuven et al. (2014), Quarterly Journal of Experimental Psychology 67:1176-1190, Spelling/FreqCount. https://doi.org/10.1080/17470218.2013.850521",
+        "urls": [
+          "https://doi.org/10.1056/NEJMoa2027540",
+          "https://doi.org/10.1080/17470218.2013.850521"
+        ]
+      },
+      "references": {
+        "subtlex": {
+          "coverage": 0.1726709669640465,
+          "in_vocab_information_bits": 2.6590195274553814,
+          "supported_vocab_entropy_bits": 4.274131918964984,
+          "ovmi_bits": 0.4591354729820027,
+          "ovmi_percent": 4.698610418398218,
+          "uncertainty": {
+            "kind": "published95",
+            "label": "Published 95% interval",
+            "low_bits": 0.36018606912598333,
+            "high_bits": 0.538780038281833,
+            "low_percent": 3.686001445206531,
+            "high_percent": 5.513661326697887
+          }
+        },
+        "conversation": {
+          "coverage": 0.26664337682458195,
+          "in_vocab_information_bits": 2.5108579386049685,
+          "supported_vocab_entropy_bits": 3.987146865861631,
+          "ovmi_bits": 0.6695036394764377,
+          "ovmi_percent": 8.09724910822287,
+          "uncertainty": {
+            "kind": "published95",
+            "label": "Published 95% interval",
+            "low_bits": 0.5274732980265526,
+            "high_bits": 0.7830803119883994,
+            "low_percent": 6.379476436299784,
+            "high_percent": 9.47089154417974
+          }
+        },
+        "ucv": {
+          "coverage": 0.6416228613518024,
+          "in_vocab_information_bits": 2.058371971655725,
+          "supported_vocab_entropy_bits": 3.1228905020252213,
+          "ovmi_bits": 1.3206985141800973,
+          "ovmi_percent": 30.680916542805992,
+          "uncertainty": {
+            "kind": "published95",
+            "label": "Published 95% interval",
+            "low_bits": 1.053495861115886,
+            "high_bits": 1.5293240968494706,
+            "low_percent": 24.47357837239181,
+            "high_percent": 35.527461020481134
+          }
+        },
+        "narrative": {
+          "coverage": 0.06704225352112676,
+          "in_vocab_information_bits": 2.5137028481193857,
+          "supported_vocab_entropy_bits": 3.979758969782515,
+          "ovmi_bits": 0.16852430362039825,
+          "ovmi_percent": 1.995836749255365,
+          "uncertainty": {
+            "kind": "published95",
+            "label": "Published 95% interval",
+            "low_bits": 0.13266817233278613,
+            "high_bits": 0.1971916736622759,
+            "low_percent": 1.5711918584440236,
+            "high_percent": 2.3353449946830374
+          }
+        }
+      }
+    },
+    {
+      "id": "willett_2023_v50-a",
+      "system_id": "willett_2023_v50",
+      "variant": "decoder",
+      "system": "Willett (isolated)",
+      "year": 2023,
+      "progress_year": 2023,
+      "group": "attempted_invasive",
+      "setting": "attempted",
+      "modality": "intracortical",
+      "decoder_method": null,
+      "task": "isolated-word classification / sentence decoding",
+      "vocabulary_size": 50,
+      "vocabulary_provenance": "Moses 50-word set reused by Willett",
+      "metric": {
+        "type": "isolated_word_accuracy",
+        "label": "Isolated-word accuracy",
+        "reported_value": 0.94,
+        "p_correct": 0.94,
+        "p_is_lower_bound": false
+      },
+      "uncertainty_method": "neural: Wilson 95% binomial CI on 20 trials x 50 words; system: published 95% percentile CI from 10,000 bootstrap resamples over 250 sentence trials",
+      "source": {
+        "citation": "Willett et al. (2023)",
+        "primary_url": "https://doi.org/10.1038/s41586-023-06377-x",
+        "note": "Willett et al. (2023), Nature 620:1031-1036, Fig. 1d and Results p. 1032: 94% 50-way isolated-word accuracy (20 trials/word); Table 1 p. 1034: 9.1% 50-word WER (95% trial-bootstrap CI 7.2-11.2%; 250 vocal evaluation trials) and 23.8% 125,000-word WER (95% trial-bootstrap CI 21.8-25.9%; 400 vocal evaluation trials). https://doi.org/10.1038/s41586-023-06377-x; SUBTLEX-UK: van Heuven et al. (2014), Quarterly Journal of Experimental Psychology 67:1176-1190, Spelling/FreqCount. https://doi.org/10.1080/17470218.2013.850521",
+        "urls": [
+          "https://doi.org/10.1038/s41586-023-06377-x",
+          "https://doi.org/10.1080/17470218.2013.850521"
+        ]
+      },
+      "references": {
+        "subtlex": {
+          "coverage": 0.1726709669640465,
+          "in_vocab_information_bits": 3.799108473575814,
+          "supported_vocab_entropy_bits": 4.274131918964984,
+          "ovmi_bits": 0.6559957337336385,
+          "ovmi_percent": 6.713200286893269,
+          "uncertainty": {
+            "kind": "wilson95",
+            "label": "95% Wilson interval",
+            "low_bits": 0.6371467089620539,
+            "high_bits": 0.6715819441714003,
+            "low_percent": 6.520306839577589,
+            "high_percent": 6.872703385772943
+          }
+        },
+        "conversation": {
+          "coverage": 0.26664337682458195,
+          "in_vocab_information_bits": 3.5584077963987775,
+          "supported_vocab_entropy_bits": 3.987146865861631,
+          "ovmi_bits": 0.9488258709506895,
+          "ovmi_percent": 11.475485694778882,
+          "uncertainty": {
+            "kind": "wilson95",
+            "label": "95% Wilson interval",
+            "low_bits": 0.9223096159964073,
+            "high_bits": 0.9707016965084415,
+            "low_percent": 11.15478733091356,
+            "high_percent": 11.740060819609672
+          }
+        },
+        "ucv": {
+          "coverage": 0.6416228613518024,
+          "in_vocab_information_bits": 2.8396715892575197,
+          "supported_vocab_entropy_bits": 3.1228905020252213,
+          "ovmi_bits": 1.82199821039883,
+          "ovmi_percent": 42.3265222412187,
+          "uncertainty": {
+            "kind": "wilson95",
+            "label": "95% Wilson interval",
+            "low_bits": 1.7764997658664725,
+            "high_bits": 1.858977758268659,
+            "low_percent": 41.26955582190584,
+            "high_percent": 43.185587659861405
+          }
+        },
+        "narrative": {
+          "coverage": 0.06704225352112676,
+          "in_vocab_information_bits": 3.5631059863400343,
+          "supported_vocab_entropy_bits": 3.979758969782515,
+          "ovmi_bits": 0.238878654858853,
+          "ovmi_percent": 2.8290447593475765,
+          "uncertainty": {
+            "kind": "wilson95",
+            "label": "95% Wilson interval",
+            "low_bits": 0.2322379420892609,
+            "high_bits": 0.2443399404390685,
+            "low_percent": 2.7503986631936623,
+            "high_percent": 2.893722875352283
+          }
+        }
+      }
+    },
+    {
+      "id": "willett_2023_v50-w",
+      "system_id": "willett_2023_v50",
+      "variant": "language_model",
+      "system": "Willett (+LM)",
+      "year": 2023,
+      "progress_year": 2023,
+      "group": "attempted_invasive",
+      "setting": "attempted",
+      "modality": "intracortical",
+      "decoder_method": null,
+      "task": "isolated-word classification / sentence decoding",
+      "vocabulary_size": 50,
+      "vocabulary_provenance": "Moses 50-word set reused by Willett",
+      "metric": {
+        "type": "wer",
+        "label": "WER",
+        "reported_value": 0.09099999999999997,
+        "p_correct": 0.909,
+        "p_is_lower_bound": true
+      },
+      "uncertainty_method": "neural: Wilson 95% binomial CI on 20 trials x 50 words; system: published 95% percentile CI from 10,000 bootstrap resamples over 250 sentence trials",
+      "source": {
+        "citation": "Willett et al. (2023)",
+        "primary_url": "https://doi.org/10.1038/s41586-023-06377-x",
+        "note": "Willett et al. (2023), Nature 620:1031-1036, Fig. 1d and Results p. 1032: 94% 50-way isolated-word accuracy (20 trials/word); Table 1 p. 1034: 9.1% 50-word WER (95% trial-bootstrap CI 7.2-11.2%; 250 vocal evaluation trials) and 23.8% 125,000-word WER (95% trial-bootstrap CI 21.8-25.9%; 400 vocal evaluation trials). https://doi.org/10.1038/s41586-023-06377-x; SUBTLEX-UK: van Heuven et al. (2014), Quarterly Journal of Experimental Psychology 67:1176-1190, Spelling/FreqCount. https://doi.org/10.1080/17470218.2013.850521",
+        "urls": [
+          "https://doi.org/10.1038/s41586-023-06377-x",
+          "https://doi.org/10.1080/17470218.2013.850521"
+        ]
+      },
+      "references": {
+        "subtlex": {
+          "coverage": 0.1726709669640465,
+          "in_vocab_information_bits": 3.5968154321888655,
+          "supported_vocab_entropy_bits": 4.274131918964984,
+          "ovmi_bits": 0.6210655986672562,
+          "ovmi_percent": 6.355739131750951,
+          "uncertainty": {
+            "kind": "bootstrap95",
+            "label": "Published 95% bootstrap interval",
+            "low_bits": 0.598551037672823,
+            "high_bits": 0.6421924386585984,
+            "low_percent": 6.125334039835406,
+            "high_percent": 6.571942837046106
+          }
+        },
+        "conversation": {
+          "coverage": 0.26664337682458195,
+          "in_vocab_information_bits": 3.373945755644007,
+          "supported_vocab_entropy_bits": 3.987146865861631,
+          "ovmi_bits": 0.8996402895078838,
+          "ovmi_percent": 10.880615283339994,
+          "uncertainty": {
+            "kind": "bootstrap95",
+            "label": "Published 95% bootstrap interval",
+            "low_bits": 0.8678365428424004,
+            "high_bits": 0.9294138734983027,
+            "low_percent": 10.495967845834475,
+            "high_percent": 11.24070910837663
+          }
+        },
+        "ucv": {
+          "coverage": 0.6416228613518024,
+          "in_vocab_information_bits": 2.7073739400885946,
+          "supported_vocab_entropy_bits": 3.1228905020252213,
+          "ovmi_bits": 1.7371130141889473,
+          "ovmi_percent": 40.35456907198845,
+          "uncertainty": {
+            "kind": "bootstrap95",
+            "label": "Published 95% bootstrap interval",
+            "low_bits": 1.6812146421319354,
+            "high_bits": 1.788754487915832,
+            "low_percent": 39.056003752541116,
+            "high_percent": 41.5542431297318
+          }
+        },
+        "narrative": {
+          "coverage": 0.06704225352112676,
+          "in_vocab_information_bits": 3.3791788297881586,
+          "supported_vocab_entropy_bits": 3.979758969782515,
+          "ovmi_bits": 0.2265477637998822,
+          "ovmi_percent": 2.6830097661872223,
+          "uncertainty": {
+            "kind": "bootstrap95",
+            "label": "Published 95% bootstrap interval",
+            "low_bits": 0.2185507305206173,
+            "high_bits": 0.23401894447066623,
+            "low_percent": 2.5883007387004406,
+            "high_percent": 2.7714911105555977
+          }
+        }
+      }
+    },
+    {
+      "id": "willett_2023_v125k-w",
+      "system_id": "willett_2023_v125k",
+      "variant": "language_model",
+      "system": "Willett (+LM)",
+      "year": 2023,
+      "progress_year": 2023,
+      "group": "attempted_invasive",
+      "setting": "attempted",
+      "modality": "intracortical",
+      "decoder_method": null,
+      "task": "continuous sentence decoding",
+      "vocabulary_size": 125000,
+      "vocabulary_provenance": "CMUdict proxy for reported 125,000-word LM lexicon",
+      "metric": {
+        "type": "wer",
+        "label": "WER",
+        "reported_value": 0.238,
+        "p_correct": 0.762,
+        "p_is_lower_bound": true
+      },
+      "uncertainty_method": "published 95% percentile CI from 10,000 bootstrap resamples over 400 sentence trials",
+      "source": {
+        "citation": "Willett et al. (2023)",
+        "primary_url": "https://doi.org/10.1038/s41586-023-06377-x",
+        "note": "Willett et al. (2023), Nature 620:1031-1036, Fig. 1d and Results p. 1032: 94% 50-way isolated-word accuracy (20 trials/word); Table 1 p. 1034: 9.1% 50-word WER (95% trial-bootstrap CI 7.2-11.2%; 250 vocal evaluation trials) and 23.8% 125,000-word WER (95% trial-bootstrap CI 21.8-25.9%; 400 vocal evaluation trials). https://doi.org/10.1038/s41586-023-06377-x; CMU Pronouncing Dictionary word list (the 125k LM lexicon named by Willett/Card); retrieved from https://raw.githubusercontent.com/cmusphinx/cmudict/master/cmudict.dict; SUBTLEX-UK: van Heuven et al. (2014), Quarterly Journal of Experimental Psychology 67:1176-1190, Spelling/FreqCount. https://doi.org/10.1080/17470218.2013.850521",
+        "urls": [
+          "https://doi.org/10.1038/s41586-023-06377-x",
+          "https://raw.githubusercontent.com/cmusphinx/cmudict/master/cmudict.dict",
+          "https://doi.org/10.1080/17470218.2013.850521"
+        ]
+      },
+      "references": {
+        "subtlex": {
+          "coverage": 0.9787793273981641,
+          "in_vocab_information_bits": 7.1904941479291775,
+          "supported_vocab_entropy_bits": 9.636415368868349,
+          "ovmi_bits": 7.037907025770555,
+          "ovmi_percent": 72.0231505098709,
+          "uncertainty": {
+            "kind": "bootstrap95",
+            "label": "Published 95% bootstrap interval",
+            "low_bits": 6.834573486321834,
+            "high_bits": 7.2321080807753955,
+            "low_percent": 69.9423156733498,
+            "high_percent": 74.01052712092495
+          }
+        },
+        "conversation": {
+          "coverage": 0.9974330543615292,
+          "in_vocab_information_bits": 6.242832528773606,
+          "supported_vocab_entropy_bits": 8.248812292220205,
+          "ovmi_bits": 6.226807517042167,
+          "ovmi_percent": 75.30954074256324,
+          "uncertainty": {
+            "kind": "bootstrap95",
+            "label": "Published 95% bootstrap interval",
+            "low_bits": 6.05156763313682,
+            "high_bits": 6.393829988532316,
+            "low_percent": 73.19011836752237,
+            "high_percent": 77.32957839222323
+          }
+        },
+        "ucv": {
+          "coverage": 1.0,
+          "in_vocab_information_bits": 3.2792127327121126,
+          "supported_vocab_entropy_bits": 4.304625359993596,
+          "ovmi_bits": 3.2792127327121126,
+          "ovmi_percent": 76.1788183285012,
+          "uncertainty": {
+            "kind": "bootstrap95",
+            "label": "Published 95% bootstrap interval",
+            "low_bits": 3.1887468176839544,
+            "high_bits": 3.365371935345145,
+            "low_percent": 74.07722045499212,
+            "high_percent": 78.1803677184616
+          }
+        },
+        "narrative": {
+          "coverage": 0.9887323943661972,
+          "in_vocab_information_bits": 6.383124447219428,
+          "supported_vocab_entropy_bits": 8.401414579158082,
+          "ovmi_bits": 6.311201918236674,
+          "ovmi_percent": 74.74369245138993,
+          "uncertainty": {
+            "kind": "bootstrap95",
+            "label": "Published 95% bootstrap interval",
+            "low_bits": 6.135489440074382,
+            "high_bits": 6.478584228950149,
+            "low_percent": 72.6627260050964,
+            "high_percent": 76.7260045554632
+          }
+        }
+      }
+    },
+    {
+      "id": "card_2024_v125k-w",
+      "system_id": "card_2024_v125k",
+      "variant": "language_model",
+      "system": "Card (+LM)",
+      "year": 2024,
+      "progress_year": 2024,
+      "group": "attempted_invasive",
+      "setting": "attempted",
+      "modality": "intracortical",
+      "decoder_method": null,
+      "task": "continuous sentence decoding",
+      "vocabulary_size": 125000,
+      "vocabulary_provenance": "CMUdict proxy for reported 125,000-word LM lexicon",
+      "metric": {
+        "type": "wer",
+        "label": "WER",
+        "reported_value": 0.025000000000000022,
+        "p_correct": 0.975,
+        "p_is_lower_bound": true
+      },
+      "uncertainty_method": "published 95% CI from 10,000 bootstrap resamples over individual sentence trials pooled across the final five evaluation sessions; exact sentence count not reported",
+      "source": {
+        "citation": "Card et al. (2024)",
+        "primary_url": "https://doi.org/10.1056/NEJMoa2314132",
+        "note": "Card et al. (2024), NEJM 391:609-618, Results/Online decoding performance: final five 125,000-word Copy Task sessions WER 2.5% (95% CI 2.0-3.1%). The paper estimates confidence intervals by 10,000-fold resampling of individual sentence trials; the aggregate is over five sessions. https://doi.org/10.1056/NEJMoa2314132; CMU Pronouncing Dictionary word list (the 125k LM lexicon named by Willett/Card); retrieved from https://raw.githubusercontent.com/cmusphinx/cmudict/master/cmudict.dict; SUBTLEX-UK: van Heuven et al. (2014), Quarterly Journal of Experimental Psychology 67:1176-1190, Spelling/FreqCount. https://doi.org/10.1080/17470218.2013.850521",
+        "urls": [
+          "https://doi.org/10.1056/NEJMoa2314132",
+          "https://raw.githubusercontent.com/cmusphinx/cmudict/master/cmudict.dict",
+          "https://doi.org/10.1080/17470218.2013.850521"
+        ]
+      },
+      "references": {
+        "subtlex": {
+          "coverage": 0.9787793273981641,
+          "in_vocab_information_bits": 9.354130309126539,
+          "supported_vocab_entropy_bits": 9.636415368868349,
+          "ovmi_bits": 9.155629372361656,
+          "ovmi_percent": 93.6950814899407,
+          "uncertainty": {
+            "kind": "bootstrap95",
+            "label": "Published 95% bootstrap interval",
+            "low_bits": 9.092805651502282,
+            "high_bits": 9.208473222626903,
+            "low_percent": 93.05216843546633,
+            "high_percent": 94.2358645050102
+          }
+        },
+        "conversation": {
+          "coverage": 0.9974330543615292,
+          "in_vocab_information_bits": 8.035206755413446,
+          "supported_vocab_entropy_bits": 8.248812292220205,
+          "ovmi_bits": 8.014580816478427,
+          "ovmi_percent": 96.93159759334512,
+          "uncertainty": {
+            "kind": "bootstrap95",
+            "label": "Published 95% bootstrap interval",
+            "low_bits": 7.963767964677864,
+            "high_bits": 8.056978523271871,
+            "low_percent": 96.31704631286198,
+            "high_percent": 97.44437269012037
+          }
+        },
+        "ucv": {
+          "coverage": 1.0,
+          "in_vocab_information_bits": 4.196888916064659,
+          "supported_vocab_entropy_bits": 4.304625359993596,
+          "ovmi_bits": 4.196888916064659,
+          "ovmi_percent": 97.49719348563478,
+          "uncertainty": {
+            "kind": "bootstrap95",
+            "label": "Published 95% bootstrap interval",
+            "low_bits": 4.1710349174141585,
+            "high_bits": 4.218434376133223,
+            "low_percent": 96.89658375799661,
+            "high_percent": 97.99771230589734
+          }
+        },
+        "narrative": {
+          "coverage": 0.9887323943661972,
+          "in_vocab_information_bits": 8.188614888625025,
+          "supported_vocab_entropy_bits": 8.401414579158082,
+          "ovmi_bits": 8.096348805372912,
+          "ovmi_percent": 95.88522327884071,
+          "uncertainty": {
+            "kind": "bootstrap95",
+            "label": "Published 95% bootstrap interval",
+            "low_bits": 8.045938633521159,
+            "high_bits": 8.138371761977886,
+            "low_percent": 95.2882145901436,
+            "high_percent": 96.38290200708806
+          }
+        }
+      }
+    }
+  ],
+  "top_frequency_curves": {
+    "subtlex": [
+      {
+        "vocabulary_size": 2,
+        "coverage": 0.0731056536939,
+        "in_vocab_information_bits": 0.943737641002
+      },
+      {
+        "vocabulary_size": 3,
+        "coverage": 0.0969494389498,
+        "in_vocab_information_bits": 1.51641461493
+      },
+      {
+        "vocabulary_size": 4,
+        "coverage": 0.118481508635,
+        "in_vocab_information_bits": 1.92468598481
+      },
+      {
+        "vocabulary_size": 5,
+        "coverage": 0.139888310527,
+        "in_vocab_information_bits": 2.2475213216
+      },
+      {
+        "vocabulary_size": 6,
+        "coverage": 0.160986109935,
+        "in_vocab_information_bits": 2.51329615507
+      },
+      {
+        "vocabulary_size": 7,
+        "coverage": 0.181704025723,
+        "in_vocab_information_bits": 2.7386538496
+      },
+      {
+        "vocabulary_size": 8,
+        "coverage": 0.200443293406,
+        "in_vocab_information_bits": 2.93062955809
+      },
+      {
+        "vocabulary_size": 9,
+        "coverage": 0.217228662136,
+        "in_vocab_information_bits": 3.09666618877
+      },
+      {
+        "vocabulary_size": 10,
+        "coverage": 0.23265021476,
+        "in_vocab_information_bits": 3.24330920359
+      },
+      {
+        "vocabulary_size": 11,
+        "coverage": 0.247761094135,
+        "in_vocab_information_bits": 3.37686195577
+      },
+      {
+        "vocabulary_size": 12,
+        "coverage": 0.262386692809,
+        "in_vocab_information_bits": 3.4989329842
+      },
+      {
+        "vocabulary_size": 13,
+        "coverage": 0.272369396166,
+        "in_vocab_information_bits": 3.59741458121
+      },
+      {
+        "vocabulary_size": 14,
+        "coverage": 0.280832054396,
+        "in_vocab_information_bits": 3.68407383401
+      },
+      {
+        "vocabulary_size": 15,
+        "coverage": 0.288721248198,
+        "in_vocab_information_bits": 3.76420007262
+      },
+      {
+        "vocabulary_size": 16,
+        "coverage": 0.296500379665,
+        "in_vocab_information_bits": 3.84059242766
+      },
+      {
+        "vocabulary_size": 17,
+        "coverage": 0.304278509665,
+        "in_vocab_information_bits": 3.91404200716
+      },
+      {
+        "vocabulary_size": 18,
+        "coverage": 0.311760487701,
+        "in_vocab_information_bits": 3.98344928535
+      },
+      {
+        "vocabulary_size": 19,
+        "coverage": 0.319130122832,
+        "in_vocab_information_bits": 4.0499306018
+      },
+      {
+        "vocabulary_size": 20,
+        "coverage": 0.326275215925,
+        "in_vocab_information_bits": 4.11321522291
+      },
+      {
+        "vocabulary_size": 21,
+        "coverage": 0.332981120641,
+        "in_vocab_information_bits": 4.17259944999
+      },
+      {
+        "vocabulary_size": 22,
+        "coverage": 0.339602396345,
+        "in_vocab_information_bits": 4.22985344113
+      },
+      {
+        "vocabulary_size": 23,
+        "coverage": 0.346213528466,
+        "in_vocab_information_bits": 4.28541379666
+      },
+      {
+        "vocabulary_size": 24,
+        "coverage": 0.352577362419,
+        "in_vocab_information_bits": 4.33840851769
+      },
+      {
+        "vocabulary_size": 26,
+        "coverage": 0.364337969106,
+        "in_vocab_information_bits": 4.43633463969
+      },
+      {
+        "vocabulary_size": 27,
+        "coverage": 0.369996908339,
+        "in_vocab_information_bits": 4.48261763656
+      },
+      {
+        "vocabulary_size": 28,
+        "coverage": 0.375253877119,
+        "in_vocab_information_bits": 4.52614974183
+      },
+      {
+        "vocabulary_size": 29,
+        "coverage": 0.380462185457,
+        "in_vocab_information_bits": 4.56855163194
+      },
+      {
+        "vocabulary_size": 30,
+        "coverage": 0.385359741221,
+        "in_vocab_information_bits": 4.60874955031
+      },
+      {
+        "vocabulary_size": 32,
+        "coverage": 0.394460954346,
+        "in_vocab_information_bits": 4.68375865418
+      },
+      {
+        "vocabulary_size": 33,
+        "coverage": 0.398515477243,
+        "in_vocab_information_bits": 4.7180506715
+      },
+      {
+        "vocabulary_size": 34,
+        "coverage": 0.402184241572,
+        "in_vocab_information_bits": 4.74992750388
+      },
+      {
+        "vocabulary_size": 36,
+        "coverage": 0.409369804884,
+        "in_vocab_information_bits": 4.81157572966
+      },
+      {
+        "vocabulary_size": 37,
+        "coverage": 0.412924927374,
+        "in_vocab_information_bits": 4.84157787209
+      },
+      {
+        "vocabulary_size": 39,
+        "coverage": 0.419796907229,
+        "in_vocab_information_bits": 4.89923299309
+      },
+      {
+        "vocabulary_size": 41,
+        "coverage": 0.42656394116,
+        "in_vocab_information_bits": 4.9549166331
+      },
+      {
+        "vocabulary_size": 42,
+        "coverage": 0.429846441229,
+        "in_vocab_information_bits": 4.98175980461
+      },
+      {
+        "vocabulary_size": 44,
+        "coverage": 0.436321690986,
+        "in_vocab_information_bits": 5.03406462221
+      },
+      {
+        "vocabulary_size": 46,
+        "coverage": 0.442724443377,
+        "in_vocab_information_bits": 5.08482275024
+      },
+      {
+        "vocabulary_size": 48,
+        "coverage": 0.449079779725,
+        "in_vocab_information_bits": 5.1342195337
+      },
+      {
+        "vocabulary_size": 50,
+        "coverage": 0.455360739714,
+        "in_vocab_information_bits": 5.18219780139
+      },
+      {
+        "vocabulary_size": 52,
+        "coverage": 0.461555008263,
+        "in_vocab_information_bits": 5.22876849694
+      },
+      {
+        "vocabulary_size": 55,
+        "coverage": 0.470437995541,
+        "in_vocab_information_bits": 5.29507925166
+      },
+      {
+        "vocabulary_size": 57,
+        "coverage": 0.476073558922,
+        "in_vocab_information_bits": 5.3369786714
+      },
+      {
+        "vocabulary_size": 60,
+        "coverage": 0.484161464817,
+        "in_vocab_information_bits": 5.39681753492
+      },
+      {
+        "vocabulary_size": 62,
+        "coverage": 0.489461149681,
+        "in_vocab_information_bits": 5.43544145063
+      },
+      {
+        "vocabulary_size": 65,
+        "coverage": 0.497139375802,
+        "in_vocab_information_bits": 5.49100499694
+      },
+      {
+        "vocabulary_size": 68,
+        "coverage": 0.504275197879,
+        "in_vocab_information_bits": 5.54291712891
+      },
+      {
+        "vocabulary_size": 71,
+        "coverage": 0.511034378714,
+        "in_vocab_information_bits": 5.592060867
+      },
+      {
+        "vocabulary_size": 74,
+        "coverage": 0.51770610957,
+        "in_vocab_information_bits": 5.63979711929
+      },
+      {
+        "vocabulary_size": 77,
+        "coverage": 0.524210848101,
+        "in_vocab_information_bits": 5.68585002132
+      },
+      {
+        "vocabulary_size": 80,
+        "coverage": 0.530454808306,
+        "in_vocab_information_bits": 5.7298955022
+      },
+      {
+        "vocabulary_size": 84,
+        "coverage": 0.538221728804,
+        "in_vocab_information_bits": 5.78497695125
+      },
+      {
+        "vocabulary_size": 87,
+        "coverage": 0.543854262992,
+        "in_vocab_information_bits": 5.82462697753
+      },
+      {
+        "vocabulary_size": 91,
+        "coverage": 0.551128778485,
+        "in_vocab_information_bits": 5.87546641232
+      },
+      {
+        "vocabulary_size": 95,
+        "coverage": 0.557965042616,
+        "in_vocab_information_bits": 5.92335911481
+      },
+      {
+        "vocabulary_size": 99,
+        "coverage": 0.564447386932,
+        "in_vocab_information_bits": 5.96877517383
+      },
+      {
+        "vocabulary_size": 103,
+        "coverage": 0.570306535501,
+        "in_vocab_information_bits": 6.0106008422
+      },
+      {
+        "vocabulary_size": 108,
+        "coverage": 0.577187642598,
+        "in_vocab_information_bits": 6.05990165902
+      },
+      {
+        "vocabulary_size": 113,
+        "coverage": 0.583609536911,
+        "in_vocab_information_bits": 6.10613937858
+      },
+      {
+        "vocabulary_size": 118,
+        "coverage": 0.589486915175,
+        "in_vocab_information_bits": 6.14900196759
+      },
+      {
+        "vocabulary_size": 123,
+        "coverage": 0.594807774645,
+        "in_vocab_information_bits": 6.18848198928
+      },
+      {
+        "vocabulary_size": 128,
+        "coverage": 0.599850845705,
+        "in_vocab_information_bits": 6.22601114544
+      },
+      {
+        "vocabulary_size": 133,
+        "coverage": 0.604705596144,
+        "in_vocab_information_bits": 6.26208607535
+      },
+      {
+        "vocabulary_size": 139,
+        "coverage": 0.610313396054,
+        "in_vocab_information_bits": 6.30365972402
+      },
+      {
+        "vocabulary_size": 145,
+        "coverage": 0.615549894231,
+        "in_vocab_information_bits": 6.34274918409
+      },
+      {
+        "vocabulary_size": 152,
+        "coverage": 0.621371745551,
+        "in_vocab_information_bits": 6.38620103559
+      },
+      {
+        "vocabulary_size": 158,
+        "coverage": 0.625996237653,
+        "in_vocab_information_bits": 6.42104592293
+      },
+      {
+        "vocabulary_size": 165,
+        "coverage": 0.6311705754,
+        "in_vocab_information_bits": 6.460013858
+      },
+      {
+        "vocabulary_size": 172,
+        "coverage": 0.636102146374,
+        "in_vocab_information_bits": 6.4971902969
+      },
+      {
+        "vocabulary_size": 180,
+        "coverage": 0.641362322827,
+        "in_vocab_information_bits": 6.53712233419
+      },
+      {
+        "vocabulary_size": 187,
+        "coverage": 0.645643579092,
+        "in_vocab_information_bits": 6.56990907552
+      },
+      {
+        "vocabulary_size": 196,
+        "coverage": 0.650819151322,
+        "in_vocab_information_bits": 6.60975728043
+      },
+      {
+        "vocabulary_size": 204,
+        "coverage": 0.654952393578,
+        "in_vocab_information_bits": 6.64216690995
+      },
+      {
+        "vocabulary_size": 213,
+        "coverage": 0.65922264361,
+        "in_vocab_information_bits": 6.67608412281
+      },
+      {
+        "vocabulary_size": 222,
+        "coverage": 0.663346099242,
+        "in_vocab_information_bits": 6.70879119991
+      },
+      {
+        "vocabulary_size": 232,
+        "coverage": 0.667777337749,
+        "in_vocab_information_bits": 6.74387129353
+      },
+      {
+        "vocabulary_size": 242,
+        "coverage": 0.671849787917,
+        "in_vocab_information_bits": 6.77649661187
+      },
+      {
+        "vocabulary_size": 250,
+        "coverage": 0.675013946187,
+        "in_vocab_information_bits": 6.80180747908
+      },
+      {
+        "vocabulary_size": 252,
+        "coverage": 0.675777917609,
+        "in_vocab_information_bits": 6.80794486362
+      },
+      {
+        "vocabulary_size": 263,
+        "coverage": 0.679881210019,
+        "in_vocab_information_bits": 6.84091024107
+      },
+      {
+        "vocabulary_size": 275,
+        "coverage": 0.684219996165,
+        "in_vocab_information_bits": 6.87567997225
+      },
+      {
+        "vocabulary_size": 286,
+        "coverage": 0.687999392972,
+        "in_vocab_information_bits": 6.90605949583
+      },
+      {
+        "vocabulary_size": 299,
+        "coverage": 0.692241358966,
+        "in_vocab_information_bits": 6.94027066818
+      },
+      {
+        "vocabulary_size": 312,
+        "coverage": 0.696332975846,
+        "in_vocab_information_bits": 6.97323189235
+      },
+      {
+        "vocabulary_size": 325,
+        "coverage": 0.700219266977,
+        "in_vocab_information_bits": 7.0046396839
+      },
+      {
+        "vocabulary_size": 339,
+        "coverage": 0.704213508436,
+        "in_vocab_information_bits": 7.03698748626
+      },
+      {
+        "vocabulary_size": 354,
+        "coverage": 0.708368713582,
+        "in_vocab_information_bits": 7.07055053174
+      },
+      {
+        "vocabulary_size": 369,
+        "coverage": 0.712369132413,
+        "in_vocab_information_bits": 7.10284734152
+      },
+      {
+        "vocabulary_size": 385,
+        "coverage": 0.716493306921,
+        "in_vocab_information_bits": 7.13609594331
+      },
+      {
+        "vocabulary_size": 402,
+        "coverage": 0.720651992416,
+        "in_vocab_information_bits": 7.16971949741
+      },
+      {
+        "vocabulary_size": 420,
+        "coverage": 0.724801089597,
+        "in_vocab_information_bits": 7.20342128942
+      },
+      {
+        "vocabulary_size": 438,
+        "coverage": 0.728723036959,
+        "in_vocab_information_bits": 7.23540466061
+      },
+      {
+        "vocabulary_size": 457,
+        "coverage": 0.732657071346,
+        "in_vocab_information_bits": 7.26757956956
+      },
+      {
+        "vocabulary_size": 477,
+        "coverage": 0.736563763672,
+        "in_vocab_information_bits": 7.29967804735
+      },
+      {
+        "vocabulary_size": 497,
+        "coverage": 0.740362783304,
+        "in_vocab_information_bits": 7.33081311142
+      },
+      {
+        "vocabulary_size": 519,
+        "coverage": 0.744332141752,
+        "in_vocab_information_bits": 7.36343994121
+      },
+      {
+        "vocabulary_size": 541,
+        "coverage": 0.748083477621,
+        "in_vocab_information_bits": 7.39440250005
+      },
+      {
+        "vocabulary_size": 565,
+        "coverage": 0.751935485822,
+        "in_vocab_information_bits": 7.42635921019
+      },
+      {
+        "vocabulary_size": 589,
+        "coverage": 0.755626465887,
+        "in_vocab_information_bits": 7.45701163381
+      },
+      {
+        "vocabulary_size": 615,
+        "coverage": 0.759473337846,
+        "in_vocab_information_bits": 7.48896025965
+      },
+      {
+        "vocabulary_size": 641,
+        "coverage": 0.763151551671,
+        "in_vocab_information_bits": 7.51955332534
+      },
+      {
+        "vocabulary_size": 669,
+        "coverage": 0.766980099738,
+        "in_vocab_information_bits": 7.55136575301
+      },
+      {
+        "vocabulary_size": 698,
+        "coverage": 0.77077637277,
+        "in_vocab_information_bits": 7.58294255313
+      },
+      {
+        "vocabulary_size": 728,
+        "coverage": 0.774534594972,
+        "in_vocab_information_bits": 7.61424059014
+      },
+      {
+        "vocabulary_size": 760,
+        "coverage": 0.778404198273,
+        "in_vocab_information_bits": 7.64643847079
+      },
+      {
+        "vocabulary_size": 793,
+        "coverage": 0.782180575803,
+        "in_vocab_information_bits": 7.67797161843
+      },
+      {
+        "vocabulary_size": 827,
+        "coverage": 0.785894054195,
+        "in_vocab_information_bits": 7.70903493559
+      },
+      {
+        "vocabulary_size": 863,
+        "coverage": 0.789639976187,
+        "in_vocab_information_bits": 7.74043817973
+      },
+      {
+        "vocabulary_size": 901,
+        "coverage": 0.793440775656,
+        "in_vocab_information_bits": 7.7723045532
+      },
+      {
+        "vocabulary_size": 940,
+        "coverage": 0.797164248898,
+        "in_vocab_information_bits": 7.80357327898
+      },
+      {
+        "vocabulary_size": 980,
+        "coverage": 0.800782964611,
+        "in_vocab_information_bits": 7.83406428501
+      },
+      {
+        "vocabulary_size": 1000,
+        "coverage": 0.802528498708,
+        "in_vocab_information_bits": 7.84879738139
+      },
+      {
+        "vocabulary_size": 1023,
+        "coverage": 0.804495753874,
+        "in_vocab_information_bits": 7.86540457836
+      },
+      {
+        "vocabulary_size": 1067,
+        "coverage": 0.808106056264,
+        "in_vocab_information_bits": 7.89596150694
+      },
+      {
+        "vocabulary_size": 1114,
+        "coverage": 0.811778697564,
+        "in_vocab_information_bits": 7.92711499258
+      },
+      {
+        "vocabulary_size": 1162,
+        "coverage": 0.815349298189,
+        "in_vocab_information_bits": 7.95747328066
+      },
+      {
+        "vocabulary_size": 1212,
+        "coverage": 0.818901718698,
+        "in_vocab_information_bits": 7.98772931145
+      },
+      {
+        "vocabulary_size": 1265,
+        "coverage": 0.822503354918,
+        "in_vocab_information_bits": 8.01844627374
+      },
+      {
+        "vocabulary_size": 1320,
+        "coverage": 0.826077693696,
+        "in_vocab_information_bits": 8.04897173793
+      },
+      {
+        "vocabulary_size": 1377,
+        "coverage": 0.829616653879,
+        "in_vocab_information_bits": 8.07924321862
+      },
+      {
+        "vocabulary_size": 1436,
+        "coverage": 0.833109224275,
+        "in_vocab_information_bits": 8.10917986488
+      },
+      {
+        "vocabulary_size": 1499,
+        "coverage": 0.836691505389,
+        "in_vocab_information_bits": 8.13990053396
+      },
+      {
+        "vocabulary_size": 1564,
+        "coverage": 0.840208834852,
+        "in_vocab_information_bits": 8.17013398578
+      },
+      {
+        "vocabulary_size": 1631,
+        "coverage": 0.843668143617,
+        "in_vocab_information_bits": 8.19992523202
+      },
+      {
+        "vocabulary_size": 1702,
+        "coverage": 0.847156703183,
+        "in_vocab_information_bits": 8.23004102467
+      },
+      {
+        "vocabulary_size": 1776,
+        "coverage": 0.850607995245,
+        "in_vocab_information_bits": 8.25992094298
+      },
+      {
+        "vocabulary_size": 1853,
+        "coverage": 0.854028623545,
+        "in_vocab_information_bits": 8.28960175949
+      },
+      {
+        "vocabulary_size": 1933,
+        "coverage": 0.857427715322,
+        "in_vocab_information_bits": 8.31913862096
+      },
+      {
+        "vocabulary_size": 2017,
+        "coverage": 0.860823673793,
+        "in_vocab_information_bits": 8.34872065221
+      },
+      {
+        "vocabulary_size": 2104,
+        "coverage": 0.864139589184,
+        "in_vocab_information_bits": 8.37772896597
+      },
+      {
+        "vocabulary_size": 2196,
+        "coverage": 0.867438425081,
+        "in_vocab_information_bits": 8.40672340998
+      },
+      {
+        "vocabulary_size": 2291,
+        "coverage": 0.870649483788,
+        "in_vocab_information_bits": 8.43507002602
+      },
+      {
+        "vocabulary_size": 2390,
+        "coverage": 0.873838287097,
+        "in_vocab_information_bits": 8.46328702569
+      },
+      {
+        "vocabulary_size": 2494,
+        "coverage": 0.877018369701,
+        "in_vocab_information_bits": 8.4915137457
+      },
+      {
+        "vocabulary_size": 2602,
+        "coverage": 0.880145508356,
+        "in_vocab_information_bits": 8.51936922305
+      },
+      {
+        "vocabulary_size": 2714,
+        "coverage": 0.883205994847,
+        "in_vocab_information_bits": 8.54674731077
+      },
+      {
+        "vocabulary_size": 2832,
+        "coverage": 0.886249833171,
+        "in_vocab_information_bits": 8.5740915677
+      },
+      {
+        "vocabulary_size": 2955,
+        "coverage": 0.889259834764,
+        "in_vocab_information_bits": 8.601221744
+      },
+      {
+        "vocabulary_size": 3083,
+        "coverage": 0.892224547193,
+        "in_vocab_information_bits": 8.62804433694
+      },
+      {
+        "vocabulary_size": 3217,
+        "coverage": 0.89516244804,
+        "in_vocab_information_bits": 8.65472495439
+      },
+      {
+        "vocabulary_size": 3356,
+        "coverage": 0.898042040639,
+        "in_vocab_information_bits": 8.68098350549
+      },
+      {
+        "vocabulary_size": 3501,
+        "coverage": 0.900879958283,
+        "in_vocab_information_bits": 8.7069709157
+      },
+      {
+        "vocabulary_size": 3653,
+        "coverage": 0.903701336831,
+        "in_vocab_information_bits": 8.73289775901
+      },
+      {
+        "vocabulary_size": 3811,
+        "coverage": 0.906479855519,
+        "in_vocab_information_bits": 8.75852571964
+      },
+      {
+        "vocabulary_size": 3977,
+        "coverage": 0.909246763126,
+        "in_vocab_information_bits": 8.78413958858
+      },
+      {
+        "vocabulary_size": 4149,
+        "coverage": 0.911962610734,
+        "in_vocab_information_bits": 8.80937507359
+      },
+      {
+        "vocabulary_size": 4329,
+        "coverage": 0.914642122898,
+        "in_vocab_information_bits": 8.83438746424
+      },
+      {
+        "vocabulary_size": 4517,
+        "coverage": 0.917272459013,
+        "in_vocab_information_bits": 8.8590672119
+      },
+      {
+        "vocabulary_size": 4712,
+        "coverage": 0.919837788941,
+        "in_vocab_information_bits": 8.88326044097
+      },
+      {
+        "vocabulary_size": 4917,
+        "coverage": 0.922377660757,
+        "in_vocab_information_bits": 8.90733016292
+      },
+      {
+        "vocabulary_size": 5130,
+        "coverage": 0.924865079442,
+        "in_vocab_information_bits": 8.93101487382
+      },
+      {
+        "vocabulary_size": 5352,
+        "coverage": 0.927305032506,
+        "in_vocab_information_bits": 8.95436450041
+      },
+      {
+        "vocabulary_size": 5584,
+        "coverage": 0.929709785454,
+        "in_vocab_information_bits": 8.97748567796
+      },
+      {
+        "vocabulary_size": 5826,
+        "coverage": 0.932055729419,
+        "in_vocab_information_bits": 9.00017876785
+      },
+      {
+        "vocabulary_size": 6078,
+        "coverage": 0.934344792971,
+        "in_vocab_information_bits": 9.02245055658
+      },
+      {
+        "vocabulary_size": 6342,
+        "coverage": 0.936592583147,
+        "in_vocab_information_bits": 9.04444728476
+      },
+      {
+        "vocabulary_size": 6617,
+        "coverage": 0.938789888425,
+        "in_vocab_information_bits": 9.06607053707
+      },
+      {
+        "vocabulary_size": 6904,
+        "coverage": 0.940938592753,
+        "in_vocab_information_bits": 9.08734011832
+      },
+      {
+        "vocabulary_size": 7203,
+        "coverage": 0.943040302447,
+        "in_vocab_information_bits": 9.10826058033
+      },
+      {
+        "vocabulary_size": 7515,
+        "coverage": 0.945085389532,
+        "in_vocab_information_bits": 9.12875321625
+      },
+      {
+        "vocabulary_size": 7841,
+        "coverage": 0.947086486388,
+        "in_vocab_information_bits": 9.14892599636
+      },
+      {
+        "vocabulary_size": 8181,
+        "coverage": 0.949047916183,
+        "in_vocab_information_bits": 9.16880767517
+      },
+      {
+        "vocabulary_size": 8535,
+        "coverage": 0.950949699133,
+        "in_vocab_information_bits": 9.1882177571
+      },
+      {
+        "vocabulary_size": 8905,
+        "coverage": 0.952806262329,
+        "in_vocab_information_bits": 9.2072891051
+      },
+      {
+        "vocabulary_size": 9291,
+        "coverage": 0.954620297835,
+        "in_vocab_information_bits": 9.22603679391
+      },
+      {
+        "vocabulary_size": 9694,
+        "coverage": 0.956391572636,
+        "in_vocab_information_bits": 9.24445785242
+      },
+      {
+        "vocabulary_size": 10114,
+        "coverage": 0.958119288533,
+        "in_vocab_information_bits": 9.26253726808
+      },
+      {
+        "vocabulary_size": 10552,
+        "coverage": 0.959803554597,
+        "in_vocab_information_bits": 9.28027461694
+      },
+      {
+        "vocabulary_size": 11010,
+        "coverage": 0.961449353379,
+        "in_vocab_information_bits": 9.29771838415
+      },
+      {
+        "vocabulary_size": 11487,
+        "coverage": 0.963040537445,
+        "in_vocab_information_bits": 9.3147078622
+      },
+      {
+        "vocabulary_size": 11985,
+        "coverage": 0.96458977388,
+        "in_vocab_information_bits": 9.33136119817
+      },
+      {
+        "vocabulary_size": 12504,
+        "coverage": 0.966094796987,
+        "in_vocab_information_bits": 9.34764957177
+      },
+      {
+        "vocabulary_size": 13046,
+        "coverage": 0.967562141095,
+        "in_vocab_information_bits": 9.36363511512
+      },
+      {
+        "vocabulary_size": 13612,
+        "coverage": 0.968987894531,
+        "in_vocab_information_bits": 9.37927731799
+      },
+      {
+        "vocabulary_size": 14202,
+        "coverage": 0.970371140109,
+        "in_vocab_information_bits": 9.39455990561
+      },
+      {
+        "vocabulary_size": 14817,
+        "coverage": 0.971713851018,
+        "in_vocab_information_bits": 9.40949781346
+      },
+      {
+        "vocabulary_size": 15000,
+        "coverage": 0.972095221966,
+        "in_vocab_information_bits": 9.41376007099
+      },
+      {
+        "vocabulary_size": 15460,
+        "coverage": 0.973019492734,
+        "in_vocab_information_bits": 9.42412681044
+      },
+      {
+        "vocabulary_size": 16130,
+        "coverage": 0.97428712824,
+        "in_vocab_information_bits": 9.43842762842
+      },
+      {
+        "vocabulary_size": 16829,
+        "coverage": 0.975517481369,
+        "in_vocab_information_bits": 9.45240604347
+      },
+      {
+        "vocabulary_size": 17558,
+        "coverage": 0.976713536695,
+        "in_vocab_information_bits": 9.46608745178
+      },
+      {
+        "vocabulary_size": 18319,
+        "coverage": 0.977875006668,
+        "in_vocab_information_bits": 9.47946711301
+      },
+      {
+        "vocabulary_size": 19113,
+        "coverage": 0.978999848689,
+        "in_vocab_information_bits": 9.4925199787
+      },
+      {
+        "vocabulary_size": 19942,
+        "coverage": 0.980092182659,
+        "in_vocab_information_bits": 9.50528528913
+      },
+      {
+        "vocabulary_size": 20806,
+        "coverage": 0.981145613064,
+        "in_vocab_information_bits": 9.51769092822
+      },
+      {
+        "vocabulary_size": 21708,
+        "coverage": 0.982160952977,
+        "in_vocab_information_bits": 9.5297434318
+      },
+      {
+        "vocabulary_size": 22649,
+        "coverage": 0.983136789436,
+        "in_vocab_information_bits": 9.54142247599
+      },
+      {
+        "vocabulary_size": 23630,
+        "coverage": 0.984077847189,
+        "in_vocab_information_bits": 9.55277225722
+      },
+      {
+        "vocabulary_size": 24655,
+        "coverage": 0.984986267988,
+        "in_vocab_information_bits": 9.56381431977
+      },
+      {
+        "vocabulary_size": 25723,
+        "coverage": 0.985855611702,
+        "in_vocab_information_bits": 9.5744717656
+      },
+      {
+        "vocabulary_size": 26838,
+        "coverage": 0.986691331867,
+        "in_vocab_information_bits": 9.58480113774
+      },
+      {
+        "vocabulary_size": 28001,
+        "coverage": 0.987492600539,
+        "in_vocab_information_bits": 9.59478787104
+      },
+      {
+        "vocabulary_size": 29215,
+        "coverage": 0.988259963071,
+        "in_vocab_information_bits": 9.60443421221
+      },
+      {
+        "vocabulary_size": 30481,
+        "coverage": 0.988993751632,
+        "in_vocab_information_bits": 9.61373811263
+      },
+      {
+        "vocabulary_size": 31803,
+        "coverage": 0.989694590902,
+        "in_vocab_information_bits": 9.62270319865
+      },
+      {
+        "vocabulary_size": 33181,
+        "coverage": 0.990361647976,
+        "in_vocab_information_bits": 9.63131335714
+      },
+      {
+        "vocabulary_size": 34619,
+        "coverage": 0.990996038351,
+        "in_vocab_information_bits": 9.63957744845
+      },
+      {
+        "vocabulary_size": 36120,
+        "coverage": 0.991598490817,
+        "in_vocab_information_bits": 9.64749909655
+      },
+      {
+        "vocabulary_size": 37685,
+        "coverage": 0.992169357377,
+        "in_vocab_information_bits": 9.65507639162
+      },
+      {
+        "vocabulary_size": 39319,
+        "coverage": 0.992712123336,
+        "in_vocab_information_bits": 9.66234692867
+      },
+      {
+        "vocabulary_size": 41023,
+        "coverage": 0.993227165486,
+        "in_vocab_information_bits": 9.66930972936
+      },
+      {
+        "vocabulary_size": 42801,
+        "coverage": 0.993715396055,
+        "in_vocab_information_bits": 9.67597176443
+      },
+      {
+        "vocabulary_size": 44656,
+        "coverage": 0.994177038141,
+        "in_vocab_information_bits": 9.6823312222
+      },
+      {
+        "vocabulary_size": 46592,
+        "coverage": 0.99461292465,
+        "in_vocab_information_bits": 9.68839404576
+      },
+      {
+        "vocabulary_size": 48611,
+        "coverage": 0.995023447244,
+        "in_vocab_information_bits": 9.6941601123
+      },
+      {
+        "vocabulary_size": 50718,
+        "coverage": 0.99540974125,
+        "in_vocab_information_bits": 9.69963968289
+      },
+      {
+        "vocabulary_size": 52916,
+        "coverage": 0.995772550335,
+        "in_vocab_information_bits": 9.70483765195
+      },
+      {
+        "vocabulary_size": 55210,
+        "coverage": 0.996113941883,
+        "in_vocab_information_bits": 9.70977673635
+      },
+      {
+        "vocabulary_size": 57603,
+        "coverage": 0.996433489529,
+        "in_vocab_information_bits": 9.7144470129
+      },
+      {
+        "vocabulary_size": 60100,
+        "coverage": 0.996732115416,
+        "in_vocab_information_bits": 9.71885656584
+      },
+      {
+        "vocabulary_size": 62705,
+        "coverage": 0.997011847268,
+        "in_vocab_information_bits": 9.72302842408
+      },
+      {
+        "vocabulary_size": 65422,
+        "coverage": 0.997272724749,
+        "in_vocab_information_bits": 9.72695933584
+      },
+      {
+        "vocabulary_size": 68258,
+        "coverage": 0.997517276316,
+        "in_vocab_information_bits": 9.73068048378
+      },
+      {
+        "vocabulary_size": 71217,
+        "coverage": 0.997744966532,
+        "in_vocab_information_bits": 9.73418100406
+      },
+      {
+        "vocabulary_size": 74303,
+        "coverage": 0.997957019964,
+        "in_vocab_information_bits": 9.73747430589
+      },
+      {
+        "vocabulary_size": 77524,
+        "coverage": 0.998155151998,
+        "in_vocab_information_bits": 9.74058196064
+      },
+      {
+        "vocabulary_size": 80884,
+        "coverage": 0.998339025506,
+        "in_vocab_information_bits": 9.74349593903
+      },
+      {
+        "vocabulary_size": 84390,
+        "coverage": 0.998508952827,
+        "in_vocab_information_bits": 9.74621781353
+      },
+      {
+        "vocabulary_size": 88048,
+        "coverage": 0.998667115377,
+        "in_vocab_information_bits": 9.74877644131
+      },
+      {
+        "vocabulary_size": 91864,
+        "coverage": 0.998814742681,
+        "in_vocab_information_bits": 9.75118765788
+      },
+      {
+        "vocabulary_size": 95846,
+        "coverage": 0.998952935362,
+        "in_vocab_information_bits": 9.75346610533
+      },
+      {
+        "vocabulary_size": 100000,
+        "coverage": 0.999077365294,
+        "in_vocab_information_bits": 9.7555434779
+      },
+      {
+        "vocabulary_size": 160020,
+        "coverage": 1.0,
+        "in_vocab_information_bits": 9.77172891764
+      }
+    ]
+  }
+}
