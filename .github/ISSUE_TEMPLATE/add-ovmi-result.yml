@@ -1,0 +1,66 @@
+name: Add an OVMI result
+description: Propose a reproducible speech-decoder operating point for the public benchmark.
+title: "[Benchmark]: "
+labels: ["benchmark"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for proposing a result. OVMI standardises the communication target, not the experimental protocol. Please provide enough detail to reproduce the score and preserve the study setting.
+
+  - type: input
+    id: citation
+    attributes:
+      label: Paper citation
+      description: Include authors, year, title, and DOI or stable URL.
+      placeholder: "Author et al. (year), Title, DOI"
+    validations:
+      required: true
+
+  - type: textarea
+    id: setting
+    attributes:
+      label: Decoder and study setting
+      description: Describe the task, speech condition, recording modality, participants, and language-model use.
+    validations:
+      required: true
+
+  - type: textarea
+    id: vocabulary
+    attributes:
+      label: Decoder vocabulary
+      description: Attach the word list or give a stable source and exact reconstruction procedure. State the reported vocabulary size.
+    validations:
+      required: true
+
+  - type: textarea
+    id: metric
+    attributes:
+      label: Reported decoder metric
+      description: Provide accuracy, WER, per-word estimates, or a confusion matrix, including uncertainty and evaluation sample size when available.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reference
+    attributes:
+      label: Reference communication distribution
+      description: Name or attach the word-frequency distribution and describe why it matches the intended communication setting.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction details
+      description: Provide calculation code, data files, or exact steps sufficient to reproduce the proposed OVMI value.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: acknowledgement
+    attributes:
+      label: Scientific scope
+      options:
+        - label: I understand that inclusion does not imply a controlled comparison with other studies.
+          required: true
