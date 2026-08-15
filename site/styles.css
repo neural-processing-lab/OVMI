@@ -251,6 +251,21 @@ nav a {
   line-height: 1.65;
 }
 
+.interpretation-note {
+  max-width: 980px;
+}
+
+.interpretation-note h2 {
+  margin-bottom: 1rem;
+}
+
+.interpretation-note p:last-child {
+  max-width: 900px;
+  color: var(--muted);
+  font-size: 1.02rem;
+  line-height: 1.68;
+}
+
 .section-rule {
   border-top: 1px solid #cfd3cf;
 }
