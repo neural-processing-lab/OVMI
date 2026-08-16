@@ -8,7 +8,7 @@
   const state = {
     data: null,
     reference: "subtlex",
-    group: "all",
+    group: "attempted_invasive",
     sort: "ovmi-desc"
   };
 
@@ -119,19 +119,154 @@
     });
   }
 
+  function comparisonMetric(system) {
+    const [key] = state.sort.split("-");
+    const result = currentResult(system);
+    const entropy = state.data.references[state.reference].entropy_bits;
+    if (key === "percent") {
+      return {
+        label: "OVMI / H(p)",
+        value: result.ovmi_percent,
+        maximum: 100,
+        uncertainty: result.uncertainty && {
+          low: 100 * result.uncertainty.low_bits / entropy,
+          high: 100 * result.uncertainty.high_bits / entropy
+        }
+      };
+    }
+    if (key === "year") {
+      const years = state.data.systems.map((item) => item.year);
+      return {
+        label: "Publication year",
+        value: system.year,
+        minimum: Math.min(...years),
+        maximum: Math.max(...years)
+      };
+    }
+    if (key === "vocabulary") {
+      return {
+        label: "Vocabulary size",
+        value: system.vocabulary_size,
+        maximum: Math.max(...state.data.systems.map((item) => item.vocabulary_size))
+      };
+    }
+    return {
+      label: "OVMI bits",
+      value: result.ovmi_bits,
+      maximum: entropy,
+      uncertainty: result.uncertainty && {
+        low: result.uncertainty.low_bits,
+        high: result.uncertainty.high_bits
+      }
+    };
+  }
+
+  function comparisonBarHtml(system) {
+    const metric = comparisonMetric(system);
+    const range = metric.maximum - (metric.minimum || 0);
+    const position = range ? 100 * (metric.value - (metric.minimum || 0)) / range : 100;
+    const uncertainty = metric.uncertainty;
+    const interval = uncertainty
+      ? `<span class="score-interval" style="left:${Math.max(0, 100 * (uncertainty.low - (metric.minimum || 0)) / range)}%;width:${Math.max(1, 100 * (uncertainty.high - uncertainty.low) / range)}%"></span>`
+      : "";
+    const value = metric.label === "OVMI / H(p)"
+      ? `${formatNumber(metric.value, 1)}%`
+      : metric.label === "Vocabulary size"
+        ? formatVocabulary(metric.value)
+        : metric.label === "Publication year"
+          ? String(metric.value)
+          : `${formatNumber(metric.value)} bits`;
+    return `<div class="comparison-bar" aria-label="${escapeHtml(metric.label)}: ${escapeHtml(value)}">
+      <span class="comparison-track"><span class="comparison-fill" style="width:${Math.max(1, Math.min(100, position))}%"></span>${interval}</span>
+      <span class="comparison-value">${escapeHtml(value)}</span>
+    </div>`;
+  }
+
+  function pointMark(system, index, x, y, colour) {
+    const title = `${system.system}: ${formatNumber(currentResult(system).ovmi_percent, 1)}% of the selected reference`;
+    const mark = index % 4;
+    const base = `<title>${escapeHtml(title)}</title>`;
+    if (mark === 1) return `<rect x="${x - 4}" y="${y - 4}" width="8" height="8" fill="${colour}" stroke="#ffffff" stroke-width="1.4">${base}</rect>`;
+    if (mark === 2) return `<path d="M ${x} ${y - 5} L ${x + 5} ${y + 4} L ${x - 5} ${y + 4} Z" fill="${colour}" stroke="#ffffff" stroke-width="1.4">${base}</path>`;
+    if (mark === 3) return `<path d="M ${x} ${y - 5} L ${x + 5} ${y} L ${x} ${y + 5} L ${x - 5} ${y} Z" fill="${colour}" stroke="#ffffff" stroke-width="1.4">${base}</path>`;
+    return `<circle cx="${x}" cy="${y}" r="4.5" fill="${colour}" stroke="#ffffff" stroke-width="1.4">${base}</circle>`;
+  }
+
+  function plotLabel(system) {
+    const duplicateCount = state.data.systems.filter((item) => item.system === system.system).length;
+    return duplicateCount > 1 ? `${system.system} ${formatVocabulary(system.vocabulary_size)}` : system.system;
+  }
+
+  function nicePlotMaximum(value) {
+    const magnitude = 10 ** Math.floor(Math.log10(Math.max(value, 0.01)));
+    const normalised = value / magnitude;
+    const step = normalised <= 1 ? 1 : normalised <= 2 ? 2 : normalised <= 2.5 ? 2.5 : normalised <= 5 ? 5 : 10;
+    return step * magnitude;
+  }
+
+  function formatPlotTick(value) {
+    return `${Number(value.toFixed(value < 10 ? 2 : 0))}%`;
+  }
+
+  function renderBenchmarkScatter() {
+    const container = $("#benchmark-scatter");
+    const width = 1120;
+    const height = 282;
+    const panelWidth = 520;
+    const panelGap = 48;
+    const margin = { top: 38, right: 18, bottom: 38, left: 42 };
+    const years = state.data.systems.map((system) => system.year);
+    const minYear = Math.min(...years);
+    const maxYear = Math.max(...years);
+    const yearSpan = Math.max(1, maxYear - minYear);
+    const panels = [
+      { group: GROUPS[0], x: 0, colour: "#46515d" },
+      { group: GROUPS[1], x: panelWidth + panelGap, colour: "#176b66" }
+    ];
+    const x = (year, panelX) => panelX + margin.left + ((year - minYear) / yearSpan) * (panelWidth - margin.left - margin.right);
+    const parts = [`<svg viewBox="0 0 ${width} ${height}" role="img" aria-label="Published systems by year and normalised OVMI for invasive and non-invasive study groups"><title>Published systems by year and normalised OVMI</title>`];
+    panels.forEach((panel) => {
+      const panelSystems = state.data.systems.filter((system) => system.group === panel.group.key);
+      const yMaximum = nicePlotMaximum(Math.max(...panelSystems.map((system) => currentResult(system).ovmi_percent)));
+      const y = (value) => margin.top + (1 - value / yMaximum) * (height - margin.top - margin.bottom);
+      parts.push(`<text class="scatter-panel-title" x="${panel.x + margin.left}" y="18">${escapeHtml(panel.group.label)}</text>`);
+      [0, yMaximum / 2, yMaximum].forEach((tick) => {
+        const yPos = y(tick);
+        parts.push(`<line class="scatter-grid" x1="${panel.x + margin.left}" x2="${panel.x + panelWidth - margin.right}" y1="${yPos}" y2="${yPos}"/>`);
+        parts.push(`<text class="scatter-tick" x="${panel.x + margin.left - 8}" y="${yPos + 3}" text-anchor="end">${formatPlotTick(tick)}</text>`);
+      });
+      for (let year = minYear; year <= maxYear; year += 1) {
+        const xPos = x(year, panel.x);
+        parts.push(`<line class="scatter-axis" x1="${xPos}" x2="${xPos}" y1="${height - margin.bottom}" y2="${height - margin.bottom + 4}"/>`);
+        parts.push(`<text class="scatter-tick" x="${xPos}" y="${height - 14}" text-anchor="middle">${year}</text>`);
+      }
+      parts.push(`<line class="scatter-axis" x1="${panel.x + margin.left}" x2="${panel.x + margin.left}" y1="${margin.top}" y2="${height - margin.bottom}"/>`);
+      parts.push(`<line class="scatter-axis" x1="${panel.x + margin.left}" x2="${panel.x + panelWidth - margin.right}" y1="${height - margin.bottom}" y2="${height - margin.bottom}"/>`);
+      panelSystems.forEach((system, index) => {
+        const xPos = x(system.year, panel.x);
+        const yPos = y(currentResult(system).ovmi_percent);
+        parts.push(`<g class="scatter-point">${pointMark(system, index, xPos, yPos, panel.colour)}<text x="${xPos + 7}" y="${yPos - 7}">${escapeHtml(plotLabel(system))}</text></g>`);
+      });
+    });
+    parts.push(`<text class="scatter-axis-label" x="${width / 2}" y="${height - 1}" text-anchor="middle">Publication year</text>`);
+    parts.push("</svg>");
+    container.innerHTML = parts.join("");
+  }
+
   function renderLeaderboard() {
     const tbody = $("#leaderboard-body");
     tbody.textContent = "";
     const groups = state.group === "all"
       ? GROUPS
       : GROUPS.filter((group) => group.key === state.group);
+    $("#bar-metric-label").textContent = comparisonMetric(state.data.systems[0]).label;
 
     groups.forEach((group) => {
       const groupSystems = state.data.systems.filter((system) => system.group === group.key);
       const visible = sortSystems(groupSystems);
       const groupRow = document.createElement("tr");
       groupRow.className = "group-row";
-      groupRow.innerHTML = `<th colspan="9" scope="rowgroup">${escapeHtml(group.label)}</th>`;
+      groupRow.innerHTML = `<th colspan="10" scope="rowgroup">${escapeHtml(group.label)}</th>`;
       tbody.append(groupRow);
 
       visible.forEach((system) => {
@@ -147,6 +282,7 @@
           <td>${setting}<span class="cell-note">${escapeHtml(system.modality)}</span></td>
           <td>${formatVocabulary(system.vocabulary_size)}</td>
           <td>${metricHtml(system)}</td>
+          <td>${comparisonBarHtml(system)}</td>
           <td class="score-cell">${formatNumber(result.ovmi_bits)}</td>
           <td class="score-cell">${formatNumber(result.ovmi_percent, 1)}%</td>
           <td>${uncertaintyHtml(result)}</td>
@@ -172,6 +308,7 @@
 
   function renderAll() {
     renderReferenceState();
+    renderBenchmarkScatter();
     renderLeaderboard();
   }
 
@@ -182,9 +319,11 @@
         renderAll();
       });
     });
-    $("#group-filter").addEventListener("change", (event) => {
-      state.group = event.target.value;
-      renderLeaderboard();
+    $$('#group-filter input[name="group"]').forEach((input) => {
+      input.addEventListener("change", (event) => {
+        state.group = event.target.value;
+        renderLeaderboard();
+      });
     });
     $("#sort-select").addEventListener("change", (event) => {
       state.sort = event.target.value;

@@ -23,6 +23,7 @@
       <a class="wordmark" href="#top" aria-label="OVMI home">OVMI</a>
       <nav aria-label="Primary navigation">
         <a href="#leaderboard">Benchmark</a>
+        <a href="#interpretation">How to interpret OVMI</a>
         <a href="#why">Why OVMI?</a>
         <a href="#use-ovmi">Use OVMI</a>
       </nav>
@@ -90,14 +91,27 @@
       <p class="explanation">A vocabulary covers different amounts of language under different distributions. Select a reference to update the scores.</p>
       <p class="example-callout"><strong>Example.</strong> The 50-word Willett +LM system carries <span id="willett-broad">6.4%</span> of the lexical information in broad spoken English and <span id="willett-ucv">40.4%</span> under the AAC reference.</p>
 
+      <section class="benchmark-overview" aria-labelledby="benchmark-overview-title">
+        <div class="benchmark-overview-heading">
+          <div>
+            <p class="section-index">At a glance</p>
+            <h3 id="benchmark-overview-title">Published systems on the selected communication scale</h3>
+          </div>
+          <p>The vertical position is OVMI / H(p); the horizontal position is publication year. Each panel uses its own y-axis scale.</p>
+        </div>
+        <div class="scatter-legend" aria-label="Study group legend">
+          <span><i class="legend-swatch invasive-swatch"></i>Attempted speech / invasive</span>
+          <span><i class="legend-swatch noninvasive-swatch"></i>Perceived speech / non-invasive</span>
+        </div>
+        <div id="benchmark-scatter" class="benchmark-scatter" aria-live="polite"></div>
+      </section>
+
       <div class="table-controls">
-        <label for="group-filter">Show
-          <select id="group-filter">
-            <option value="all">Both study groups</option>
-            <option value="attempted_invasive">Attempted / invasive</option>
-            <option value="perceived_noninvasive">Perceived / non-invasive</option>
-          </select>
-        </label>
+        <fieldset class="group-toggle" id="group-filter">
+          <legend>Study group</legend>
+          <label><input type="radio" name="group" value="attempted_invasive" checked>Invasive</label>
+          <label><input type="radio" name="group" value="perceived_noninvasive">Non-invasive</label>
+        </fieldset>
         <label for="sort-select">Sort within groups
           <select id="sort-select">
             <option value="ovmi-desc">OVMI, high to low</option>
@@ -105,7 +119,6 @@
             <option value="year-desc">Year, newest first</option>
             <option value="year-asc">Year, oldest first</option>
             <option value="vocabulary-desc">Vocabulary size, high to low</option>
-            <option value="system-asc">System name</option>
           </select>
         </label>
       </div>
@@ -120,6 +133,7 @@
               <th scope="col">Setting / modality</th>
               <th scope="col">Vocabulary</th>
               <th scope="col">Reported metric</th>
+              <th scope="col">Comparison <span id="bar-metric-label" class="unit">OVMI bits</span></th>
               <th scope="col">OVMI <span class="unit">bits</span></th>
               <th scope="col">OVMI / H(p)</th>
               <th scope="col">Uncertainty</th>
@@ -127,7 +141,7 @@
             </tr>
           </thead>
           <tbody id="leaderboard-body">
-            <tr><td colspan="9" class="loading-cell">Loading benchmark data…</td></tr>
+            <tr><td colspan="10" class="loading-cell">Loading benchmark data…</td></tr>
           </tbody>
         </table>
       </div>
