@@ -65,6 +65,7 @@ ROW_SPECS = (
     HeatmapRow("willett_2023_v50", "system", "Willett 50 +LM"),
     HeatmapRow("moses_2021_v50", "system", "Moses +LM"),
     HeatmapRow("moses_2021_v50", "neural", "Moses isolated"),
+    HeatmapRow("tang_2023_v6867", "system", "Tang"),
     HeatmapRow(
         "dascoli_libribrain100_s0_v50", "neural",
         "LibriBrain",
@@ -97,7 +98,7 @@ def parse_args() -> argparse.Namespace:
 
 
 def point_variant(point: table.SystemPoint) -> str:
-    return "system" if point.display_name.endswith("(+LM)") else "neural"
+    return "system" if point.probability_source == "w" else "neural"
 
 
 def load_matrix(
@@ -181,7 +182,7 @@ def cell_annotation(data: HeatmapData, row: int, column: int) -> tuple[str, str]
     value = data.values[row, column]
     low = data.lows[row, column]
     high = data.highs[row, column]
-    if data.uncertainty_kinds[row] == "seed_sem":
+    if data.uncertainty_kinds[row] in {"seed_sem", "participant_sem"}:
         sem = max(value - low, high - value)
         return f"{value:.2f}", rf"$\pm${sem:.2f}"
     return f"{value:.1f}", f"[{low:.1f}, {high:.1f}]"
@@ -189,7 +190,7 @@ def cell_annotation(data: HeatmapData, row: int, column: int) -> tuple[str, str]
 
 def draw_figure(data: HeatmapData):
     configure_style()
-    figure, axis = plt.subplots(figsize=(8.0, 3.0))
+    figure, axis = plt.subplots(figsize=(8.0, 3.25))
     figure.subplots_adjust(left=0.185, right=0.880, bottom=0.105, top=0.765)
 
     normalisation = LogNorm(vmin=1.0, vmax=100.0)
@@ -261,12 +262,14 @@ def write_caption(path: Path, entropies: dict[str, float]) -> None:
         "Normalised OVMI across communication targets. Cell labels report "
         "OVMI/$H(p)$ as percentages; brackets give propagated 95\% intervals "
         "for invasive systems, while $\pm$ gives SEM across three training seeds "
-        "for LibriBrain and is not a confidence interval. Reference distributions "
+        "for LibriBrain or three participants for Tang; neither is a confidence "
+        "interval. Reference distributions "
         "are treated as fixed. Colour uses a logarithmic 1--100\% scale "
         "to retain contrast among the lower-scoring systems. The invasive rows "
         "show the selected LM-assisted operating points, with Moses isolated "
-        "retained as the corresponding neural-only result. LibriBrain is the "
-        "non-invasive d'Ascoli--LibriBrain method--dataset pair. Reference "
+        "retained as the corresponding neural-only result. The non-invasive rows "
+        "are Tang's participant-mean fMRI result and the d'Ascoli--LibriBrain "
+        "method--dataset pair. Reference "
         "entropies are: "
         f"{entropy_text}."
     )

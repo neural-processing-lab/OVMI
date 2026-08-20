@@ -30,6 +30,8 @@ from make_contour_figure import COLORS  # noqa: E402
 DEFAULT_SYSTEMS = PROJECT_ROOT / "data/systems.csv"
 DEFAULT_OUTPUT_BASE = PROJECT_ROOT / "figures/progress_over_time"
 DEFAULT_CAPTION_OUTPUT = PROJECT_ROOT / "figures/progress_over_time_caption.md"
+SPLIT_OUTPUT_BASE = PROJECT_ROOT / "figures/progress_over_time_split"
+SPLIT_CAPTION_OUTPUT = PROJECT_ROOT / "figures/progress_over_time_split_caption.md"
 CHECK_TOLERANCE = 1e-10
 
 
@@ -53,42 +55,46 @@ class ProgressPoint:
 
 POINT_SPECS = (
     (
-        "moses_2021_v50", "neural", "Moses isolated (V=50)", 2021,
+        "moses_2021_v50", "neural", "Moses isolated (50)", 2021,
         "^", COLORS["Moses et al."], -9.0, (-5.0, 9.0),
     ),
     (
-        "moses_2021_v50", "system", "Moses +LM (V=50)", 2021,
+        "moses_2021_v50", "system", "Moses +LM (50)", 2021,
         "v", COLORS["Moses et al."], 0.0, (5.0, 9.0),
     ),
     (
-        "willett_2023_v50", "neural", "Willett isolated (V=50)", 2023,
+        "willett_2023_v50", "neural", "Willett isolated (50)", 2023,
         "P", COLORS["Willett et al."], -8.0, (-13.0, 9.0),
     ),
     (
-        "willett_2023_v50", "system", "Willett +LM (V=50)", 2023,
+        "willett_2023_v50", "system", "Willett +LM (50)", 2023,
         "X", COLORS["Willett et al."], 8.0, (13.0, 9.0),
     ),
     (
-        "willett_2023_v125k", "system", "Willett +LM (V=125k)", 2023,
+        "willett_2023_v125k", "system", "Willett +LM (125k)", 2023,
         "h", COLORS["Willett et al."], 0.0, (0.0, 9.0),
     ),
     (
-        "card_2024_v125k", "system", "Card +LM (V=125k)", 2024,
+        "tang_2023_v6867", "system", "Tang +LM", 2023,
+        "p", COLORS["Tang et al."], 18.0, (2.0, 9.0),
+    ),
+    (
+        "card_2024_v125k", "system", "Card +LM (125k)", 2024,
         "*", COLORS["Card et al."], 0.0, (0.0, -15.0),
     ),
     (
         "dascoli_libribrain100_s0_v50", "neural",
-        "d'Ascoli 2025 - LibriBrain100 (V=50)", 2025,
+        "d'Ascoli–LibriBrain", 2025,
         "s", COLORS["LibriBrain100"], -8.0, (-10.0, 9.0),
     ),
     (
         "armeni_2022_v50", "neural",
-        "d'Ascoli 2025 - Armeni (V=50)", 2025,
+        "d'Ascoli–Armeni", 2023,
         "D", COLORS["Armeni et al."], 8.0, (11.0, 22.0),
     ),
     (
         "meg_masc_2023_v50", "neural",
-        "MEG-XL 2026 - MEG-MASC (V=50)", 2026,
+        "MEG-XL–MEG-MASC", 2023,
         "o", COLORS["MEG-MASC"], 0.0, (0.0, 9.0),
     ),
 )
@@ -100,6 +106,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--output-base", type=Path, default=DEFAULT_OUTPUT_BASE)
     parser.add_argument(
         "--caption-output", type=Path, default=DEFAULT_CAPTION_OUTPUT,
+    )
+    parser.add_argument(
+        "--split", action="store_true",
+        help="Emit the separate invasive/non-invasive two-panel version.",
     )
     return parser.parse_args()
 
@@ -167,10 +177,10 @@ def validate_points(points: list[ProgressPoint]) -> None:
     method_years = {point.point_id: point.year for point in points}
     if method_years["dascoli_libribrain100_s0_v50:neural"] != 2025:
         raise AssertionError("d'Ascoli must use the 2025 method year")
-    if method_years["armeni_2022_v50:neural"] != 2025:
-        raise AssertionError("d'Ascoli on Armeni must use the 2025 method year")
-    if method_years["meg_masc_2023_v50:neural"] != 2026:
-        raise AssertionError("MEG-XL must use the 2026 method year")
+    if method_years["armeni_2022_v50:neural"] != 2023:
+        raise AssertionError("Armeni must use the 2023 dataset year")
+    if method_years["meg_masc_2023_v50:neural"] != 2023:
+        raise AssertionError("MEG-MASC must use the 2023 dataset year")
 
 
 def configure_style() -> None:
@@ -189,12 +199,14 @@ def configure_style() -> None:
     })
 
 
-def system_handles(points: list[ProgressPoint]) -> list[Line2D]:
+def system_handles(
+    points: list[ProgressPoint], marker_scale: float = 1.0,
+) -> list[Line2D]:
     handles = []
     for point in points:
         handles.append(Line2D(
             [], [], marker=point.marker,
-            markersize=7.3 if point.marker != "*" else 8.5,
+            markersize=marker_scale * (7.3 if point.marker != "*" else 8.5),
             linestyle="none",
             markerfacecolor=point.color if point.invasive else "white",
             markeredgecolor=point.color, markeredgewidth=1.5,
@@ -316,18 +328,89 @@ def draw_figure(points: list[ProgressPoint]):
 
     system_legend = axis.legend(
         handles=system_handles(points), loc="upper left",
-        bbox_to_anchor=(1.035, 0.980), borderaxespad=0.0,
-        frameon=False, handletextpad=0.55, labelspacing=0.27,
-        fontsize=8.3,
+        bbox_to_anchor=(1.035, 0.875), borderaxespad=0.0,
+        frameon=False, handletextpad=0.45, labelspacing=0.22,
+        columnspacing=0.9, ncol=2, fontsize=7.2,
     )
     axis.add_artist(system_legend)
     axis.legend(
         handles=access_handles(), loc="upper left",
-        bbox_to_anchor=(1.035, 0.415), borderaxespad=0.0,
-        frameon=False, handletextpad=0.55, labelspacing=0.20,
-        ncol=1, fontsize=8.0,
+        bbox_to_anchor=(1.035, 1.0), borderaxespad=0.0,
+        frameon=False, handletextpad=0.45, labelspacing=0.15,
+        columnspacing=1.0, ncol=2, fontsize=7.2,
     )
     draw_low_ovmi_inset(figure, points)
+    return figure
+
+
+def _style_axis(axis, *, invasive: bool) -> None:
+    axis.set_xlim(2020.6 if invasive else 2022.6, 2024.4 if invasive else 2026.4)
+    axis.set_xticks((2021, 2022, 2023, 2024) if invasive else (2023, 2024, 2025, 2026))
+    if invasive:
+        axis.set_ylim(0.0, 102.0)
+        axis.set_yticks(np.arange(0, 101, 20))
+        axis.set_title("Invasive", loc="left", fontsize=11, fontweight="semibold")
+    else:
+        axis.set_ylim(0.0, 8.0)
+        axis.set_yticks(np.arange(0, 9, 2))
+        axis.set_title("Non-invasive", loc="left", fontsize=11, fontweight="semibold")
+    axis.set_xlabel("Study publication year")
+    axis.set_ylabel(r"OVMI / $H(p)$ (\%)")
+    axis.grid(axis="both", color="#D5D9DE", linewidth=0.65, alpha=0.72)
+    axis.set_axisbelow(True)
+    axis.spines["top"].set_visible(False)
+    axis.spines["right"].set_visible(False)
+    axis.tick_params(length=3.2, width=0.9, color="#4B5563")
+
+
+def draw_split_figure(points: list[ProgressPoint]):
+    """Draw invasive and non-invasive progress on independently scaled axes."""
+    configure_style()
+    figure, axes = plt.subplots(1, 2, figsize=(8.0, 3.25), sharex=False)
+    figure.subplots_adjust(left=0.075, right=0.985, bottom=0.44, top=0.87, wspace=0.28)
+
+    for axis, invasive in zip(axes, (True, False)):
+        panel_points = [point for point in points if point.invasive == invasive]
+        if invasive:
+            frontier = best_invasive_by_year(panel_points)
+            axis.plot(
+                [point.year for point in frontier],
+                [point.percentage for point in frontier],
+                color="#4B5563", linewidth=2.0, solid_capstyle="round",
+                solid_joinstyle="round", zorder=2,
+            )
+        for point in panel_points:
+            size = 110 if point.marker != "*" else 145
+            marker_transform = point_transform(axis, figure, point)
+            axis.scatter(
+                point.year, point.percentage, s=size, marker=point.marker,
+                facecolor=point.color if point.invasive else "white",
+                edgecolor=point.color, linewidth=1.9, zorder=4,
+                transform=marker_transform,
+            )
+            offset = point.label_offset_points
+            if not invasive:
+                offset = {
+                    "tang_2023_v6867": (-18.0, 8.0),
+                    "armeni_2022_v50": (18.0, -4.0),
+                    "meg_masc_2023_v50": (-10.0, 8.0),
+                }.get(point.system_id, offset)
+            vertical_alignment = "top" if point.percentage > 90 else "bottom"
+            axis.annotate(
+                f"{point.percentage:.1f}%", (point.year, point.percentage),
+                xycoords=marker_transform, xytext=offset,
+                textcoords="offset points", ha="center",
+                va=vertical_alignment, color=point.color, fontsize=8.0,
+                fontweight="semibold", zorder=5,
+            )
+        _style_axis(axis, invasive=invasive)
+        axis.legend(
+            handles=system_handles(panel_points, marker_scale=1.18), loc="upper center",
+            bbox_to_anchor=(0.5, -0.42), borderaxespad=0.0,
+            frameon=False, handlelength=1.1, handletextpad=0.9,
+            labelspacing=0.8, columnspacing=1.8, ncol=2, fontsize=7.5,
+        )
+
     return figure
 
 
@@ -348,10 +431,11 @@ def write_caption(path: Path, points: list[ProgressPoint]) -> None:
         "reference entropy; isolated and LM-assisted configurations are retained "
         "as separate points. Filled markers denote attempted/invasive systems; "
         "open markers denote perceived/non-invasive systems. Each non-invasive "
-        "point is a method--dataset pair: local $V=50$ evaluations of d'Ascoli's "
-        "method on LibriBrain100 subject 0 and Armeni, and MEG-XL on MEG-MASC. "
-        "They are positioned by method publication year (2025 and 2026), not "
-        "dataset year. "
+        "point is a method--dataset pair: Tang's 2023 participant-mean fMRI "
+        "semantic decoder result, local $V=50$ evaluations of d'Ascoli's method "
+        "on LibriBrain100 subject 0 and Armeni, and MEG-XL on MEG-MASC. The local "
+        "points are positioned by source dataset publication year: Armeni and "
+        "MEG-MASC in 2023, and LibriBrain100 in 2025. "
         "Small horizontal offsets only separate configurations sharing the same "
         "publication year. The solid line connects the highest invasive OVMI "
         "operating point reported in each year; it is a best-achieved frontier, "
@@ -366,6 +450,25 @@ def write_caption(path: Path, points: list[ProgressPoint]) -> None:
     print(f"Wrote caption to {path}")
 
 
+def write_split_caption(path: Path, points: list[ProgressPoint]) -> None:
+    entropy_value = points[0].reference_entropy_bits
+    caption = (
+        "Reported speech-decoder progress under a fixed SUBTLEX-UK "
+        f"communication target ($H(p)={entropy_value:.2f}$ bits), split into "
+        "invasive and non-invasive panels with independently scaled y-axes. "
+        "Each point is a reported operating point and gives OVMI normalised by "
+        "the full reference entropy; isolated and LM-assisted configurations are "
+        "retained as separate points. Filled markers denote attempted/invasive "
+        "systems; open markers denote perceived/non-invasive systems. The solid "
+        "line in the invasive panel connects the highest reported operating point "
+        "in each year. Non-invasive points are shown at their method publication "
+        "years. Uncertainty is omitted from the figure for clarity."
+    )
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(caption + "\n", encoding="utf-8")
+    print(f"Wrote caption to {path}")
+
+
 def report(points: list[ProgressPoint]) -> None:
     print("Progress points under SUBTLEX-UK:")
     for point in points:
@@ -374,7 +477,7 @@ def report(points: list[ProgressPoint]) -> None:
             f"OVMI/H(p)={point.percentage:.3f}%"
         )
     print("CHECK all points share one fixed SUBTLEX-UK reference entropy")
-    print("CHECK d'Ascoli and MEG-XL use method years 2025 and 2026")
+    print("CHECK non-invasive points use source dataset years")
 
 
 def main() -> None:
@@ -383,10 +486,24 @@ def main() -> None:
         args.systems,
     )
     report(points)
-    figure = draw_figure(points)
-    save_figure(figure, args.output_base)
+    if args.split:
+        output_base = args.output_base if args.output_base != DEFAULT_OUTPUT_BASE else SPLIT_OUTPUT_BASE
+        caption_output = (
+            args.caption_output
+            if args.caption_output != DEFAULT_CAPTION_OUTPUT
+            else SPLIT_CAPTION_OUTPUT
+        )
+        figure = draw_split_figure(points)
+    else:
+        output_base = args.output_base
+        caption_output = args.caption_output
+        figure = draw_figure(points)
+    save_figure(figure, output_base)
     plt.close(figure)
-    write_caption(args.caption_output, points)
+    if args.split:
+        write_split_caption(caption_output, points)
+    else:
+        write_caption(caption_output, points)
 
 
 if __name__ == "__main__":

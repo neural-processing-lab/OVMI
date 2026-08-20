@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import json
 import math
 import re
 import unicodedata
@@ -46,6 +47,7 @@ DEFAULT_FRONTIER_OUTPUT = PROJECT_ROOT / "data/noiseless_frequency_frontier.csv"
 DEFAULT_MEG_MASC_VOCABULARY_OUTPUT = (
     PROJECT_ROOT / "data/vocabularies/meg_masc_2023_v50.csv"
 )
+DEFAULT_TANG_VOCABULARY = PROJECT_ROOT / "data/vocabularies/tang_decoder_vocab.json"
 CMUDICT_URL = "https://raw.githubusercontent.com/cmusphinx/cmudict/master/cmudict.dict"
 ARMENI_TEXT_URL = "https://sherlock-holm.es/stories/plain-text/advs.txt"
 
@@ -64,6 +66,7 @@ can time think good always new people as on
 DASCOLI_BALANCED_ACCURACIES = (0.256, 0.256, 0.262)
 ARMENI_BALANCED_ACCURACIES = (0.211, 0.210, 0.202)
 MEG_MASC_TOP1_ACCURACIES = (0.093, 0.083, 0.080)
+TANG_WERS = (0.9407, 0.9354, 0.9243)
 MEG_MASC_STORY_SHA256 = {
     "cable_spool_fort.txt": "2ec7caadad9319ef11deb5717b8c770dcf1d5f828a468a46fc35ed88af8d7cd0",
     "easy_money.txt": "6e36ab3c8df67546cf10b9d0a0d354899dc64f1e2312c61b1eea8cb24a5aa5ad",
@@ -102,6 +105,13 @@ BRAIN2QWERTY_SOURCE = (
     "Zhang, Levy et al. (2026), Accurate Decoding of Natural Sentences from "
     "Non-Invasive Brain Recordings (Brain2Qwerty v2), abstract p. 1 and Discussion "
     "p. 10. https://facebookresearch.github.io/brain2qwerty/assets/brain2qwerty_v2.pdf"
+)
+TANG_SOURCE = (
+    "Tang et al. (2023), Nature Neuroscience 26:858-866, perceived-speech "
+    "test-story WERs S1 94.07%, S2 93.54%, and S3 92.43%. The participant "
+    "mean and SEM are computed locally. The decoder vocabulary contains the "
+    "6,867 words occurring at least twice in the encoding-model training data. "
+    "https://doi.org/10.1038/s41593-023-01304-9"
 )
 MOSES_SOURCE = (
     "Moses et al. (2021), NEJM 385:217-227, Results/Word Detection and Classification, "
@@ -155,6 +165,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--cmudict", type=Path, default=DEFAULT_CMUDICT)
     parser.add_argument("--armeni-text", type=Path, default=DEFAULT_ARMENI_TEXT)
     parser.add_argument(
+        "--tang-vocabulary", type=Path, default=DEFAULT_TANG_VOCABULARY,
+    )
+    parser.add_argument(
         "--meg-masc-texts", type=Path, nargs=4, default=DEFAULT_MEG_MASC_TEXTS,
         metavar=("CABLE", "EASY", "LW1", "WILLOW"),
         help="The four pre-tokenized MEG-MASC story text files.",
@@ -207,6 +220,16 @@ def cmudict_words(path: Path) -> list[str]:
             word = re.sub(r"\(\d+\)$", "", word)
             words.add(normalize_word(word))
     return sorted(words)
+
+
+def json_vocabulary(path: Path, expected_size: int) -> list[str]:
+    raw = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(raw, list):
+        raise ValueError(f"Vocabulary must be a JSON list: {path}")
+    words = [normalize_word(word) for word in raw]
+    if len(words) != expected_size or len(set(words)) != expected_size:
+        raise ValueError(f"{path} must contain {expected_size} unique words")
+    return words
 
 
 def top_words_from_plaintext(
@@ -507,6 +530,7 @@ def main() -> None:
     reference = normalized_reference(args.subtlex)
     REFERENCE_ENTROPY = entropy(np.asarray(list(reference.values()), dtype=np.float64))
     cmu_words = cmudict_words(args.cmudict)
+    tang_words = json_vocabulary(args.tang_vocabulary, 6_867)
     armeni_words, armeni_counts = top_words_from_plaintext(
         args.armeni_text, vocabulary_size=50,
     )
@@ -629,6 +653,48 @@ def main() -> None:
         ci_method="mean +/- SEM across three seed-level top-1 balanced accuracies; test-set sampling excluded",
         n_trials=None,
         source=f"{ARMENI_SOURCE}; {SUBTLEX_SOURCE}",
+    ))
+
+    tang_probabilities = tuple(1.0 - wer for wer in TANG_WERS)
+    tang_probability, tang_ci = seed_sem_interval(tang_probabilities)
+    rows.append(system_row(
+        reference,
+        tang_words,
+        system_id="tang_2023_v6867",
+        system_name="Tang et al.",
+        label="Tang 2023 (V=6,867)",
+        year=2023,
+        modality="fMRI",
+        invasiveness="non-invasive",
+        speech_condition="perceived",
+        task="continuous reconstruction of perceived stories",
+        vocabulary_kind=(
+            "published 6,867-word decoder vocabulary; words occurring at "
+            "least twice in the encoding-model training data"
+        ),
+        V=6867,
+        trajectory=False,
+        operating_point=True,
+        plot_eligible=True,
+        exclusion_reason="",
+        P_neural=None,
+        P_system=tang_probability,
+        P_system_is_lower_bound=True,
+        P_neural_ci=None,
+        P_system_ci=tang_ci,
+        uncertainty_neural="none",
+        uncertainty_system="participant_sem",
+        seed_values_neural=None,
+        n_seeds_neural=None,
+        n_system_sentences=None,
+        n_system_blocks=None,
+        n_system_sessions=None,
+        ci_method=(
+            "mean +/- SEM across three participant-level WERs; propagated "
+            "through the historical symmetric-channel estimate"
+        ),
+        n_trials=None,
+        source=f"{TANG_SOURCE}; {SUBTLEX_SOURCE}",
     ))
 
     rows.append({

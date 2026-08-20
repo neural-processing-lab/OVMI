@@ -233,6 +233,35 @@ in `data/systems_notes.md`.
   acquired separately and held out to control leakage. LibriBrain Appendix B,
   pp. 17–18. <!-- trace: dascoli_libribrain100_s0_v50:neural.split_discipline -->
 
+## Tang 2023 continuous decoder
+
+Paper: Tang et al., *Semantic reconstruction of continuous language from
+non-invasive brain recordings*, *Nature Neuroscience* 26, 858--866 (2023),
+[doi:10.1038/s41593-023-01304-9](https://doi.org/10.1038/s41593-023-01304-9).
+
+- **Recording modality:** BOLD fMRI. Figure 1a and Methods.
+  <!-- trace: tang_2023_v6867:system.recording_modality -->
+- **Speech type:** perceived narrative speech. Figure 1a--c.
+  <!-- trace: tang_2023_v6867:system.speech_type -->
+- **Participants:** the main decoding analyses use three healthy subjects.
+  Methods, “Subjects.” <!-- trace: tang_2023_v6867:system.participants -->
+- **Hours per participant:** each subject listened to 16 h of narrative stories
+  for training. Figure 1a. <!-- trace: tang_2023_v6867:system.hours_per_participant -->
+- **Task structure:** continuous language reconstruction from novel fMRI
+  recordings. Abstract and Figure 1b--c.
+  <!-- trace: tang_2023_v6867:system.task_structure -->
+- **Vocabulary provenance:** 6,867 unique words occurring at least twice in the
+  encoding-model training dataset. Methods, “Language model.”
+  <!-- trace: tang_2023_v6867:system.vocabulary_provenance -->
+- **Language model:** an autoregressive language model proposes candidate
+  continuations and the encoding model scores them during beam search. Figure
+  1b and Methods, “Language decoder.”
+  <!-- trace: tang_2023_v6867:system.language_model -->
+- **Calibration:** time to usable performance is not reported; hence `—`.
+  <!-- trace: tang_2023_v6867:system.calibration_burden -->
+- **Split discipline:** perceived-speech test stories were not used for model
+  training. Figure 1c. <!-- trace: tang_2023_v6867:system.split_discipline -->
+
 ## Armeni 2022 local row
 
 Paper: Armeni et al., *A 10-hour Within-participant Magnetoencephalography

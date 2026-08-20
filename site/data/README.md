@@ -7,14 +7,16 @@ python scripts/build_site_data.py
 ```
 
 The file is generated from `data/systems.csv`, the reference CSVs under
-`data/references/`, and the scoring and uncertainty pipeline in
+`data/references/`, the Tang decoder vocabulary at
+`data/vocabularies/tang_decoder_vocab.json`, and the scoring pipeline in
 `scripts/make_main_table.py`.
 
 ## Schema
 
 - `references`: reference label, description, entropy, and source.
 - `systems`: one row per reported decoder operating point. A single paper can
-  contribute separate isolated-decoder and language-model-assisted rows.
+  contribute separate isolated-decoder or language-model-assisted rows. Some
+  study-level rows aggregate participant results with an explicit SEM.
 - `systems[].decoder_method`: optional decoder provenance shown for rows using
   a named decoder from another study (for example MEG-XL or d’Ascoli et al.).
 - `systems[].metric`: the reported metric and the scalar `p_correct` used by the

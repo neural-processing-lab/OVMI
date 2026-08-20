@@ -28,6 +28,7 @@ COLORS = {
     "MEG-MASC": "#0072B2",
     "LibriBrain100": "#E69F00",
     "Armeni et al.": "#6F4C9B",
+    "Tang et al.": "#56B4E9",
     "Moses et al.": "#D55E00",
     "Willett et al.": "#009E73",
     "Card et al.": "#CC79A7",
@@ -36,17 +37,19 @@ STYLED_POINT_STYLES = {
     ("meg_masc_2023_v50", "neural"): ("o", "MEG-MASC 2023 (V=50)"),
     ("dascoli_libribrain100_s0_v50", "neural"): ("s", "LibriBrain100 2025 (V=50)"),
     ("armeni_2022_v50", "neural"): ("D", "Armeni 2022 (V=50)"),
-    ("moses_2021_v50", "neural"): ("^", "Moses isolated (V=50)"),
-    ("moses_2021_v50", "system"): ("v", "Moses +LM (V=50)"),
-    ("willett_2023_v50", "neural"): ("P", "Willett isolated (V=50)"),
-    ("willett_2023_v50", "system"): ("X", "Willett +LM (V=50)"),
-    ("willett_2023_v125k", "system"): ("h", "Willett +LM (V=125k)"),
-    ("card_2024_v125k", "system"): ("*", "Card +LM (V=125k)"),
+    ("tang_2023_v6867", "system"): ("p", "Tang 2023 +LM (V=6,867)"),
+    ("moses_2021_v50", "neural"): ("^", "Moses 2021 isolated (V=50)"),
+    ("moses_2021_v50", "system"): ("v", "Moses 2021 +LM (V=50)"),
+    ("willett_2023_v50", "neural"): ("P", "Willett 2023 isolated (V=50)"),
+    ("willett_2023_v50", "system"): ("X", "Willett 2023 +LM (V=50)"),
+    ("willett_2023_v125k", "system"): ("h", "Willett 2023 +LM (V=125k)"),
+    ("card_2024_v125k", "system"): ("*", "Card 2024 +LM (V=125k)"),
 }
 LABEL_OFFSETS = {
     ("meg_masc_2023_v50", "neural"): (7, -12),
     ("dascoli_libribrain100_s0_v50", "neural"): (7, 12),
     ("armeni_2022_v50", "neural"): (7, 2),
+    ("tang_2023_v6867", "system"): (7, 8),
     ("moses_2021_v50", "neural"): (8, -14),
     ("moses_2021_v50", "system"): (8, -12),
     ("willett_2023_v50", "neural"): (-9, 17),
@@ -377,14 +380,15 @@ def add_legend(
         system_legend = axis.legend(
             handles=styled_system_legend_handles(data, neural_only),
             loc="upper left", bbox_to_anchor=(1.025, 1.0),
-            borderaxespad=0.0, frameon=False, fontsize=8.8,
-            handletextpad=0.60, labelspacing=0.27,
+            borderaxespad=0.0, frameon=False, fontsize=7.7,
+            handletextpad=0.55, labelspacing=0.15,
         )
         axis.add_artist(system_legend)
         axis.legend(
             handles=encoding_handles, loc="lower left",
             bbox_to_anchor=(1.025, 0.0), borderaxespad=0.0,
-            frameon=False, handletextpad=0.7, labelspacing=0.50,
+            frameon=False, handletextpad=0.6, labelspacing=0.30,
+            fontsize=7.8,
         )
     else:
         axis.legend(

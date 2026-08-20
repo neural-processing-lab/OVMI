@@ -10,6 +10,7 @@ system against every lexical reference in ``data/references``.
 from __future__ import annotations
 
 import argparse
+import json
 import math
 import sys
 from dataclasses import dataclass
@@ -47,6 +48,7 @@ DEFAULT_ARMENI_TEXT = PROJECT_ROOT / "experiments/data/cache/armeni_advs.txt"
 DEFAULT_MEG_MASC_VOCABULARY = (
     PROJECT_ROOT / "data/vocabularies/meg_masc_2023_v50.csv"
 )
+DEFAULT_TANG_VOCABULARY = PROJECT_ROOT / "data/vocabularies/tang_decoder_vocab.json"
 DEFAULT_OUTPUT = PROJECT_ROOT / "tables/main_table.tex"
 DEFAULT_NO_SPECIALISATION_GAP_OUTPUT = (
     PROJECT_ROOT / "tables/main_table_no_specialisation_gap.tex"
@@ -117,6 +119,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--meg-masc-vocabulary", type=Path,
         default=DEFAULT_MEG_MASC_VOCABULARY,
+    )
+    parser.add_argument(
+        "--tang-vocabulary", type=Path, default=DEFAULT_TANG_VOCABULARY,
     )
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument(
@@ -218,6 +223,7 @@ def reconstruct_vocabularies(
     cmudict_path: Path,
     armeni_text_path: Path,
     meg_masc_vocabulary_path: Path = DEFAULT_MEG_MASC_VOCABULARY,
+    tang_vocabulary_path: Path = DEFAULT_TANG_VOCABULARY,
 ) -> dict[str, list[str]]:
     megxl_rows = systems.loc[systems["system_id"].str.startswith("megxl_")]
     megxl_words: list[str] = []
@@ -231,6 +237,7 @@ def reconstruct_vocabularies(
         armeni_text_path, vocabulary_size=50
     )
     cmu_words = cmudict_words(cmudict_path)
+    tang_words = json.loads(tang_vocabulary_path.read_text(encoding="utf-8"))
 
     vocabularies: dict[str, list[str]] = {}
     for _, row in systems.iterrows():
@@ -244,6 +251,8 @@ def reconstruct_vocabularies(
             vocabulary = list(DASCOLI_LIBRIBRAIN_WORDS)
         elif system_id == "armeni_2022_v50":
             vocabulary = armeni_words
+        elif system_id == "tang_2023_v6867":
+            vocabulary = tang_words
         elif system_id in {"moses_2021_v50", "willett_2023_v50"}:
             vocabulary = list(MOSES_WORDS)
         elif system_id in {"willett_2023_v125k", "card_2024_v125k"}:
@@ -282,6 +291,8 @@ def _display_name(system_id: str, base_name: str, variant: str) -> str:
         return "LibriBrain100 2025"
     if system_id == "armeni_2022_v50":
         return "Armeni 2022"
+    if system_id == "tang_2023_v6867":
+        return "Tang 2023"
     if variant == "neural":
         return f"{base_name.replace(' et al.', '')} (isolated)"
     return f"{base_name.replace(' et al.', '')} (+LM)"
@@ -454,7 +465,7 @@ def score_uncertainties(
 def home_turf(point: SystemPoint, reference_key: str) -> bool:
     caregiving = point.system_id in {"moses_2021_v50", "willett_2023_v50"}
     narrative = point.system_id.startswith(
-        ("meg_masc_", "megxl_", "dascoli_", "armeni_")
+        ("meg_masc_", "megxl_", "dascoli_", "armeni_", "tang_")
     )
     return (caregiving and reference_key in {"ucv", "individual"}) or (
         narrative and reference_key == "narrative"
@@ -465,7 +476,7 @@ def design_reference(point: SystemPoint) -> str | None:
     if point.system_id in {"moses_2021_v50", "willett_2023_v50"}:
         return "individual"
     if point.system_id.startswith(
-        ("meg_masc_", "megxl_", "dascoli_", "armeni_")
+        ("meg_masc_", "megxl_", "dascoli_", "armeni_", "tang_")
     ):
         return "narrative"
     return None
@@ -632,7 +643,7 @@ def format_cell(
     if uncertainty is None:
         bit_value = rf"${cell.score:.3f}^{{\ddagger}}$"
         uncertainty_value = None
-    elif uncertainty.kind == "seed_sem":
+    elif uncertainty.kind in {"seed_sem", "participant_sem"}:
         lower = max(0.0, cell.score - uncertainty.low.score)
         upper = max(0.0, uncertainty.high.score - cell.score)
         if f"{lower:.3f}" == f"{upper:.3f}":
@@ -714,7 +725,8 @@ def table_caption(
         r"score intervals for isolated-word accuracies and published sentence/trial "
         r"intervals for WER-derived rows. $\pm$ values are OVMI endpoints obtained "
         r"by mapping mean $P$ plus or minus one SEM across three "
-        r"training seeds for non-invasive systems; these are not confidence intervals "
+        r"training seeds for the MEG evaluations or three participants for Tang; "
+        r"these are not confidence intervals "
         r"and exclude test-set sampling. Per-word results within each seed were not "
         r"available for a nested bootstrap. Reference "
         r"distributions, hence $C(S)$ and $H(p_S)$, are treated as fixed. "
@@ -903,7 +915,7 @@ def main() -> None:
     references, entropies = load_references(args.references_dir)
     vocabularies = reconstruct_vocabularies(
         systems, references, args.predictions_dir, args.cmudict, args.armeni_text,
-        args.meg_masc_vocabulary,
+        args.meg_masc_vocabulary, args.tang_vocabulary,
     )
     points = expand_system_points(systems)
     scores = score_all(points, vocabularies, references, entropies)

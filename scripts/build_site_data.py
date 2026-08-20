@@ -79,6 +79,10 @@ PRIMARY_SOURCES = {
         "Armeni et al. (2022); local V=50 evaluation",
         "https://doi.org/10.1038/s41597-022-01382-7",
     ),
+    "tang_2023_v6867": (
+        "Tang et al. (2023)",
+        "https://doi.org/10.1038/s41593-023-01304-9",
+    ),
     "moses_2021_v50": (
         "Moses et al. (2021)",
         "https://doi.org/10.1056/NEJMoa2027540",
@@ -103,6 +107,7 @@ DECODER_METHODS = {
     "meg_masc_2023_v50": "MEG-XL",
     "dascoli_libribrain100_s0_v50": "d’Ascoli et al. (2025)",
     "armeni_2022_v50": "d’Ascoli et al. (2025)",
+    "tang_2023_v6867": "Tang et al. (2023) semantic decoder",
 }
 
 PROGRESS_YEAR_OVERRIDES = {
@@ -116,6 +121,7 @@ UNCERTAINTY_LABELS = {
     "bootstrap95": "Published 95% bootstrap interval",
     "published95": "Published 95% interval",
     "seed_sem": "Mean ± one SEM across seeds",
+    "participant_sem": "Mean ± one SEM across three participants",
     "none": "Not reported",
 }
 
@@ -142,13 +148,19 @@ def parse_args() -> argparse.Namespace:
 
 def metric_metadata(point: table.SystemPoint) -> dict[str, object]:
     if point.probability_source == "w":
-        return {
+        metadata = {
             "type": "wer",
             "label": "WER",
             "reported_value": 1.0 - point.probability,
             "p_correct": point.probability,
             "p_is_lower_bound": point.lower_bound,
         }
+        if point.uncertainty_kind == "participant_sem":
+            metadata["reported_sem"] = max(
+                point.probability - (point.probability_low or point.probability),
+                (point.probability_high or point.probability) - point.probability,
+            )
+        return metadata
     if point.probability_source == "b":
         metric_type = "balanced_top1_accuracy"
         label = "Balanced top-1 accuracy"
@@ -315,8 +327,10 @@ def validate_payload(payload: dict[str, object]) -> None:
     assert isinstance(references, dict) and isinstance(systems, list)
     if set(references) != set(table.MAIN_REFERENCE_KEYS):
         raise AssertionError("Site data does not contain the four main references")
-    if len(systems) != 9:
-        raise AssertionError(f"Expected nine leaderboard rows; got {len(systems)}")
+    if len(systems) != 10:
+        raise AssertionError(f"Expected ten benchmark rows; got {len(systems)}")
+    if "tang_2023_v6867-w" not in {system["id"] for system in systems}:
+        raise AssertionError("Tang participant-mean benchmark row is missing")
     for system in systems:
         if set(system["references"]) != set(table.MAIN_REFERENCE_KEYS):
             raise AssertionError(f"Missing reference score for {system['id']}")
@@ -338,7 +352,7 @@ def main() -> None:
         json.dumps(payload, indent=2, ensure_ascii=False) + "\n",
         encoding="utf-8",
     )
-    print(f"Wrote {len(payload['systems'])} leaderboard rows to {args.output}")
+    print(f"Wrote {len(payload['systems'])} benchmark rows to {args.output}")
 
 
 if __name__ == "__main__":

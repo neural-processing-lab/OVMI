@@ -278,6 +278,10 @@ def build_plotted_points(
     plotted: list[PlottedPoint] = []
     own_curve_errors = []
     for point in points:
+        # This figure only compares systems against its explicitly selected
+        # representative vocabulary-size curves.
+        if point.vocabulary_size not in curves:
+            continue
         row = systems.loc[systems["system_id"] == point.system_id].iloc[0]
         vocabulary = vocabularies[point.system_id]
         score = float(ovmi(reference, vocabulary, accuracy=point.probability))

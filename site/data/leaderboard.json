@@ -14,7 +14,7 @@
       "short_label": "SUBTLEX-UK",
       "description": "Broad spoken-English frequency norm derived from British film and television subtitles.",
       "source_url": "https://doi.org/10.1080/17470218.2013.850521",
-      "entropy_bits": 9.771728917642942
+      "entropy_bits": 9.77172891764294
     },
     "conversation": {
       "slug": "switchboard",
@@ -76,18 +76,18 @@
       },
       "references": {
         "subtlex": {
-          "coverage": 0.3970302802306034,
+          "coverage": 0.39703028023060344,
           "in_vocab_information_bits": 0.08374211358179728,
           "supported_vocab_entropy_bits": 4.921386920648197,
-          "ovmi_bits": 0.03324815482248399,
-          "ovmi_percent": 0.3402484361027879,
+          "ovmi_bits": 0.033248154822484,
+          "ovmi_percent": 0.340248436102788,
           "uncertainty": {
             "kind": "seed_sem",
             "label": "Mean ± one SEM across seeds",
-            "low_bits": 0.030058308996709172,
-            "high_bits": 0.03654126146186692,
-            "low_percent": 0.3076048184517136,
-            "high_percent": 0.37394878398531245
+            "low_bits": 0.030058308996709176,
+            "high_bits": 0.036541261461866925,
+            "low_percent": 0.3076048184517137,
+            "high_percent": 0.3739487839853126
           }
         },
         "conversation": {
@@ -106,33 +106,33 @@
           }
         },
         "ucv": {
-          "coverage": 0.7932028273219772,
+          "coverage": 0.7932028273219771,
           "in_vocab_information_bits": 0.07454069930395324,
           "supported_vocab_entropy_bits": 3.4073470898844196,
-          "ovmi_bits": 0.05912589343845305,
+          "ovmi_bits": 0.059125893438453044,
           "ovmi_percent": 1.3735433050215782,
           "uncertainty": {
             "kind": "seed_sem",
             "label": "Mean ± one SEM across seeds",
-            "low_bits": 0.0535673343387061,
-            "high_bits": 0.06484713178467025,
+            "low_bits": 0.053567334338706085,
+            "high_bits": 0.06484713178467023,
             "low_percent": 1.244413389294017,
-            "high_percent": 1.506452393914408
+            "high_percent": 1.5064523939144079
           }
         },
         "narrative": {
-          "coverage": 0.4211267605633803,
+          "coverage": 0.42112676056338016,
           "in_vocab_information_bits": 0.08200974874911537,
           "supported_vocab_entropy_bits": 4.64019968472487,
-          "ovmi_bits": 0.03453649982533168,
-          "ovmi_percent": 0.4090164686116243,
+          "ovmi_bits": 0.034536499825331676,
+          "ovmi_percent": 0.4090164686116242,
           "uncertainty": {
             "kind": "seed_sem",
             "label": "Mean ± one SEM across seeds",
-            "low_bits": 0.031234978005166513,
-            "high_bits": 0.03794306300714149,
-            "low_percent": 0.369916478665981,
-            "high_percent": 0.4493604655358362
+            "low_bits": 0.031234978005166503,
+            "high_bits": 0.037943063007141474,
+            "low_percent": 0.3699164786659809,
+            "high_percent": 0.44936046553583603
           }
         }
       }
@@ -170,33 +170,33 @@
       },
       "references": {
         "subtlex": {
-          "coverage": 0.38991301010173923,
+          "coverage": 0.38991301010173934,
           "in_vocab_information_bits": 0.6090155507668236,
           "supported_vocab_entropy_bits": 4.981781061477901,
-          "ovmi_bits": 0.23746308659826076,
-          "ovmi_percent": 2.430103092294334,
+          "ovmi_bits": 0.23746308659826082,
+          "ovmi_percent": 2.4301030922943347,
           "uncertainty": {
             "kind": "seed_sem",
             "label": "Mean ± one SEM across seeds",
-            "low_bits": 0.23455704082828316,
-            "high_bits": 0.2403788546953912,
-            "low_percent": 2.400363771909271,
-            "high_percent": 2.4599419071213187
+            "low_bits": 0.23455704082828324,
+            "high_bits": 0.24037885469539125,
+            "low_percent": 2.4003637719092725,
+            "high_percent": 2.4599419071213195
           }
         },
         "conversation": {
-          "coverage": 0.45378738399380286,
+          "coverage": 0.4537873839938029,
           "in_vocab_information_bits": 0.6059966662307588,
           "supported_vocab_entropy_bits": 4.892198957466022,
-          "ovmi_bits": 0.2749936418778217,
-          "ovmi_percent": 3.325884864798434,
+          "ovmi_bits": 0.27499364187782177,
+          "ovmi_percent": 3.325884864798435,
           "uncertainty": {
             "kind": "seed_sem",
             "label": "Mean ± one SEM across seeds",
             "low_bits": 0.271637622472943,
-            "high_bits": 0.278360694241465,
+            "high_bits": 0.27836069424146503,
             "low_percent": 3.285295802198888,
-            "high_percent": 3.3666073644851733
+            "high_percent": 3.366607364485174
           }
         },
         "ucv": {
@@ -215,16 +215,16 @@
           }
         },
         "narrative": {
-          "coverage": 0.3833802816901408,
+          "coverage": 0.3833802816901409,
           "in_vocab_information_bits": 0.5764728256241574,
           "supported_vocab_entropy_bits": 4.488051026892034,
-          "ovmi_bits": 0.22100831427450088,
+          "ovmi_bits": 0.2210083142745009,
           "ovmi_percent": 2.617405952992987,
           "uncertainty": {
             "kind": "seed_sem",
             "label": "Mean ± one SEM across seeds",
-            "low_bits": 0.21834203005978486,
-            "high_bits": 0.22368286976300278,
+            "low_bits": 0.2183420300597849,
+            "high_bits": 0.2236828697630028,
             "low_percent": 2.5858290949056433,
             "high_percent": 2.6490807679437047
           }
@@ -265,22 +265,22 @@
       },
       "references": {
         "subtlex": {
-          "coverage": 0.40759694855646805,
+          "coverage": 0.4075969485564681,
           "in_vocab_information_bits": 0.4307519788334879,
           "supported_vocab_entropy_bits": 4.9955278963642105,
-          "ovmi_bits": 0.17557319215719,
-          "ovmi_percent": 1.7967464471941201,
+          "ovmi_bits": 0.17557319215719003,
+          "ovmi_percent": 1.7967464471941204,
           "uncertainty": {
             "kind": "seed_sem",
             "label": "Mean ± one SEM across seeds",
-            "low_bits": 0.1716342545017515,
-            "high_bits": 0.17953675825618892,
-            "low_percent": 1.7564369207158859,
-            "high_percent": 1.8373080114004565
+            "low_bits": 0.17163425450175152,
+            "high_bits": 0.17953675825618895,
+            "low_percent": 1.7564369207158868,
+            "high_percent": 1.8373080114004574
           }
         },
         "conversation": {
-          "coverage": 0.4525722617980771,
+          "coverage": 0.45257226179807714,
           "in_vocab_information_bits": 0.42503724039228086,
           "supported_vocab_entropy_bits": 4.819422689495408,
           "ovmi_bits": 0.19236006523274757,
@@ -288,9 +288,9 @@
           "uncertainty": {
             "kind": "seed_sem",
             "label": "Mean ± one SEM across seeds",
-            "low_bits": 0.1880641508701625,
-            "high_bits": 0.19668215258964664,
-            "low_percent": 2.2745242716125786,
+            "low_bits": 0.18806415087016254,
+            "high_bits": 0.19668215258964666,
+            "low_percent": 2.274524271612579,
             "high_percent": 2.378753886842642
           }
         },
@@ -310,18 +310,113 @@
           }
         },
         "narrative": {
-          "coverage": 0.4484507042253521,
+          "coverage": 0.44845070422535216,
           "in_vocab_information_bits": 0.42246759163489767,
           "supported_vocab_entropy_bits": 4.817899451578329,
-          "ovmi_bits": 0.18945588898105833,
-          "ovmi_percent": 2.243729939646952,
+          "ovmi_bits": 0.18945588898105836,
+          "ovmi_percent": 2.2437299396469523,
           "uncertainty": {
             "kind": "seed_sem",
             "label": "Mean ± one SEM across seeds",
-            "low_bits": 0.18522486542110342,
-            "high_bits": 0.19371277363310824,
+            "low_bits": 0.18522486542110345,
+            "high_bits": 0.19371277363310827,
             "low_percent": 2.1936218417256907,
-            "high_percent": 2.2941443110069413
+            "high_percent": 2.2941443110069417
+          }
+        }
+      }
+    },
+    {
+      "id": "tang_2023_v6867-w",
+      "system_id": "tang_2023_v6867",
+      "variant": "language_model",
+      "system": "Tang 2023",
+      "year": 2023,
+      "progress_year": 2023,
+      "group": "perceived_noninvasive",
+      "setting": "perceived",
+      "modality": "fMRI",
+      "decoder_method": "Tang et al. (2023) semantic decoder",
+      "task": "continuous reconstruction of perceived stories",
+      "vocabulary_size": 6867,
+      "vocabulary_provenance": "published 6,867-word decoder vocabulary; words occurring at least twice in the encoding-model training data",
+      "metric": {
+        "type": "wer",
+        "label": "WER",
+        "reported_value": 0.9334666666667,
+        "p_correct": 0.0665333333333,
+        "p_is_lower_bound": true,
+        "reported_sem": 0.004831953826199997
+      },
+      "uncertainty_method": "mean +/- SEM across three participant-level WERs; propagated through the historical symmetric-channel estimate",
+      "source": {
+        "citation": "Tang et al. (2023)",
+        "primary_url": "https://doi.org/10.1038/s41593-023-01304-9",
+        "note": "Tang et al. (2023), Nature Neuroscience 26:858-866, perceived-speech test-story WERs S1 94.07%, S2 93.54%, and S3 92.43%. The participant mean and SEM are computed locally. The decoder vocabulary contains the 6,867 words occurring at least twice in the encoding-model training data. https://doi.org/10.1038/s41593-023-01304-9; SUBTLEX-UK: van Heuven et al. (2014), Quarterly Journal of Experimental Psychology 67:1176-1190, Spelling/FreqCount. https://doi.org/10.1080/17470218.2013.850521",
+        "urls": [
+          "https://doi.org/10.1038/s41593-023-01304-9",
+          "https://doi.org/10.1080/17470218.2013.850521"
+        ]
+      },
+      "references": {
+        "subtlex": {
+          "coverage": 0.8500723436752938,
+          "in_vocab_information_bits": 0.4195391316551902,
+          "supported_vocab_entropy_bits": 8.698114313518335,
+          "ovmi_bits": 0.3566386129096252,
+          "ovmi_percent": 3.649698184583396,
+          "uncertainty": {
+            "kind": "participant_sem",
+            "label": "Mean ± one SEM across three participants",
+            "low_bits": 0.3272022364920144,
+            "high_bits": 0.38629553566386504,
+            "low_percent": 3.3484579775974748,
+            "high_percent": 3.9531953753486255
+          }
+        },
+        "conversation": {
+          "coverage": 0.9363124079165108,
+          "in_vocab_information_bits": 0.40145698447506106,
+          "supported_vocab_entropy_bits": 7.866100922826417,
+          "ovmi_bits": 0.3758891558087457,
+          "ovmi_percent": 4.546156215137546,
+          "uncertainty": {
+            "kind": "participant_sem",
+            "label": "Mean ± one SEM across three participants",
+            "low_bits": 0.34521891080661826,
+            "high_bits": 0.40675566072060737,
+            "low_percent": 4.175217807414082,
+            "high_percent": 4.919468269971155
+          }
+        },
+        "ucv": {
+          "coverage": 0.9999999999999997,
+          "in_vocab_information_bits": 0.26589911931545096,
+          "supported_vocab_entropy_bits": 4.304625359993596,
+          "ovmi_bits": 0.26589911931545085,
+          "ovmi_percent": 6.17705600553927,
+          "uncertainty": {
+            "kind": "participant_sem",
+            "label": "Mean ± one SEM across three participants",
+            "low_bits": 0.245484673732168,
+            "high_bits": 0.2863472053500845,
+            "low_percent": 5.7028115852695995,
+            "high_percent": 6.652081921259472
+          }
+        },
+        "narrative": {
+          "coverage": 0.8605633802816933,
+          "in_vocab_information_bits": 0.40472569090257515,
+          "supported_vocab_entropy_bits": 7.795889573434875,
+          "ovmi_bits": 0.34829210864996385,
+          "ovmi_percent": 4.1248305139716415,
+          "uncertainty": {
+            "kind": "participant_sem",
+            "label": "Mean ± one SEM across three participants",
+            "low_bits": 0.31975335642091807,
+            "high_bits": 0.3770219201684879,
+            "low_percent": 3.7868454919126107,
+            "high_percent": 4.46507825507496
           }
         }
       }
@@ -359,48 +454,48 @@
       },
       "references": {
         "subtlex": {
-          "coverage": 0.1726709669640465,
+          "coverage": 0.17267096696404644,
           "in_vocab_information_bits": 1.3763346757045545,
           "supported_vocab_entropy_bits": 4.274131918964984,
-          "ovmi_bits": 0.23765303932005277,
+          "ovmi_bits": 0.2376530393200527,
           "ovmi_percent": 2.4320469931474267,
           "uncertainty": {
             "kind": "wilson95",
             "label": "95% Wilson interval",
-            "low_bits": 0.23017817354759082,
-            "high_bits": 0.24520915286451148,
-            "low_percent": 2.35555218004464,
-            "high_percent": 2.509373263740301
+            "low_bits": 0.23017817354759074,
+            "high_bits": 0.2452091528645114,
+            "low_percent": 2.3555521800446395,
+            "high_percent": 2.5093732637403003
           }
         },
         "conversation": {
-          "coverage": 0.26664337682458195,
+          "coverage": 0.266643376824582,
           "in_vocab_information_bits": 1.3132527848198539,
           "supported_vocab_entropy_bits": 3.987146865861631,
-          "ovmi_bits": 0.3501701571686519,
-          "ovmi_percent": 4.235100193148267,
+          "ovmi_bits": 0.350170157168652,
+          "ovmi_percent": 4.235100193148269,
           "uncertainty": {
             "kind": "wilson95",
             "label": "95% Wilson interval",
-            "low_bits": 0.3392996961330835,
-            "high_bits": 0.36115203508128285,
-            "low_percent": 4.103628419529438,
-            "high_percent": 4.367919487759126
+            "low_bits": 0.33929969613308353,
+            "high_bits": 0.36115203508128296,
+            "low_percent": 4.103628419529439,
+            "high_percent": 4.367919487759128
           }
         },
         "ucv": {
-          "coverage": 0.6416228613518024,
+          "coverage": 0.6416228613518022,
           "in_vocab_information_bits": 1.1089033492068188,
           "supported_vocab_entropy_bits": 3.1228905020252213,
-          "ovmi_bits": 0.711497739880676,
-          "ovmi_percent": 16.5286797427996,
+          "ovmi_bits": 0.7114977398806758,
+          "ovmi_percent": 16.528679742799596,
           "uncertainty": {
             "kind": "wilson95",
             "label": "95% Wilson interval",
-            "low_bits": 0.6902293826880065,
-            "high_bits": 0.7329477729622031,
+            "low_bits": 0.6902293826880064,
+            "high_bits": 0.732947772962203,
             "low_percent": 16.034598251055076,
-            "high_percent": 17.02698171539122
+            "high_percent": 17.026981715391216
           }
         },
         "narrative": {
@@ -453,48 +548,48 @@
       },
       "references": {
         "subtlex": {
-          "coverage": 0.1726709669640465,
+          "coverage": 0.17267096696404644,
           "in_vocab_information_bits": 2.6590195274553814,
           "supported_vocab_entropy_bits": 4.274131918964984,
-          "ovmi_bits": 0.4591354729820027,
-          "ovmi_percent": 4.698610418398218,
+          "ovmi_bits": 0.4591354729820025,
+          "ovmi_percent": 4.698610418398217,
           "uncertainty": {
             "kind": "published95",
             "label": "Published 95% interval",
-            "low_bits": 0.36018606912598333,
-            "high_bits": 0.538780038281833,
-            "low_percent": 3.686001445206531,
-            "high_percent": 5.513661326697887
+            "low_bits": 0.3601860691259832,
+            "high_bits": 0.5387800382818329,
+            "low_percent": 3.6860014452065304,
+            "high_percent": 5.5136613266978864
           }
         },
         "conversation": {
-          "coverage": 0.26664337682458195,
+          "coverage": 0.266643376824582,
           "in_vocab_information_bits": 2.5108579386049685,
           "supported_vocab_entropy_bits": 3.987146865861631,
-          "ovmi_bits": 0.6695036394764377,
-          "ovmi_percent": 8.09724910822287,
+          "ovmi_bits": 0.6695036394764378,
+          "ovmi_percent": 8.097249108222872,
           "uncertainty": {
             "kind": "published95",
             "label": "Published 95% interval",
-            "low_bits": 0.5274732980265526,
-            "high_bits": 0.7830803119883994,
-            "low_percent": 6.379476436299784,
-            "high_percent": 9.47089154417974
+            "low_bits": 0.5274732980265527,
+            "high_bits": 0.7830803119883997,
+            "low_percent": 6.379476436299785,
+            "high_percent": 9.470891544179743
           }
         },
         "ucv": {
-          "coverage": 0.6416228613518024,
+          "coverage": 0.6416228613518022,
           "in_vocab_information_bits": 2.058371971655725,
           "supported_vocab_entropy_bits": 3.1228905020252213,
-          "ovmi_bits": 1.3206985141800973,
-          "ovmi_percent": 30.680916542805992,
+          "ovmi_bits": 1.320698514180097,
+          "ovmi_percent": 30.680916542805985,
           "uncertainty": {
             "kind": "published95",
             "label": "Published 95% interval",
-            "low_bits": 1.053495861115886,
-            "high_bits": 1.5293240968494706,
-            "low_percent": 24.47357837239181,
-            "high_percent": 35.527461020481134
+            "low_bits": 1.0534958611158858,
+            "high_bits": 1.5293240968494703,
+            "low_percent": 24.473578372391806,
+            "high_percent": 35.52746102048113
           }
         },
         "narrative": {
@@ -547,48 +642,48 @@
       },
       "references": {
         "subtlex": {
-          "coverage": 0.1726709669640465,
+          "coverage": 0.17267096696404644,
           "in_vocab_information_bits": 3.799108473575814,
           "supported_vocab_entropy_bits": 4.274131918964984,
-          "ovmi_bits": 0.6559957337336385,
-          "ovmi_percent": 6.713200286893269,
+          "ovmi_bits": 0.6559957337336383,
+          "ovmi_percent": 6.713200286893267,
           "uncertainty": {
             "kind": "wilson95",
             "label": "95% Wilson interval",
-            "low_bits": 0.6371467089620539,
-            "high_bits": 0.6715819441714003,
+            "low_bits": 0.6371467089620538,
+            "high_bits": 0.6715819441714,
             "low_percent": 6.520306839577589,
             "high_percent": 6.872703385772943
           }
         },
         "conversation": {
-          "coverage": 0.26664337682458195,
+          "coverage": 0.266643376824582,
           "in_vocab_information_bits": 3.5584077963987775,
           "supported_vocab_entropy_bits": 3.987146865861631,
-          "ovmi_bits": 0.9488258709506895,
-          "ovmi_percent": 11.475485694778882,
+          "ovmi_bits": 0.9488258709506897,
+          "ovmi_percent": 11.475485694778886,
           "uncertainty": {
             "kind": "wilson95",
             "label": "95% Wilson interval",
-            "low_bits": 0.9223096159964073,
-            "high_bits": 0.9707016965084415,
-            "low_percent": 11.15478733091356,
-            "high_percent": 11.740060819609672
+            "low_bits": 0.9223096159964074,
+            "high_bits": 0.9707016965084417,
+            "low_percent": 11.154787330913562,
+            "high_percent": 11.740060819609676
           }
         },
         "ucv": {
-          "coverage": 0.6416228613518024,
+          "coverage": 0.6416228613518022,
           "in_vocab_information_bits": 2.8396715892575197,
           "supported_vocab_entropy_bits": 3.1228905020252213,
-          "ovmi_bits": 1.82199821039883,
-          "ovmi_percent": 42.3265222412187,
+          "ovmi_bits": 1.8219982103988295,
+          "ovmi_percent": 42.32652224121868,
           "uncertainty": {
             "kind": "wilson95",
             "label": "95% Wilson interval",
-            "low_bits": 1.7764997658664725,
-            "high_bits": 1.858977758268659,
-            "low_percent": 41.26955582190584,
-            "high_percent": 43.185587659861405
+            "low_bits": 1.7764997658664723,
+            "high_bits": 1.8589777582686589,
+            "low_percent": 41.26955582190583,
+            "high_percent": 43.1855876598614
           }
         },
         "narrative": {
@@ -641,47 +736,47 @@
       },
       "references": {
         "subtlex": {
-          "coverage": 0.1726709669640465,
+          "coverage": 0.17267096696404644,
           "in_vocab_information_bits": 3.5968154321888655,
           "supported_vocab_entropy_bits": 4.274131918964984,
-          "ovmi_bits": 0.6210655986672562,
-          "ovmi_percent": 6.355739131750951,
+          "ovmi_bits": 0.621065598667256,
+          "ovmi_percent": 6.35573913175095,
           "uncertainty": {
             "kind": "bootstrap95",
             "label": "Published 95% bootstrap interval",
-            "low_bits": 0.598551037672823,
-            "high_bits": 0.6421924386585984,
-            "low_percent": 6.125334039835406,
+            "low_bits": 0.5985510376728228,
+            "high_bits": 0.6421924386585982,
+            "low_percent": 6.125334039835405,
             "high_percent": 6.571942837046106
           }
         },
         "conversation": {
-          "coverage": 0.26664337682458195,
+          "coverage": 0.266643376824582,
           "in_vocab_information_bits": 3.373945755644007,
           "supported_vocab_entropy_bits": 3.987146865861631,
-          "ovmi_bits": 0.8996402895078838,
-          "ovmi_percent": 10.880615283339994,
+          "ovmi_bits": 0.899640289507884,
+          "ovmi_percent": 10.880615283339997,
           "uncertainty": {
             "kind": "bootstrap95",
             "label": "Published 95% bootstrap interval",
-            "low_bits": 0.8678365428424004,
-            "high_bits": 0.9294138734983027,
-            "low_percent": 10.495967845834475,
-            "high_percent": 11.24070910837663
+            "low_bits": 0.8678365428424005,
+            "high_bits": 0.929413873498303,
+            "low_percent": 10.495967845834477,
+            "high_percent": 11.240709108376631
           }
         },
         "ucv": {
-          "coverage": 0.6416228613518024,
+          "coverage": 0.6416228613518022,
           "in_vocab_information_bits": 2.7073739400885946,
           "supported_vocab_entropy_bits": 3.1228905020252213,
-          "ovmi_bits": 1.7371130141889473,
-          "ovmi_percent": 40.35456907198845,
+          "ovmi_bits": 1.7371130141889468,
+          "ovmi_percent": 40.35456907198844,
           "uncertainty": {
             "kind": "bootstrap95",
             "label": "Published 95% bootstrap interval",
-            "low_bits": 1.6812146421319354,
-            "high_bits": 1.788754487915832,
-            "low_percent": 39.056003752541116,
+            "low_bits": 1.6812146421319352,
+            "high_bits": 1.7887544879158317,
+            "low_percent": 39.05600375254111,
             "high_percent": 41.5542431297318
           }
         },
@@ -736,63 +831,63 @@
       },
       "references": {
         "subtlex": {
-          "coverage": 0.9787793273981641,
-          "in_vocab_information_bits": 7.1904941479291775,
-          "supported_vocab_entropy_bits": 9.636415368868349,
-          "ovmi_bits": 7.037907025770555,
-          "ovmi_percent": 72.0231505098709,
+          "coverage": 0.9787793273980901,
+          "in_vocab_information_bits": 7.190494147929174,
+          "supported_vocab_entropy_bits": 9.636415368868345,
+          "ovmi_bits": 7.0379070257700205,
+          "ovmi_percent": 72.02315050986545,
           "uncertainty": {
             "kind": "bootstrap95",
             "label": "Published 95% bootstrap interval",
-            "low_bits": 6.834573486321834,
-            "high_bits": 7.2321080807753955,
-            "low_percent": 69.9423156733498,
-            "high_percent": 74.01052712092495
+            "low_bits": 6.834573486321314,
+            "high_bits": 7.2321080807748475,
+            "low_percent": 69.94231567334448,
+            "high_percent": 74.01052712091935
           }
         },
         "conversation": {
-          "coverage": 0.9974330543615292,
-          "in_vocab_information_bits": 6.242832528773606,
+          "coverage": 0.9974330543615172,
+          "in_vocab_information_bits": 6.242832528773608,
           "supported_vocab_entropy_bits": 8.248812292220205,
-          "ovmi_bits": 6.226807517042167,
-          "ovmi_percent": 75.30954074256324,
+          "ovmi_bits": 6.226807517042094,
+          "ovmi_percent": 75.30954074256235,
           "uncertainty": {
             "kind": "bootstrap95",
             "label": "Published 95% bootstrap interval",
-            "low_bits": 6.05156763313682,
-            "high_bits": 6.393829988532316,
-            "low_percent": 73.19011836752237,
-            "high_percent": 77.32957839222323
+            "low_bits": 6.051567633136742,
+            "high_bits": 6.393829988532243,
+            "low_percent": 73.19011836752145,
+            "high_percent": 77.32957839222234
           }
         },
         "ucv": {
-          "coverage": 1.0,
+          "coverage": 0.9999999999999998,
           "in_vocab_information_bits": 3.2792127327121126,
           "supported_vocab_entropy_bits": 4.304625359993596,
-          "ovmi_bits": 3.2792127327121126,
-          "ovmi_percent": 76.1788183285012,
+          "ovmi_bits": 3.2792127327121117,
+          "ovmi_percent": 76.17881832850118,
           "uncertainty": {
             "kind": "bootstrap95",
             "label": "Published 95% bootstrap interval",
-            "low_bits": 3.1887468176839544,
-            "high_bits": 3.365371935345145,
-            "low_percent": 74.07722045499212,
-            "high_percent": 78.1803677184616
+            "low_bits": 3.18874681768395,
+            "high_bits": 3.3653719353451432,
+            "low_percent": 74.07722045499202,
+            "high_percent": 78.18036771846155
           }
         },
         "narrative": {
-          "coverage": 0.9887323943661972,
-          "in_vocab_information_bits": 6.383124447219428,
+          "coverage": 0.9887323943662053,
+          "in_vocab_information_bits": 6.383124447219426,
           "supported_vocab_entropy_bits": 8.401414579158082,
-          "ovmi_bits": 6.311201918236674,
-          "ovmi_percent": 74.74369245138993,
+          "ovmi_bits": 6.3112019182367245,
+          "ovmi_percent": 74.74369245139054,
           "uncertainty": {
             "kind": "bootstrap95",
             "label": "Published 95% bootstrap interval",
-            "low_bits": 6.135489440074382,
-            "high_bits": 6.478584228950149,
-            "low_percent": 72.6627260050964,
-            "high_percent": 76.7260045554632
+            "low_bits": 6.135489440074434,
+            "high_bits": 6.478584228950202,
+            "low_percent": 72.66272600509703,
+            "high_percent": 76.72600455546382
           }
         }
       }
@@ -831,63 +926,63 @@
       },
       "references": {
         "subtlex": {
-          "coverage": 0.9787793273981641,
+          "coverage": 0.9787793273980901,
           "in_vocab_information_bits": 9.354130309126539,
-          "supported_vocab_entropy_bits": 9.636415368868349,
-          "ovmi_bits": 9.155629372361656,
-          "ovmi_percent": 93.6950814899407,
+          "supported_vocab_entropy_bits": 9.636415368868345,
+          "ovmi_bits": 9.155629372360963,
+          "ovmi_percent": 93.69508148993364,
           "uncertainty": {
             "kind": "bootstrap95",
             "label": "Published 95% bootstrap interval",
-            "low_bits": 9.092805651502282,
-            "high_bits": 9.208473222626903,
-            "low_percent": 93.05216843546633,
-            "high_percent": 94.2358645050102
+            "low_bits": 9.09280565150159,
+            "high_bits": 9.208473222626207,
+            "low_percent": 93.05216843545928,
+            "high_percent": 94.2358645050031
           }
         },
         "conversation": {
-          "coverage": 0.9974330543615292,
-          "in_vocab_information_bits": 8.035206755413446,
+          "coverage": 0.9974330543615172,
+          "in_vocab_information_bits": 8.035206755413448,
           "supported_vocab_entropy_bits": 8.248812292220205,
-          "ovmi_bits": 8.014580816478427,
-          "ovmi_percent": 96.93159759334512,
+          "ovmi_bits": 8.014580816478333,
+          "ovmi_percent": 96.931597593344,
           "uncertainty": {
             "kind": "bootstrap95",
             "label": "Published 95% bootstrap interval",
-            "low_bits": 7.963767964677864,
-            "high_bits": 8.056978523271871,
-            "low_percent": 96.31704631286198,
-            "high_percent": 97.44437269012037
+            "low_bits": 7.963767964677768,
+            "high_bits": 8.056978523271772,
+            "low_percent": 96.31704631286082,
+            "high_percent": 97.44437269011918
           }
         },
         "ucv": {
-          "coverage": 1.0,
+          "coverage": 0.9999999999999998,
           "in_vocab_information_bits": 4.196888916064659,
           "supported_vocab_entropy_bits": 4.304625359993596,
-          "ovmi_bits": 4.196888916064659,
-          "ovmi_percent": 97.49719348563478,
+          "ovmi_bits": 4.196888916064658,
+          "ovmi_percent": 97.49719348563477,
           "uncertainty": {
             "kind": "bootstrap95",
             "label": "Published 95% bootstrap interval",
             "low_bits": 4.1710349174141585,
-            "high_bits": 4.218434376133223,
+            "high_bits": 4.218434376133222,
             "low_percent": 96.89658375799661,
-            "high_percent": 97.99771230589734
+            "high_percent": 97.99771230589732
           }
         },
         "narrative": {
-          "coverage": 0.9887323943661972,
-          "in_vocab_information_bits": 8.188614888625025,
+          "coverage": 0.9887323943662053,
+          "in_vocab_information_bits": 8.188614888625022,
           "supported_vocab_entropy_bits": 8.401414579158082,
-          "ovmi_bits": 8.096348805372912,
-          "ovmi_percent": 95.88522327884071,
+          "ovmi_bits": 8.096348805372976,
+          "ovmi_percent": 95.88522327884147,
           "uncertainty": {
             "kind": "bootstrap95",
             "label": "Published 95% bootstrap interval",
-            "low_bits": 8.045938633521159,
-            "high_bits": 8.138371761977886,
-            "low_percent": 95.2882145901436,
-            "high_percent": 96.38290200708806
+            "low_bits": 8.045938633521223,
+            "high_bits": 8.138371761977952,
+            "low_percent": 95.28821459014436,
+            "high_percent": 96.38290200708884
           }
         }
       }

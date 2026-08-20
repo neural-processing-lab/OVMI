@@ -75,8 +75,11 @@
     const metric = system.metric;
     if (metric.type === "wer") {
       const bridge = metric.p_is_lower_bound ? "P ≥" : "P =";
+      const sem = metric.reported_sem
+        ? `<span class="cell-note">± ${formatPercent(metric.reported_sem, 2)} SEM across participants</span>`
+        : "";
       return `${formatPercent(metric.reported_value)} WER` +
-        `<span class="cell-note metric-lower-bound">${bridge} ${formatPercent(metric.p_correct)} conservative lower bound</span>`;
+        sem + `<span class="cell-note metric-lower-bound">${bridge} ${formatPercent(metric.p_correct)} conservative lower bound</span>`;
     }
     return `${formatPercent(metric.reported_value)}<span class="cell-note">${escapeHtml(metric.label)}</span>`;
   }
@@ -84,12 +87,12 @@
   function uncertaintyHtml(result) {
     const uncertainty = result.uncertainty;
     if (!uncertainty) return '<span class="cell-note">Not reported</span>';
-    if (uncertainty.kind === "seed_sem") {
+    if (uncertainty.kind === "seed_sem" || uncertainty.kind === "participant_sem") {
       const delta = Math.max(
         result.ovmi_bits - uncertainty.low_bits,
         uncertainty.high_bits - result.ovmi_bits
       );
-      return `± ${formatNumber(delta)} bits<span class="cell-note">one SEM across seeds</span>`;
+      return `± ${formatNumber(delta)} bits<span class="cell-note">${escapeHtml(uncertainty.label)}</span>`;
     }
     return `${formatNumber(uncertainty.low_bits)}–${formatNumber(uncertainty.high_bits)}<span class="cell-note">${escapeHtml(uncertainty.label)}</span>`;
   }

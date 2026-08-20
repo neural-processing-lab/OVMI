@@ -39,7 +39,7 @@ def format_vocab(value: float) -> str:
 
 
 def latex_label(label: str) -> str:
-    without_vocab = re.sub(r" \(V=[^)]+\)$", "", label)
+    without_vocab = re.sub(r" \((?:V=)?[\d,]+k?\)$", "", label)
     return without_vocab.replace(" - ", "--")
 
 
