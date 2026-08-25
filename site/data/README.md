@@ -1,6 +1,6 @@
-# Benchmark data
+# Explorer data
 
-`leaderboard.json` is the generated benchmark data file, produced by:
+`leaderboard.json` is the generated comparison data file, produced by:
 
 ```bash
 python scripts/build_site_data.py

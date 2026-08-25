@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>OVMI — Measuring progress in speech brain–computer interfaces</title>
+  <title>OVMI — A Common Measure of Communication for Speech Brain–Computer Interfaces</title>
   <meta name="description" content="OVMI measures lexical information transfer from speech brain–computer interfaces relative to an explicit reference communication distribution.">
   <meta name="theme-color" content="#f7f7f4">
   <link rel="canonical" href="https://neural-processing-lab.github.io/OVMI/">
   <link rel="icon" href="./assets/favicon.svg?v=2" type="image/svg+xml">
   <link rel="stylesheet" href="./styles.css">
-  <meta property="og:title" content="Measuring Progress in Speech Brain–Computer Interfaces">
-  <meta property="og:description" content="A live, reference-aware benchmark of published speech-BCI systems evaluated with open-vocabulary mutual information.">
+  <meta property="og:title" content="A Common Measure of Communication for Speech Brain–Computer Interfaces">
+  <meta property="og:description" content="An interactive comparison of published speech-BCI systems under different reference communication distributions.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://neural-processing-lab.github.io/OVMI/">
   <meta name="twitter:card" content="summary">
@@ -22,7 +22,7 @@
     <div class="site-shell header-inner">
       <a class="wordmark" href="#top" aria-label="OVMI home">OVMI</a>
       <nav aria-label="Primary navigation">
-        <a href="#leaderboard">Benchmark</a>
+        <a href="#leaderboard">Explorer</a>
         <a href="#interpretation">How to interpret OVMI</a>
         <a href="#why">Why OVMI?</a>
         <a href="#use-ovmi">Use OVMI</a>
@@ -33,9 +33,9 @@
   <main id="main-content">
     <section class="hero site-shell" id="top" aria-labelledby="hero-title">
       <header class="paper-masthead">
-        <p class="eyebrow">Research paper · live benchmark</p>
-        <h1 id="hero-title">Measuring Progress in<br>Speech Brain–Computer Interfaces</h1>
-        <p class="paper-subtitle">OVMI: A common scale for comparing how much speech BCIs can communicate.</p>
+        <p class="eyebrow">Research paper · interactive explorer</p>
+        <h1 id="hero-title">A Common Measure of Communication for<br>Speech Brain–Computer Interfaces</h1>
+        <p class="paper-subtitle">An interactive comparison of published speech-BCI systems under different reference communication distributions.</p>
         <p class="paper-authors" aria-label="Authors">
           <span>Dulhan Jayalath</span>
           <span>Benjamin Ballyk</span>
@@ -57,7 +57,7 @@
           </a>
           <a class="button" href="#leaderboard">
             <svg class="button-icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M3.5 16.5h13M5.5 14V9.5h2V14zM9 14V5.5h2V14zM12.5 14V7.5h2V14z"/></svg>
-            <span>Benchmark</span>
+            <span>Explorer</span>
           </a>
         </div>
       </header>
@@ -68,8 +68,8 @@
       <p class="benchmark-intro">Speech-BCI studies use different vocabularies, datasets, and communication domains, making reported scores hard to compare. Open-Vocabulary Mutual Information (OVMI) evaluates each system against an explicit, common reference communication distribution, so otherwise heterogeneous systems can be placed on the same communication scale. Choose a communication target below to compare published systems.</p>
       <div class="section-heading split-heading">
         <div>
-          <p class="section-index">01 / Benchmark</p>
-          <h2 id="leaderboard-title">OVMI Benchmark</h2>
+          <p class="section-index">01 / Explorer</p>
+          <h2 id="leaderboard-title">OVMI Explorer</h2>
         </div>
       </div>
 
@@ -123,7 +123,7 @@
         </label>
       </div>
 
-      <div class="table-scroll" tabindex="0" aria-label="Scrollable benchmark">
+      <div class="table-scroll" tabindex="0" aria-label="Scrollable system comparison">
         <table class="leaderboard-table">
           <caption>Speech-BCI operating points evaluated using the selected communication reference.</caption>
           <thead>
@@ -141,11 +141,11 @@
             </tr>
           </thead>
           <tbody id="leaderboard-body">
-            <tr><td colspan="10" class="loading-cell">Loading benchmark data…</td></tr>
+            <tr><td colspan="10" class="loading-cell">Loading comparison data…</td></tr>
           </tbody>
         </table>
       </div>
-      <noscript><p class="error-note">JavaScript is required for reference switching and sorting. The generated data remain available in <a href="./data/leaderboard.json">the benchmark data file</a>.</p></noscript>
+      <noscript><p class="error-note">JavaScript is required for reference switching and sorting. The generated data remain available in <a href="./data/leaderboard.json">the comparison data file</a>.</p></noscript>
 
       <div class="leaderboard-notes">
         <aside id="methodology">
@@ -162,7 +162,7 @@
 
     <section class="section section-rule site-shell interpretation-note" id="interpretation" aria-labelledby="interpretation-title">
       <p class="section-index">02 / Interpretation</p>
-      <h2 id="interpretation-title">How to interpret the benchmark</h2>
+      <h2 id="interpretation-title">How to interpret the comparison</h2>
       <p>OVMI puts systems on a common communication scale, but it does not make their underlying experiments equivalent. Studies differ in task, speech type, participants, recording modality, data quantity, and language-model use. A higher OVMI therefore means that a reported system conveys more lexical information relative to the selected reference distribution; it does not mean that its task or recording paradigm is more useful, practical, or clinically relevant. For example, strong performance on perceived speech may reflect good lexical decoding without corresponding to a practical communication interface.</p>
     </section>
 
@@ -217,7 +217,7 @@ print(score)</code></pre>
           <p>The repository does not yet contain the final arXiv identifier. Replace <code>PLACEHOLDER</code> when it is assigned.</p>
         </div>
         <pre><code>@article{jayalath2026ovmi,
-  title={On the Problem of Measuring Progress in Speech Brain--Computer Interfaces},
+  title={A Common Measure of Communication for Speech Brain--Computer Interfaces},
   author={Jayalath, Dulhan and Ballyk, Benjamin and Parker Jones, Oiwi},
   journal={arXiv preprint arXiv:PLACEHOLDER},
   year={2026}
@@ -237,7 +237,7 @@ print(score)</code></pre>
 
   <footer class="site-footer">
     <div class="site-shell footer-inner">
-      <p><strong>Measuring Progress in Speech Brain–Computer Interfaces</strong><br>Dulhan Jayalath, Benjamin Ballyk, and Oiwi Parker Jones</p>
+      <p><strong>A Common Measure of Communication for Speech Brain–Computer Interfaces</strong><br>Dulhan Jayalath, Benjamin Ballyk, and Oiwi Parker Jones</p>
       <p><a data-config-link="repository" href="https://github.com/neural-processing-lab/OVMI">Source and data</a> · MIT License</p>
     </div>
   </footer>

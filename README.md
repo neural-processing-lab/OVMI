@@ -1,13 +1,13 @@
 # OVMI
 
-**Website / benchmark:** <https://neural-processing-lab.github.io/OVMI/>
+**Website / explorer:** <https://neural-processing-lab.github.io/OVMI/>
 
 [![arXiv](https://img.shields.io/badge/arXiv-PLACEHOLDER-b31b1b.svg)](https://arxiv.org/abs/PLACEHOLDER)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-`ovmi` is a lightweight python package that computes **open-vocabulary mutual information (OVMI)**, a benchmarking metric for speech brain-computer interfaces (BCIs). OVMI is a simple measure of the mutual information between a user's intent and the output of a speech BCI under an assumed reference distribution. Most users should start with the library defaults.
+`ovmi` is a lightweight python package that computes **open-vocabulary mutual information (OVMI)**, a comparison metric for speech brain-computer interfaces (BCIs). OVMI is a simple measure of the mutual information between a user's intent and the output of a speech BCI under an assumed reference distribution. Most users should start with the library defaults.
 
-**Paper:** ["On the Problem of Measuring Progress in Speech Brain-Computer Interfaces"](https://arxiv.org/abs/PLACEHOLDER) 
+**Paper:** ["A Common Measure of Communication for Speech Brain-Computer Interfaces"](https://arxiv.org/abs/PLACEHOLDER)
 
 ![OVMI Overview](assets/teaser.png)
 
@@ -22,7 +22,7 @@ This matters because evaluation data cover different distributions and a tiny vo
 If you find this work helpful in your research, please cite the paper:
 ```bibtex
 @article{jayalath2026ovmi,
-  title={On the Problem of Measuring Progress in Speech Brain--Computer Interfaces},
+  title={A Common Measure of Communication for Speech Brain--Computer Interfaces},
   author={Jayalath, Dulhan and Ballyk, Benjamin and Parker Jones, Oiwi},
   journal={arXiv preprint arXiv:PLACEHOLDER},
   year={2026}
@@ -71,7 +71,7 @@ Follow the notebook at `experiments/ovmi_paper.ipynb`
 
 The reference distribution says how often each word is expected to be intended
 by the user in the setting you care about.
-Choose a reference that matches the use case. For a general English benchmark,
+Choose a reference that matches the use case. For general English use,
 a broad corpus frequency norm is a reasonable default. For a communication aid,
 clinical task, experiment, or domain-specific interface, use word counts from
 that actual setting when you have them. The values can be raw counts or

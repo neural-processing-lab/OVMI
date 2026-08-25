@@ -1,7 +1,6 @@
 name: Add an OVMI result
-description: Propose a reproducible speech-decoder operating point for the public benchmark.
-title: "[Benchmark]: "
-labels: ["benchmark"]
+description: Propose a reproducible speech-decoder operating point for the OVMI Explorer.
+title: "[Result]: "
 body:
   - type: markdown
     attributes:

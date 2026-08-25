@@ -344,7 +344,7 @@
       renderAll();
     } catch (error) {
       const tbody = $("#leaderboard-body");
-      tbody.innerHTML = `<tr><td colspan="10" class="loading-cell">Could not load benchmark data. Preview the site through a local web server rather than opening index.html directly. (${escapeHtml(error.message)})</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="10" class="loading-cell">Could not load comparison data. Preview the site through a local web server rather than opening index.html directly. (${escapeHtml(error.message)})</td></tr>`;
       console.error("Failed to load OVMI site data", error);
     }
   }
