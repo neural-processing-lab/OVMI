@@ -57,6 +57,7 @@ class HeatmapData:
     highs: np.ndarray
     uncertainty_kinds: tuple[str, ...]
     entropies: dict[str, float]
+    reference_sizes: dict[str, int]
 
 
 ROW_SPECS = (
@@ -68,7 +69,7 @@ ROW_SPECS = (
     HeatmapRow("tang_2023_v6867", "system", "Tang"),
     HeatmapRow(
         "dascoli_libribrain100_s0_v50", "neural",
-        "LibriBrain",
+        "LibriBrain100",
     ),
 )
 
@@ -112,6 +113,9 @@ def load_matrix(
     systems = pd.read_csv(systems_path)
     systems = systems.loc[systems["plot_eligible"].astype(bool)].copy()
     references, entropies = table.load_references(references_dir)
+    reference_sizes = {
+        key: len(references[key]) for key in REFERENCE_KEYS
+    }
     vocabularies = table.reconstruct_vocabularies(
         systems, references, predictions_dir, cmudict_path, armeni_text_path,
         meg_masc_vocabulary_path,
@@ -162,6 +166,7 @@ def load_matrix(
         highs=highs,
         uncertainty_kinds=tuple(uncertainty_kinds),
         entropies=entropies,
+        reference_sizes=reference_sizes,
     )
 
 
@@ -207,6 +212,12 @@ def draw_figure(data: HeatmapData):
     axis.tick_params(axis="x", which="major", length=0, pad=9)
     for label in axis.get_xticklabels():
         label.set_linespacing(1.30)
+    for column_index, reference_key in enumerate(REFERENCE_KEYS):
+        axis.text(
+            column_index, -0.055, f"V={data.reference_sizes[reference_key]:,}",
+            transform=axis.get_xaxis_transform(), ha="center", va="top",
+            fontsize=9.0, color="#374151",
+        )
     axis.tick_params(axis="y", which="major", length=0, pad=8, labelsize=10.0)
 
     axis.set_xticks(np.arange(-0.5, len(REFERENCE_LABELS), 1), minor=True)
@@ -253,22 +264,24 @@ def save_figure(figure, output_base: Path) -> None:
         print(f"Saved {output}")
 
 
-def write_caption(path: Path, entropies: dict[str, float]) -> None:
+def write_caption(
+    path: Path, entropies: dict[str, float], reference_sizes: dict[str, int],
+) -> None:
     entropy_text = ", ".join(
-        f"{label} {entropies[key]:.2f} bits"
+        f"{label} (V={reference_sizes[key]:,}), {entropies[key]:.2f} bits"
         for key, label in zip(REFERENCE_KEYS, REFERENCE_CAPTION_LABELS)
     )
     caption = (
         "Normalised OVMI across communication targets. Cell labels report "
         "OVMI/$H(p)$ as percentages; brackets give propagated 95\% intervals "
         "for invasive systems, while $\pm$ gives SEM across three training seeds "
-        "for LibriBrain or three participants for Tang; neither is a confidence "
+        "for LibriBrain100 or three participants for Tang; neither is a confidence "
         "interval. Reference distributions "
         "are treated as fixed. Colour uses a logarithmic 1--100\% scale "
         "to retain contrast among the lower-scoring systems. The invasive rows "
         "show the selected LM-assisted operating points, with Moses isolated "
         "retained as the corresponding neural-only result. The non-invasive rows "
-        "are Tang's participant-mean fMRI result and the d'Ascoli--LibriBrain "
+        "are Tang's participant-mean fMRI result and the d'Ascoli--LibriBrain100 "
         "method--dataset pair. Reference "
         "entropies are: "
         f"{entropy_text}."
@@ -299,7 +312,7 @@ def main() -> None:
     figure = draw_figure(data)
     save_figure(figure, args.output_base)
     plt.close(figure)
-    write_caption(args.caption_output, data.entropies)
+    write_caption(args.caption_output, data.entropies, data.reference_sizes)
 
 
 if __name__ == "__main__":

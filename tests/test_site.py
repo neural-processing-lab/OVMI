@@ -200,7 +200,7 @@ class StaticSiteTests(unittest.TestCase):
             "A Common Measure of Communication for Speech Brain--Computer Interfaces",
             self.html,
         )
-        self.assertIn("arXiv preprint arXiv:PLACEHOLDER", self.html)
+        self.assertIn("arXiv preprint arXiv:2609.02887", self.html)
 
     def test_pages_workflow_and_submission_template_exist(self):
         workflow = (

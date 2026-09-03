@@ -117,7 +117,7 @@ class ProgressOverTimeFigureTests(unittest.TestCase):
         latex = progress_table.render_table(rows)
         self.assertEqual(len(rows), 10)
         self.assertIn("Tang +LM & 6,867", latex)
-        self.assertIn("d'Ascoli–LibriBrain & 50", latex)
+        self.assertIn("d'Ascoli–LibriBrain100 & 50", latex)
         self.assertIn("MEG-XL–MEG-MASC & 50", latex)
         self.assertIn(r"$\geq 74.4\%$", latex)
         self.assertIn("0.033 & 0.3\\%", latex)

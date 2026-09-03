@@ -31,6 +31,7 @@ class ReferenceHeatmapTests(unittest.TestCase):
         self.assertTrue(np.all(self.data.values <= self.data.highs))
 
     def test_uncertainty_kinds_are_not_pooled(self):
+        self.assertEqual(heatmap.ROW_SPECS[-1].label, "LibriBrain100")
         self.assertEqual(
             self.data.uncertainty_kinds,
             (

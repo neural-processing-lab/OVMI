@@ -23,6 +23,7 @@ DEFAULT_FRONTIER_INPUT = PROJECT_ROOT / "data/noiseless_frequency_frontier.csv"
 DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "figures"
 CONTOUR_LEVELS = (0.01, 0.1, 1.0, 3.0, 10.0)
 REFERENCE_STEMS = {"subtlex-uk": "subtlex"}
+ISO_CONTOUR_COLOR = "#51406F"
 
 COLORS = {
     "MEG-MASC": "#0072B2",
@@ -214,36 +215,38 @@ def draw_contours(axis, x_limits, y_limits, scale: str) -> None:
     for index, level in enumerate(CONTOUR_LEVELS):
         y = level / x
         visible = (y >= y_limits[0]) & (y <= y_limits[1])
-        axis.plot(x[visible], y[visible], color="#A7ADB3", linewidth=1.25, zorder=0)
+        # Keep iso-OVMI guides subordinate to the grid and data marks.
+        axis.plot(
+            x[visible], y[visible], color=ISO_CONTOUR_COLOR, linewidth=0.85,
+            alpha=0.62, zorder=-3,
+        )
         if not np.any(visible):
             continue
         visible_indices = np.flatnonzero(visible)
         if scale == "log":
-            # Fixed anchors keep contour labels out of the dense system clusters.
-            target_x = {
-                0.01: 0.13,
-                0.1: 0.65,
-                1.0: 0.38,
-                3.0: 0.35,
-                10.0: 0.84,
-            }[level]
-            label_index = visible_indices[
-                np.argmin(np.abs(x[visible_indices] - target_x))
-            ]
+            # Put every label at the right-hand end of its contour, where it
+            # reads as a family of parallel guides rather than point labels.
+            if level == 10.0 and scale == "log":
+                target_x = min(x_limits[1] * 0.82, float(x[visible_indices[-1]]))
+                label_index = visible_indices[
+                    np.argmin(np.abs(x[visible_indices] - target_x))
+                ]
+            else:
+                label_index = visible_indices[-1]
         elif level in {0.01, 0.1}:
             label_fraction = {0.01: 0.82, 0.1: 0.72}[level]
         else:
             label_fraction = 0.55 if level == 10 else 0.25 + 0.11 * (index % 3)
         if scale != "log":
             label_index = visible_indices[int(label_fraction * (len(visible_indices) - 1))]
-        rotation = -31 if scale == "log" and level < 10 else 0
-        vertical_alignment = "top" if scale == "log" and level >= 3 else "bottom"
+        rotation = 0
+        vertical_alignment = "top" if scale == "log" and level >= 10 else "bottom"
         axis.text(
             x[label_index], y[label_index], f"{level:g} bit" + ("s" if level != 1 else ""),
-            color="#626A73", fontsize=9.0, fontweight="semibold", rotation=rotation,
-            ha="center", va=vertical_alignment, clip_on=True,
-            bbox={"facecolor": "white", "edgecolor": "none", "alpha": 0.72, "pad": 0.35},
-            zorder=1,
+            color=ISO_CONTOUR_COLOR, fontsize=8.5, fontweight="semibold", rotation=rotation,
+            ha="right", va=vertical_alignment, clip_on=True,
+            bbox={"facecolor": "white", "edgecolor": "none", "alpha": 1.0, "pad": 0.35},
+            zorder=6,
         )
 
 
@@ -371,9 +374,9 @@ def add_legend(
     axis, data: pd.DataFrame, neural_only: bool, styled: bool = False,
 ) -> None:
     encoding_handles = [
-        Line2D([], [], marker="o", markersize=7.5, linestyle="none", markerfacecolor="white", markeredgecolor="#374151", markeredgewidth=1.4, label="Perceived / non-invasive"),
-        Line2D([], [], marker="o", markersize=7.5, linestyle="none", markerfacecolor="#6B7280", markeredgecolor="#374151", markeredgewidth=1.4, label="Attempted / invasive"),
-        Line2D([], [], color="#A7ADB3", linewidth=1.25, label=r"Iso-OVMI (slope $-1$)"),
+        Line2D([], [], marker="o", markersize=7.5, linestyle="none", markerfacecolor="white", markeredgecolor="#374151", markeredgewidth=1.4, label="Open markers: non-invasive"),
+        Line2D([], [], marker="s", markersize=7.0, linestyle="none", markerfacecolor="#374151", markeredgecolor="#374151", markeredgewidth=1.4, label="Filled markers: invasive"),
+        Line2D([], [], color=ISO_CONTOUR_COLOR, alpha=0.72, linewidth=0.85, label=r"Iso-OVMI (slope $-1$)"),
         Line2D([], [], color="#6B7280", linestyle=(0, (3.0, 2.3)), linewidth=1.15, label="Noiseless frequency-\nselected decoder"),
     ]
     if styled:
@@ -381,13 +384,13 @@ def add_legend(
             handles=styled_system_legend_handles(data, neural_only),
             loc="upper left", bbox_to_anchor=(1.025, 1.0),
             borderaxespad=0.0, frameon=False, fontsize=7.7,
-            handletextpad=0.55, labelspacing=0.15,
+            handletextpad=0.55, labelspacing=0.44,
         )
         axis.add_artist(system_legend)
         axis.legend(
             handles=encoding_handles, loc="lower left",
             bbox_to_anchor=(1.025, 0.0), borderaxespad=0.0,
-            frameon=False, handletextpad=0.6, labelspacing=0.30,
+            frameon=False, handletextpad=0.6, labelspacing=0.56,
             fontsize=7.8,
         )
     else:
@@ -427,6 +430,11 @@ def draw_panel(
     )
     axis.set_ylabel(r"$I(X;Y\mid X\in S)$ (bits)")
     axis.grid(True, which="major", color="#E2E5E9", linewidth=0.7, zorder=-2)
+    if scale == "log":
+        axis.grid(
+            True, which="minor", axis="x", color="#EEF0F2",
+            linewidth=0.45, alpha=0.9, zorder=-2,
+        )
     axis.tick_params(which="major", direction="out", length=4.5, width=1.1, pad=5)
     axis.tick_params(axis="x", which="major", pad=2)
     axis.tick_params(which="minor", direction="out", length=2.5, width=0.8)

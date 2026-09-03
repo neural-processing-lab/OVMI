@@ -2,12 +2,12 @@
 
 **Website / explorer:** <https://neural-processing-lab.github.io/OVMI/>
 
-[![arXiv](https://img.shields.io/badge/arXiv-PLACEHOLDER-b31b1b.svg)](https://arxiv.org/abs/PLACEHOLDER)
+[![arXiv](https://img.shields.io/badge/arXiv-2609.02887-b31b1b.svg)](https://arxiv.org/abs/2609.02887)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 `ovmi` is a lightweight python package that computes **open-vocabulary mutual information (OVMI)**, a comparison metric for speech brain-computer interfaces (BCIs). OVMI is a simple measure of the mutual information between a user's intent and the output of a speech BCI under an assumed reference distribution. Most users should start with the library defaults.
 
-**Paper:** ["A Common Measure of Communication for Speech Brain-Computer Interfaces"](https://arxiv.org/abs/PLACEHOLDER)
+**Paper:** ["A Common Measure of Communication for Speech Brain-Computer Interfaces"](https://arxiv.org/abs/2609.02887)
 
 ![OVMI Overview](assets/teaser.png)
 
@@ -24,7 +24,7 @@ If you find this work helpful in your research, please cite the paper:
 @article{jayalath2026ovmi,
   title={A Common Measure of Communication for Speech Brain--Computer Interfaces},
   author={Jayalath, Dulhan and Ballyk, Benjamin and Parker Jones, Oiwi},
-  journal={arXiv preprint arXiv:PLACEHOLDER},
+  journal={arXiv preprint arXiv:2609.02887},
   year={2026}
 }
 ```

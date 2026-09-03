@@ -55,46 +55,46 @@ class ProgressPoint:
 
 POINT_SPECS = (
     (
-        "moses_2021_v50", "neural", "Moses isolated (50)", 2021,
+        "moses_2021_v50", "neural", "Moses isolated (V=50)", 2021,
         "^", COLORS["Moses et al."], -9.0, (-5.0, 9.0),
     ),
     (
-        "moses_2021_v50", "system", "Moses +LM (50)", 2021,
+        "moses_2021_v50", "system", "Moses +LM (V=50)", 2021,
         "v", COLORS["Moses et al."], 0.0, (5.0, 9.0),
     ),
     (
-        "willett_2023_v50", "neural", "Willett isolated (50)", 2023,
+        "willett_2023_v50", "neural", "Willett isolated (V=50)", 2023,
         "P", COLORS["Willett et al."], -8.0, (-13.0, 9.0),
     ),
     (
-        "willett_2023_v50", "system", "Willett +LM (50)", 2023,
+        "willett_2023_v50", "system", "Willett +LM (V=50)", 2023,
         "X", COLORS["Willett et al."], 8.0, (13.0, 9.0),
     ),
     (
-        "willett_2023_v125k", "system", "Willett +LM (125k)", 2023,
+        "willett_2023_v125k", "system", "Willett +LM (V=125k)", 2023,
         "h", COLORS["Willett et al."], 0.0, (0.0, 9.0),
     ),
     (
-        "tang_2023_v6867", "system", "Tang +LM", 2023,
+        "tang_2023_v6867", "system", "Tang +LM (V=6,867)", 2023,
         "p", COLORS["Tang et al."], 18.0, (2.0, 9.0),
     ),
     (
-        "card_2024_v125k", "system", "Card +LM (125k)", 2024,
+        "card_2024_v125k", "system", "Card +LM (V=125k)", 2024,
         "*", COLORS["Card et al."], 0.0, (0.0, -15.0),
     ),
     (
         "dascoli_libribrain100_s0_v50", "neural",
-        "d'Ascoli–LibriBrain", 2025,
+        "d'Ascoli–LibriBrain100 (V=50)", 2025,
         "s", COLORS["LibriBrain100"], -8.0, (-10.0, 9.0),
     ),
     (
         "armeni_2022_v50", "neural",
-        "d'Ascoli–Armeni", 2023,
+        "d'Ascoli–Armeni (V=50)", 2023,
         "D", COLORS["Armeni et al."], 8.0, (11.0, 22.0),
     ),
     (
         "meg_masc_2023_v50", "neural",
-        "MEG-XL–MEG-MASC", 2023,
+        "MEG-XL–MEG-MASC (V=50)", 2023,
         "o", COLORS["MEG-MASC"], 0.0, (0.0, 9.0),
     ),
 )
@@ -408,7 +408,7 @@ def draw_split_figure(points: list[ProgressPoint]):
             handles=system_handles(panel_points, marker_scale=1.18), loc="upper center",
             bbox_to_anchor=(0.5, -0.42), borderaxespad=0.0,
             frameon=False, handlelength=1.1, handletextpad=0.9,
-            labelspacing=0.8, columnspacing=1.8, ncol=2, fontsize=7.5,
+            labelspacing=0.8, columnspacing=1.8, ncol=2, fontsize=7.8,
         )
 
     return figure
