@@ -64,9 +64,6 @@ score = ovmi(reference, vocabulary, accuracy=macro_accuracy)
 print(score)
 ```
 
-### Replicating the Paper
-Follow the notebook at `experiments/ovmi_paper.ipynb`
-
 ## Default Reference
 
 The reference distribution says how often each word is expected to be intended
