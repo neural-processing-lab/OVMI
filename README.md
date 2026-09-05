@@ -22,7 +22,7 @@ This matters because evaluation data cover different distributions and a tiny vo
 If you find this work helpful in your research, please cite the paper:
 ```bibtex
 @article{jayalath2026ovmi,
-  title={A Common Measure of Communication for Speech Brain--Computer Interfaces},
+  title={A Common Measure of Communication for Speech Brain-Computer Interfaces},
   author={Jayalath, Dulhan and Ballyk, Benjamin and Parker Jones, Oiwi},
   journal={arXiv preprint arXiv:2609.02887},
   year={2026}
