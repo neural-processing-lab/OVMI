@@ -29,9 +29,8 @@ See `site/data/README.md` for the schema and provenance.
 ## External links
 
 Repository, package, issue, paper, and blog URLs are centralised in
-`site/config.js`. The paper and blog entries intentionally remain unset until
-public URLs are supplied; their buttons point to an explicit status note rather
-than a fabricated destination.
+`site/config.js`. The paper and blog entries link to their public publications.
+Keep the corresponding fallback links in `site/index.html` in sync.
 
 ## GitHub Pages
 

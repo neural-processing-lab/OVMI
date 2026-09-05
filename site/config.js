@@ -4,6 +4,6 @@ window.OVMI_SITE_CONFIG = Object.freeze({
   packageUrl: "https://github.com/neural-processing-lab/OVMI",
   addResultUrl: "https://github.com/neural-processing-lab/OVMI/issues/new?template=add-ovmi-result.yml",
   paperUrl: "https://arxiv.org/abs/2609.02887",
-  blogUrl: null,
+  blogUrl: "https://neural-processing-lab.github.io/blog/what-can-speech-brain-computer-interfaces-communicate/",
   unavailableLinkTarget: "#project-links"
 });
